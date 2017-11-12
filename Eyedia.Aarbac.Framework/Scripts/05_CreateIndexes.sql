@@ -1,0 +1,26 @@
+USE [__DBNAME__]
+GO
+
+/****** Object:  Index [NonClusteredIndex-RbacName]    Script Date: 11/2/2017 1:10:04 AM ******/
+CREATE UNIQUE NONCLUSTERED INDEX [NonClusteredIndex-RbacName] ON [dbo].[Rbac]
+(
+	[Name] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+
+/****** Object:  Index [NonClusteredIndex-RoleName]    Script Date: 11/2/2017 1:10:34 AM ******/
+CREATE UNIQUE NONCLUSTERED INDEX [NonClusteredIndex-RoleName] ON [dbo].[RbacRole]
+(
+	[Name] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+
+
+/****** Object:  Index [NonClusteredIndex-UserName]    Script Date: 11/2/2017 1:10:51 AM ******/
+CREATE UNIQUE NONCLUSTERED INDEX [NonClusteredIndex-UserName] ON [dbo].[RbacUser]
+(
+	[UserName] ASC,
+	[Email] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+

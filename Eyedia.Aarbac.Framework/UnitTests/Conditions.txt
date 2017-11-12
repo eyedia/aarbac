@@ -1,0 +1,27 @@
+﻿<Condition Name="Kannapolis_Only" WhereClause="c.CityId = 20" />     
+<Conditions>
+        <Condition Name="Only_CLT" WhereClause="__self__.Name = 'Charlotte'" />
+      </Conditions>
+
+	   <Conditions>
+        <Condition Name="NC_Only" WhereClause="__self__.StateId = 28" />
+      </Conditions>
+
+
+select AuthorId, a.Name as [AuthorName], c.Name as City, s.Name as [State] from Author a
+inner join Zipcode zc on zc.ZipCodeId = a.ZipCodeId
+inner join City c on c.CityId = zc.CityId
+inner join [State] s on s.StateId = c.StateId
+
+
+select a.AuthorId, a.Name as [AuthorName], c.Name as City from Author a
+inner join Zipcode zc on zc.ZipCodeId = a.ZipCodeId
+inner join City c on c.CityId = zc.CityId
+where c.Name = 'Charlotte'
+
+select * from Author
+
+
+<Parameters>
+        <Parameter Name="{CITYNAME}" Description="The city name(s) as in select where clause like &quot;= 'Charlotte'&quot; OR &quot;in ('Charlotte', 'Raleigh ')&quot;"/>
+      </Parameters>

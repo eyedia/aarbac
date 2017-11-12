@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RbacMessages>
+  <RbacMessageGroup Name="Configuration" ShortName="cnf">
+    <Informations>
+      <RbacMessage ShortName="cnf_conn_str_not_found">
+        Could not find 'rbac' connection string in the config!"
+      </RbacMessage?>
+    </Informations>
+  </RbacMessageGroup>
+</RbacMessages>

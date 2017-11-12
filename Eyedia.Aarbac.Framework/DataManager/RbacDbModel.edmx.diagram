@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6e4ae878087642c38ec1a2deb5982290" Name="Diagram1">
+        <EntityTypeShape EntityType="Eyedia.Aarbac.Framework.DataManager.RbacModel.Rbac" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Eyedia.Aarbac.Framework.DataManager.RbacModel.RbacRole" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Eyedia.Aarbac.Framework.DataManager.RbacModel.RbacUser" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Eyedia.Aarbac.Framework.DataManager.RbacModel.RbacUserParameter" Width="1.5" PointX="7.5" PointY="1.375" IsExpanded="true" />
+        <AssociationConnector Association="Eyedia.Aarbac.Framework.DataManager.RbacModel.FK_RbacRole_Rbac" ManuallyRouted="false" />
+        <AssociationConnector Association="Eyedia.Aarbac.Framework.DataManager.RbacModel.FK_RbacUser_RbacRole" ManuallyRouted="false" />
+        <AssociationConnector Association="Eyedia.Aarbac.Framework.DataManager.RbacModel.FK_RbacUserParameter_RbacUser" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

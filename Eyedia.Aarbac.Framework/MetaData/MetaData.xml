@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Rbac>
+  <Summary GeneratedOn="10/24/2017 9:08:34 AM" GeneratedBy="TODO" />
+  <Tables>
+    <Table Id="725577623" Name="Author" Create="False" Read="True" Update="False" Delete="False">
+      <Columns>
+        <Column Name="AuthorId" Type="int" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="Name" Type="varchar" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="ZipCodeId" Type="int" Create="False" Read="True" Update="False" Delete="False" />
+      </Columns>
+      <Relations>
+        <Relation Type="Auto" My="ZipCodeId" With="ZipCode.ZipCodeId" />
+      </Relations>
+      <Conditions>
+        <!--This is a sample condition, modify or remove-->
+        <Condition Name="Condition1" WhereClause="ZipCodeId in {ZipcodeIDs}" />
+      </Conditions>
+      <Parameters>
+        <!--This is a sample parameter, modify & use or remove-->
+        <Parameter Name="{P1}" Description="Please mention proper description (e.g. data type with example) as this wil be shown as hint on UI" />
+      </Parameters>
+    </Table>
+    <Table Id="1333579789" Name="Book" Create="False" Read="True" Update="False" Delete="False">
+      <Columns>
+        <Column Name="BookId" Type="int" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="Title" Type="varchar" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="Subject" Type="varchar" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="Price" Type="numeric" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="Isbn13" Type="varchar" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="Isbn10" Type="varchar" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="PublisherId" Type="int" Create="False" Read="True" Update="False" Delete="False" />
+      </Columns>
+      <Relations>
+        <Relation Type="Auto" My="PublisherId" With="Publisher.PublisherId" />
+      </Relations>
+      <Conditions>
+        <Condition />
+      </Conditions>
+      <Parameters>
+        <Parameter />
+      </Parameters>
+    </Table>
+    <Table Id="1205579333" Name="BookAuthor" Create="False" Read="True" Update="False" Delete="False">
+      <Columns>
+        <Column Name="BookAuthorId" Type="int" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="BookId" Type="int" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="AuthorId" Type="int" Create="False" Read="True" Update="False" Delete="False" />
+      </Columns>
+      <Relations>
+        <Relation Type="Auto" My="AuthorId" With="Author.AuthorId" />
+        <Relation Type="Auto" My="BookId" With="Book.BookId" />
+      </Relations>
+      <Conditions>
+        <Condition />
+      </Conditions>
+      <Parameters>
+        <Parameter />
+      </Parameters>
+    </Table>
+    <Table Id="997578592" Name="BookCategory" Create="False" Read="True" Update="False" Delete="False">
+      <Columns>
+        <Column Name="BookCategoryId" Type="int" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="BookId" Type="int" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="CategoryId" Type="int" Create="False" Read="True" Update="False" Delete="False" />
+      </Columns>
+      <Relations>
+        <Relation Type="Auto" My="CategoryId" With="Category.CategoryId" />
+        <Relation Type="Auto" My="BookId" With="Book.BookId" />
+      </Relations>
+      <Conditions>
+        <Condition />
+      </Conditions>
+      <Parameters>
+        <Parameter />
+      </Parameters>
+    </Table>
+    <Table Id="789577851" Name="Category" Create="False" Read="True" Update="False" Delete="False">
+      <Columns>
+        <Column Name="CategoryId" Type="int" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="Name" Type="varchar" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="Description" Type="varchar" Create="False" Read="True" Update="False" Delete="False" />
+      </Columns>
+      <Relations />
+      <Conditions>
+        <Condition />
+      </Conditions>
+      <Parameters>
+        <Parameter />
+      </Parameters>
+    </Table>
+    <Table Id="1269579561" Name="City" Create="False" Read="True" Update="False" Delete="False">
+      <Columns>
+        <Column Name="CityId" Type="int" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="Name" Type="varchar" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="Population" Type="numeric" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="Rank" Type="numeric" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="Type" Type="varchar" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="County" Type="varchar" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="StateId" Type="int" Create="False" Read="True" Update="False" Delete="False" />
+      </Columns>
+      <Relations>
+        <Relation Type="Auto" My="StateId" With="State.StateId" />
+      </Relations>
+      <Conditions>
+        <Condition />
+      </Conditions>
+      <Parameters>
+        <Parameter />
+      </Parameters>
+    </Table>
+    <Table Id="1557580587" Name="Country" Create="False" Read="True" Update="False" Delete="False">
+      <Columns>
+        <Column Name="CountryId" Type="int" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="Code" Type="varchar" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="Latitude" Type="numeric" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="Longitude" Type="numeric" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="Name" Type="varchar" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="la" Type="varchar" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="lo" Type="varchar" Create="False" Read="True" Update="False" Delete="False" />
+      </Columns>
+      <Relations />
+      <Conditions>
+        <Condition name="Country Name Filter" WherClause ="in ({CountryIds})" />
+      </Conditions>
+      <Parameters>
+        <Parameter name ="{CountryIds}" Description ="Comma separated country id like 112,113,114" />
+      </Parameters>
+    </Table>
+    <Table Id="757577737" Name="Publisher" Create="False" Read="True" Update="False" Delete="False">
+      <Columns>
+        <Column Name="PublisherId" Type="int" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="PublisherName" Type="varchar" Create="False" Read="True" Update="False" Delete="False" />
+      </Columns>
+      <Relations />
+      <Conditions>
+        <Condition />
+      </Conditions>
+      <Parameters>
+        <Parameter />
+      </Parameters>
+    </Table>
+    <Table Id="629577281" Name="State" Create="False" Read="True" Update="False" Delete="False">
+      <Columns>
+        <Column Name="StateId" Type="int" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="ShortName" Type="varchar" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="Name" Type="varchar" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="CountryId" Type="int" Create="False" Read="True" Update="False" Delete="False" />
+      </Columns>
+      <Relations>
+        <Relation Type="Auto" My="CountryId" With="Country.CountryId" />
+      </Relations>
+      <Conditions>
+        <Condition />
+      </Conditions>
+      <Parameters>
+        <Parameter />
+      </Parameters>
+    </Table>
+    <Table Id="1077578877" Name="ZipCode" Create="False" Read="True" Update="False" Delete="False">
+      <Columns>
+        <Column Name="ZipCodeId" Type="int" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="ZipCode" Type="varchar" Create="False" Read="True" Update="False" Delete="False" />
+        <Column Name="CityId" Type="int" Create="False" Read="True" Update="False" Delete="False" />
+      </Columns>
+      <Relations>
+        <Relation Type="Auto" My="CityId" With="City.CityId" />
+      </Relations>
+      <Conditions>
+        <Condition />
+      </Conditions>
+      <Parameters>
+        <Parameter />
+      </Parameters>
+    </Table>
+  </Tables>  
+</Rbac>

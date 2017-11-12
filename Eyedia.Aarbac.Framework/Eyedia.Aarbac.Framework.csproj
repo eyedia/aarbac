@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{759BE30A-356A-45C9-81E3-1FB76177CD12}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Eyedia.Aarbac.Framework</RootNamespace>
+    <AssemblyName>Eyedia.Aarbac.Framework</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.TransactSql.ScriptDom, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.TransactSql.ScriptDom.14.0.3660.1\lib\net40\Microsoft.SqlServer.TransactSql.ScriptDom.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BOs\Entitlements\RbacEntitlementMenu.cs" />
+    <Compile Include="BOs\Entitlements\RbacEntitlementMenus.cs" />
+    <Compile Include="BOs\Entitlements\RbacEntitlementScreen.cs" />
+    <Compile Include="BOs\Entitlements\RbacEntitlementScreens.cs" />
+    <Compile Include="BOs\Enums.cs" />
+    <Compile Include="BOs\RbacColumn.cs" />
+    <Compile Include="BOs\Entitlements\RbacEntitlement.cs" />
+    <Compile Include="BOs\RbacEncryptedColumns.cs" />
+    <Compile Include="BOs\RbacEncryptedColumn.cs" />
+    <Compile Include="BOs\RbacOrderby.cs" />
+    <Compile Include="BOs\RbacCondition.cs" />
+    <Compile Include="BOs\RbacJoin.cs" />
+    <Compile Include="BOs\RbacParameter.cs" />
+    <Compile Include="BOs\RbacRelation.cs" />
+    <Compile Include="BOs\RbacRole.cs" />
+    <Compile Include="BOs\RbacTable.cs" />
+    <Compile Include="BOs\RbacUser.cs" />
+    <Compile Include="BOs\Web\RbacEngineWeb.cs" />
+    <Compile Include="BOs\Web\RbacEngineWebRequest.cs" />
+    <Compile Include="BOs\Web\RbacEngineWebResponse.cs" />
+    <Compile Include="BOs\RbacRegisterUser.cs" />
+    <Compile Include="BOs\Web\RbacRoleWeb.cs" />
+    <Compile Include="DataManager\Manager.cs" />
+    <Compile Include="DataManager\Manager.Rbac.cs" />
+    <Compile Include="DataManager\Manager.RbacParameter.cs" />
+    <Compile Include="DataManager\Manager.RbacUser.cs" />
+    <Compile Include="DataManager\Manager.RbacRole.cs" />
+    <Compile Include="DataManager\Rbac.cs">
+      <DependentUpon>RbacDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataManager\RbacDbModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RbacDbModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataManager\RbacDbModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RbacDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataManager\RbacDbModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RbacDbModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataManager\RbacEntities.cs" />
+    <Compile Include="DataManager\RbacRole.cs">
+      <DependentUpon>RbacDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataManager\RbacUser.cs">
+      <DependentUpon>RbacDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataManager\RbacUserParameter.cs">
+      <DependentUpon>RbacDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Encryption\AesManagedEncryption.cs" />
+    <Compile Include="Encryption\CryptographyEncryption.cs" />
+    <Compile Include="Encryption\Encryption.cs" />
+    <Compile Include="Encryption\RbacPassKey.cs" />
+    <Compile Include="ObservableDictionary.cs" />
+    <Compile Include="ExecutionTime.cs" />
+    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Rbac.StaticMethods.cs" />
+    <Compile Include="RbacBase.cs" />
+    <Compile Include="RbacCache.cs" />
+    <Compile Include="RbacException.cs" />
+    <Compile Include="Resources\MessagesConfigurations.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MessagesConfigurations.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Scripts\RbacDba.cs" />
+    <Compile Include="SqlQueryParser\RbacTSqlFragmentVisitor.cs" />
+    <Compile Include="SqlQueryParser\SqlQueryParser.Parameters.cs" />
+    <Compile Include="SqlQueryParser\SqlQueryParser.ParseSqlStatement.cs" />
+    <Compile Include="SqlQueryParser\SqlQueryParser.ParseDeleteStatement.cs" />
+    <Compile Include="SqlQueryParser\SqlQueryParser.ParseInsertStatement.cs" />
+    <Compile Include="SqlQueryParser\SqlQueryParser.ParseUpdateStatement.cs" />
+    <Compile Include="SqlQueryParser\SqlQueryParser.Permissions.Select.cs" />
+    <Compile Include="SqlQueryParser\SqlQueryParser.Permissions.Delete.cs" />
+    <Compile Include="SqlQueryParser\SqlQueryParser.Permissions.Insert.cs" />
+    <Compile Include="SqlQueryParser\SqlQueryParser.Permissions.Update.cs" />
+    <Compile Include="SqlQueryParser\SqlQueryParser.Permissions.cs" />
+    <Compile Include="SqlQueryEngine\RbacSqlQueryEngine.cs" />
+    <Compile Include="SqlQueryParser\SqlQueryParser.SqlCommand.cs" />
+    <Compile Include="SqlQueryParser\SqlQueryParser.ParseJoins.cs" />
+    <Compile Include="SqlQueryParser\SqlQueryParserModels.cs" />
+    <Compile Include="SqlQueryParser\SqlQueryParser.cs" />
+    <Compile Include="SqlQueryParser\SqlQueryParser.ParseScalarExperssions.cs" />
+    <Compile Include="SqlQueryParser\SqlQueryParser.ParseTableReferences.cs" />
+    <Compile Include="SqlQueryParser\SqlQueryParser.ParseSelectStatement.cs" />
+    <Compile Include="SqlQueryStringParser\BracesTag.cs" />
+    <Compile Include="SqlQueryStringParser\ForUpdateTag.cs" />
+    <Compile Include="SqlQueryStringParser\FromTag.cs" />
+    <Compile Include="SqlQueryStringParser\GroupByTag.cs" />
+    <Compile Include="SqlQueryStringParser\OrderByTag.cs" />
+    <Compile Include="SqlQueryStringParser\SqlStringParserBase.cs" />
+    <Compile Include="SqlQueryStringParser\QuotedIdentifierTag.cs" />
+    <Compile Include="SqlQueryStringParser\SelectTag.cs" />
+    <Compile Include="SqlQueryStringParser\SimpleOneWordTag.cs" />
+    <Compile Include="SqlQueryStringParser\SimpleTwoWordTag.cs" />
+    <Compile Include="SqlQueryStringParser\SqlStringParser.cs" />
+    <Compile Include="SqlQueryStringParser\StartWith.cs" />
+    <Compile Include="SqlQueryStringParser\StringLiteralTag.cs" />
+    <Compile Include="SqlQueryStringParser\TagBase.cs" />
+    <Compile Include="SqlQueryStringParser\WhereTag.cs" />
+    <Compile Include="StringWriterTrace.cs" />
+    <Compile Include="MetaData\RbacMetaData.cs" />
+    <Compile Include="Rbac.cs" />
+    <Compile Include="IRbac.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BOs\RbacContext.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Databases\Books.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Databases\Books_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>Books.mdf</DependentUpon>
+    </Content>
+    <Content Include="Databases\rbac.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Databases\rbac_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>rbac.mdf</DependentUpon>
+    </Content>
+    <Content Include="Databases\TestQueries.sql" />
+    <Content Include="DataManager\RbacDbModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RbacDbModel.edmx</DependentUpon>
+      <LastGenOutput>RbacDbModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataManager\RbacDbModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RbacDbModel.edmx</DependentUpon>
+      <LastGenOutput>RbacDbModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="MetaData\MetaData.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="MetaData\MetaDataEntitlement.xml" />
+    <Content Include="MetaData\RbacMessage.xml" />
+    <EmbeddedResource Include="Scripts\03_CreateDB.sql" />
+    <EmbeddedResource Include="Scripts\02_GetServerDataFileLocation.sql" />
+    <EmbeddedResource Include="Scripts\04_CreateTables.sql" />
+    <EmbeddedResource Include="Scripts\05_CreateIndexes.sql" />
+    <EmbeddedResource Include="Scripts\01_DatabaseExist.sql" />
+    <Content Include="UnitTests\BookAuthor.txt" />
+    <Content Include="UnitTests\Conditions.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MessagesConfigurations.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MessagesConfigurations.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Symplus.Rbac</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <EntityDeploy Include="DataManager\RbacDbModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RbacDbModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DataManager\RbacDbModel.edmx.diagram">
+      <DependentUpon>RbacDbModel.edmx</DependentUpon>
+    </None>
+    <None Include="MetaData\Entitlement.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
