@@ -61,7 +61,7 @@ namespace Eyedia.Aarbac.Command
             foreach (DataRow r in table.Rows)
             {
                 RbacUser user = Rbac.CreateUser(r[0].ToString(), r[1].ToString(), r[2].ToString(), "password", roles[rnd.Next(0, roles.Count -1)]);
-                user.AddParameter("{CITYNAME}", "('New York')");
+                user.AddParameter("{CITYNAMES}", "('New York')");
             }
         }
         static List<RbacRole> roles = new List<RbacRole>();
@@ -75,21 +75,24 @@ namespace Eyedia.Aarbac.Command
                 roles.Add(role);
             }
         }
-        public static void TestOne()
+        public static RbacSqlQueryEngine TestOne(string query = null)
         {
-            DataTable table = null;
+            RbacSqlQueryEngine engine = null;
             using (Rbac rbac = new Rbac("essie"))
             {
-                string query = "select * from book";
-                using (RbacSqlQueryEngine engine = new RbacSqlQueryEngine(rbac, query))
-                {
-                    engine.Execute();
-                    if ((!engine.IsErrored) && (engine.SqlQueryParser.IsParsed) && (engine.SqlQueryParser.QueryType == RbacQueryTypes.Select))
-                        table = engine.Table; //--> gives you data table if it is a select query
-                }
+                if (string.IsNullOrEmpty(query))
+                    query = File.ReadAllText(Path.Combine(__rootDir, "Books", "Query.txt"));
+                engine = new RbacSqlQueryEngine(rbac, query);
+                engine.Execute();
+                //if ((!engine.IsErrored) && (engine.SqlQueryParser.IsParsed) && (engine.SqlQueryParser.QueryType == RbacQueryTypes.Select))
+                //    table = engine.Table; //--> gives you data table if it is a select query
+
             }
-            if (table != null)
-                Console.WriteLine("The query was a select query and returned {0} records", table.Rows.Count);
+            if (engine.Table != null)
+                Console.WriteLine("The query was a select query and returned {0} records", engine.Table.Rows.Count);
+
+            File.WriteAllText(Path.Combine(__rootDir, "Books", "ParsedQuery.txt"), engine.Parser.ParsedQuery);
+            return engine;
         }
         public static void TestBatch()
         {

@@ -75,6 +75,15 @@ namespace Eyedia.Aarbac.Framework
             new DataManager.Manager().AddOrUpdate(rbac);
         }
 
+        public static void Save(RbacRegisterUser user)
+        {
+            RbacUser dbUser = GetUser(user.UserName);
+            dbUser.FullName = user.FullName;
+            dbUser.Email = user.Email;
+            dbUser.Role = GetRole(user.RoleId);
+            new DataManager.Manager().AddOrUpdate(dbUser);
+        }
+
         public static RbacRole Save(RbacRoleWeb rbacRoleWeb)
         {
             return new DataManager.Manager().AddOrUpdate(RbacRoleWeb.Get(rbacRoleWeb));

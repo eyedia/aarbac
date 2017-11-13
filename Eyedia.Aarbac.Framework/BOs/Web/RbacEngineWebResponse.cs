@@ -88,20 +88,20 @@ namespace Eyedia.Aarbac.Framework
 
         public void SetResult(RbacSqlQueryEngine engine)
         {
-            QueryType = engine.SqlQueryParser.QueryType.ToString();
-            Log = engine.SqlQueryParser.AllErrors;
-            Columns = engine.SqlQueryParser.Columns;
-            ParseErrors = engine.SqlQueryParser.ParseErrors;
-            IsParsed = engine.SqlQueryParser.IsParsed;
-            IsNotSupported = engine.SqlQueryParser.IsNotSupported;
-            IsZeroSelectColumn = engine.SqlQueryParser.IsZeroSelectColumn;
-            IsPermissionApplied = engine.SqlQueryParser.IsPermissionApplied;
-            IsParsingSkipped = engine.SqlQueryParser.IsParsingSkipped;
-            OriginalQuery = engine.SqlQueryParser.OriginalQuery;
-            ParsedQuery = engine.SqlQueryParser.ParsedQuery;
-            ParsedQueryStage1 = engine.SqlQueryParser.ParsedQueryStage1;
-            ParsedMethod = engine.SqlQueryParser.ParsedMethod.ToString();
-            QueryType = engine.SqlQueryParser.QueryType.ToString();
+            QueryType = engine.Parser.QueryType.ToString();
+            Log = engine.Parser.AllErrors;
+            Columns = engine.Parser.Columns;
+            ParseErrors = engine.Parser.ParseErrors;
+            IsParsed = engine.Parser.IsParsed;
+            IsNotSupported = engine.Parser.IsNotSupported;
+            IsZeroSelectColumn = engine.Parser.IsZeroSelectColumn;
+            IsPermissionApplied = engine.Parser.IsPermissionApplied;
+            IsParsingSkipped = engine.Parser.IsParsingSkipped;
+            OriginalQuery = engine.Parser.OriginalQuery;
+            ParsedQuery = engine.Parser.ParsedQuery;
+            ParsedQueryStage1 = engine.Parser.ParsedQueryStage1;
+            ParsedMethod = engine.Parser.ParsedMethod.ToString();
+            QueryType = engine.Parser.QueryType.ToString();
 
             IsEngineExecuted = engine.IsExecuted;
             IsEngineDebugMode = engine.IsDebugMode;

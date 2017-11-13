@@ -91,17 +91,17 @@ namespace Eyedia.Aarbac.Framework
         }
 
         
-        public string WhereClause
-        {
-            get
-            {
-                if (Conditions.Count == 0)
-                    return string.Empty;
-                else
-                    return Conditions.Select(i => i.WhereClause).Aggregate((i, j) => i + " and " + j);
+        //public string WhereClause
+        //{
+        //    get
+        //    {
+        //        if (Conditions.Count == 0)
+        //            return string.Empty;
+        //        else
+        //            return Conditions.Select(i => i.WhereClause).Aggregate((i, j) => i + " and " + j);
 
-            }
-        }
+        //    }
+        //}
     }
 
 }

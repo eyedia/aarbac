@@ -79,6 +79,7 @@ namespace Eyedia.Aarbac.Framework
                 {
                     QuerySpecification aQuerySpecification = (QuerySpecification)aQueryExpression;
                     int aSelectElementID = 0;
+                     
                     foreach (SelectElement aSelectElement in aQuerySpecification.SelectElements)
                     {
                         if (aSelectElement.GetType() == typeof(SelectScalarExpression))
@@ -132,6 +133,9 @@ namespace Eyedia.Aarbac.Framework
                                       .Select(d => d.First())
                                       .ToList();
                     }
+                    
+                    ParseWhereClause(aQuerySpecification.WhereClause);                    
+                    
                 }
                 Columns.FillEmptyAlias(); 
             }

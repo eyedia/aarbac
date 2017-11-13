@@ -410,6 +410,21 @@ namespace Eyedia.Aarbac.Api.Controllers
             return BadRequest("Cannot create user!");
         }
 
+        [HttpPut]
+        [Route("update")]
+        public async Task<IHttpActionResult> Update([FromBody]RbacRegisterUser user)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            RbacRole role = new RbacRole(user.RoleId);
+            if (role == null)
+                return BadRequest(string.Format("Role id '{0}' not found!", user.RoleId));
+
+            Rbac.Save(user);
+            return Ok();
+        }
+
         // POST api/Account/RegisterExternal
         [OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]

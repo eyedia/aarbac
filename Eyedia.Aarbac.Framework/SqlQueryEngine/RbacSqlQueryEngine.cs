@@ -42,7 +42,7 @@ namespace Eyedia.Aarbac.Framework
 {
     public class RbacSqlQueryEngine : IDisposable
     {
-        public SqlQueryParser SqlQueryParser { get;}
+        public SqlQueryParser Parser { get;}
         public bool IsExecuted { get; private set; }
         public bool IsErrored { get; private set; }
         public bool IsDebugMode { get; private set; }
@@ -53,46 +53,46 @@ namespace Eyedia.Aarbac.Framework
         public RbacSqlQueryEngine(SqlQueryParser sqlQueryParser, bool isDebugMode = false)
         {
             this.Errors = new List<string>();
-            this.SqlQueryParser = sqlQueryParser;
+            this.Parser = sqlQueryParser;
             IsDebugMode = isDebugMode;
-            SqlQueryParser.Context.Trace.WriteLine("Engine:{0}", this.GetType().Name);
+            Parser.Context.Trace.WriteLine("Engine:{0}", this.GetType().Name);
         }
         public RbacSqlQueryEngine(Rbac context, string query, bool isDebugMode = false)
         {
             this.Errors = new List<string>();
-            SqlQueryParser = new SqlQueryParser(context);
-            SqlQueryParser.Parse(query);
+            Parser = new SqlQueryParser(context);
+            Parser.Parse(query);
             IsDebugMode = isDebugMode;
-            SqlQueryParser.Context.Trace.WriteLine("Engine:{0}", this.GetType().Name);
+            Parser.Context.Trace.WriteLine("Engine:{0}", this.GetType().Name);
         }
         public void Execute()
         {
             Table = new DataTable();
-            if (SqlQueryParser.IsNotSupported)
+            if (Parser.IsNotSupported)
             {
-                SqlQueryParser.Context.Trace.WriteLine("Cannot execute query! Query parser is in error state as something was not allowed.");
+                Parser.Context.Trace.WriteLine("Cannot execute query! Query parser is in error state as something was not allowed.");
                 return;
             }
-            else if ((!SqlQueryParser.IsParsingSkipped) && (!SqlQueryParser.IsParsed))
+            else if ((!Parser.IsParsingSkipped) && (!Parser.IsParsed))
             {
-                SqlQueryParser.Context.Trace.WriteLine("Cannot execute query! Query was not parsed.");
+                Parser.Context.Trace.WriteLine("Cannot execute query! Query was not parsed.");
                 return;
             }
-            else if(SqlQueryParser.IsZeroSelectColumn)
+            else if(Parser.IsZeroSelectColumn)
             {
-                SqlQueryParser.Context.Trace.WriteLine("Cannot execute query! Nothing to be selected, the select query has zero column.");
+                Parser.Context.Trace.WriteLine("Cannot execute query! Nothing to be selected, the select query has zero column.");
                 return;
             }
 
             if (SkipExecution)
                 return;
 
-            SqlQueryParser.Context.Trace.WriteLine("Executing query...");
-            string query = LimitNumberOfRows(SqlQueryParser.ParsedQuery);
+            Parser.Context.Trace.WriteLine("Executing query...");
+            string query = LimitNumberOfRows(Parser.ParsedQuery);
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(SqlQueryParser.Context.ConnectionString))
+                using (SqlConnection connection = new SqlConnection(Parser.Context.ConnectionString))
                 {
                     connection.Open();
                     SqlCommand command = new SqlCommand(query, connection);
@@ -105,7 +105,7 @@ namespace Eyedia.Aarbac.Framework
                 IsErrored = true;
                 this.Errors.Add(ex.Message);
             }
-            SqlQueryParser.Context.Trace.Write("{0} records returned.", Table.Rows.Count);            
+            Parser.Context.Trace.Write("{0} records returned.", Table.Rows.Count);            
         }
 
         private string LimitNumberOfRows(string parsedQuery)

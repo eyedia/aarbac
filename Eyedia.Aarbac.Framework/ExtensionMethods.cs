@@ -133,6 +133,27 @@ namespace Eyedia.Aarbac.Framework
             || (jc.FromTableName.Equals(fromTableOrAlias, StringComparison.OrdinalIgnoreCase)))).SingleOrDefault();            
         }
 
+        public static void ParseReferenceTableNames(this List<RbacWhereClause> whereClauses, List<RbacJoin> joinClauses)
+        {
+            foreach(RbacWhereClause wClause in whereClauses)
+            {
+                var r = joinClauses.Where(jc => jc.FromTableAlias.Equals(wClause.OnTableAlias)).SingleOrDefault();
+                if (r != null)
+                {
+                    wClause.OnTable = r.FromTableName;
+                }
+                else
+                {
+                    r = joinClauses.Where(jc => jc.WithTableAlias.Equals(wClause.OnTableAlias)).SingleOrDefault();
+                    if (r != null)
+                        wClause.OnTable = r.WithTableName;
+                    else
+                        RbacException.Raise(string.Format("Something went wrong, the table alias '{0}' found in the where condition was not found in referred table list!", 
+                            wClause.OnTableAlias));
+                }
+            }
+        }
+
         public static void AddParameter(this RbacUser user, string paramName, string paramValue)
         {
             if (user != null)

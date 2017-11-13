@@ -45,14 +45,23 @@ namespace Eyedia.Aarbac.Framework
     {
         public RbacCondition()
         {
-            
+            Columns = new List<string>();
         }
 
-        public RbacCondition(string selfTableName, string name, string whereClause)
+        public RbacCondition(string selfTableName, string name, string columns, string whereClause)
         {
             SelfTableName = selfTableName;
             Name = name;
-            WhereClause = whereClause;           
+            Columns = new List<string>();
+            if(columns.Contains(","))
+            {
+                Columns = new List<string>(columns.Split(",".ToCharArray()));
+            }
+            else
+            {
+                Columns.Add(columns);
+            }
+            WhereClause = whereClause;            
         }
 
         [DataMember]
@@ -63,6 +72,9 @@ namespace Eyedia.Aarbac.Framework
 
         [DataMember]
         public string WhereClause { get; set; }
+
+        [DataMember]
+        public List<string> Columns { get; set; }
 
         public override string ToString()
         {

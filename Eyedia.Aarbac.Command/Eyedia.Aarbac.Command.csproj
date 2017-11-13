@@ -104,6 +104,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Samples\Books\Query.txt" />
     <EmbeddedResource Include="Disclaimer\Disclaimer.txt" />
     <Content Include="Samples\Books\entitlement.xml" />
     <Content Include="Samples\Books\role.xml" />

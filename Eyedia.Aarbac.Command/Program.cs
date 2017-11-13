@@ -52,10 +52,13 @@ namespace Eyedia.Aarbac.Command
     {
         static void Main(string[] args)
         {
-            new DisclaimerWriter(@"C:\Deb\Workspace\GitHub\Aarbac\aarbac").Write();
-            return;
-
             SetDataDirectory();
+            //string query = File.ReadAllText(Path.Combine(@"..\..\..\Eyedia.Aarbac.Command\Samples", "Books", "Query.txt"));
+            //string sub = query.Substring(186, 21);
+            //BookStore.Setup();           
+            var engine = BookStore.TestOne();
+            
+            return;
             CommandLineCommands.Do(args);
             
         }

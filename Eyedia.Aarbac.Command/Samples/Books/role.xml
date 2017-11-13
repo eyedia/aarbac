@@ -98,10 +98,10 @@
         <Relation My="StateId" With="State.StateId" />
       </Relations>
       <Conditions>
-        <Condition Name="Only_CLT" WhereClause="__self__.Name in {CITYNAME}" />
+        <Condition Name="FilterCities" Columns="Name" WhereClause="__self__.Name in {CITYNAMES}" />
       </Conditions>
       <Parameters>
-        <Parameter Name="{CITYNAME}" Description="The city name(s) as in select where clause like &quot;= 'Charlotte'&quot; OR &quot;in ('Charlotte', 'Raleigh ')&quot;"/>
+        <Parameter Name="{CITYNAMES}" Description="The city name(s) as in select where clause like &quot;= 'Charlotte'&quot; OR &quot;in ('Charlotte', 'Raleigh ')&quot;"/>
       </Parameters>
     </Table>
     <Table Id="1557580587" Name="Country" Create="False" Read="True" Update="False" Delete="False">
@@ -144,7 +144,7 @@
         <Relation My="CountryId" With="Country.CountryId" />
       </Relations>
       <Conditions>
-        <Condition Name="NC_Only" WhereClause="__self__.StateId = 28" />
+        <Condition Name="FilterStates" WhereClause="__self__.StateId = 28" />
       </Conditions>
       <Parameters>
         <Parameter />
@@ -159,9 +159,7 @@
       <Relations Type="Auto">
         <Relation My="CityId" With="City.CityId" />
       </Relations>
-      <Conditions>
-        <Condition Name="NC_Only" WhereClause="__self__.ZipCode = '28216'" />
-      </Conditions>
+      <Conditions/>
       <Parameters>
         <Parameter />
       </Parameters>

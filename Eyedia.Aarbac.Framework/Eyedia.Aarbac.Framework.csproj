@@ -89,6 +89,7 @@
     <Compile Include="BOs\RbacRole.cs" />
     <Compile Include="BOs\RbacTable.cs" />
     <Compile Include="BOs\RbacUser.cs" />
+    <Compile Include="BOs\RbacWhereClause.cs" />
     <Compile Include="BOs\Web\RbacEngineWeb.cs" />
     <Compile Include="BOs\Web\RbacEngineWebRequest.cs" />
     <Compile Include="BOs\Web\RbacEngineWebResponse.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="SqlQueryParser\SqlQueryParser.ParseDeleteStatement.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.ParseInsertStatement.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.ParseUpdateStatement.cs" />
+    <Compile Include="SqlQueryParser\SqlQueryParser.ParseWhereClause.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.Permissions.Select.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.Permissions.Delete.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.Permissions.Insert.cs" />

@@ -1,0 +1,4 @@
+﻿select a.AuthorId, a.Name as [AuthorName], a.ZipCodeId, c.Name as City from Author a
+inner join Zipcode zc on zc.ZipCodeId = a.ZipCodeId
+ inner join City c on c.CityId = zc.CityId
+where c.CityId > 0 and c.Name  in ('Charlotte','NY')

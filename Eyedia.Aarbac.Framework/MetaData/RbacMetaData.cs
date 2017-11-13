@@ -178,6 +178,10 @@ namespace Eyedia.Aarbac.Framework
                 condnNode.Attributes.Append(nameA);
 
             
+                XmlAttribute columnsA = doc.CreateAttribute("Columns");
+                columnsA.Value = oneColumnName;
+                condnNode.Attributes.Append(columnsA);
+
                 XmlAttribute whereClauseA = doc.CreateAttribute("WhereClause");
                 whereClauseA.Value = "__self__." + oneColumnName + " in (123,456)";
                 condnNode.Attributes.Append(whereClauseA);
@@ -290,8 +294,8 @@ namespace Eyedia.Aarbac.Framework
                             if (condnNode.NodeType == XmlNodeType.Comment)
                                 continue;
 
-                            if (condnNode.Attributes.Count  == 2)
-                                table.Conditions.Add(new RbacCondition(table.Name, condnNode.Attributes["Name"].Value, condnNode.Attributes["WhereClause"].Value));
+                            if (condnNode.Attributes.Count == 3)
+                                table.Conditions.Add(new RbacCondition(table.Name, condnNode.Attributes["Name"].Value, condnNode.Attributes["Columns"].Value, condnNode.Attributes["WhereClause"].Value));
                         }
                     }
                     else if (node.Name == "Relations")

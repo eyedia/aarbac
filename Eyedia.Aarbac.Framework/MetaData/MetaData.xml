@@ -13,7 +13,7 @@
       </Relations>
       <Conditions>
         <!--This is a sample condition, modify or remove-->
-        <Condition Name="Condition1" WhereClause="ZipCodeId in {ZipcodeIDs}" />
+        <Condition Name="Condition1" Columns="ZipCodeId" WhereClause="ZipCodeId in {ZipcodeIDs}" />
       </Conditions>
       <Parameters>
         <!--This is a sample parameter, modify & use or remove-->

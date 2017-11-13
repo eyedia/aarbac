@@ -47,6 +47,7 @@ namespace Eyedia.Aarbac.Framework
             Context = context;
             IsParsingSkipped = skipParsing;
             JoinClauses = new List<RbacJoin>();
+            WhereClauses = new List<RbacWhereClause>();
             ExecutionTime = new ExecutionTime();
             ParseErrors = new List<ParseError>();
             ParamErrors = new List<string>();
@@ -71,10 +72,10 @@ namespace Eyedia.Aarbac.Framework
         public string OriginalQuery { get; private set; }
         public string ParsedQuery { get; private set; }
         public string ParsedQueryStage1 { get; private set; }
-        public RbacSelectQueryParsedMethods ParsedMethod { get; set; }
-        
+        public RbacSelectQueryParsedMethods ParsedMethod { get; set; }        
         public List<RbacTable> TablesReferred { get; private set; }
         public List<RbacJoin> JoinClauses { get; private set; }
+        public List<RbacWhereClause> WhereClauses { get; private set; }
         public ExecutionTime ExecutionTime { get; private set;}
 
         List<string> ParamErrors;
@@ -194,17 +195,26 @@ namespace Eyedia.Aarbac.Framework
                 selfName = this.GetTableNameOrAlias(table.Name);
             else
                 selfName = table.TempAlias;
+           
 
-            string thisItemWhereClause = table.WhereClause.Replace("__self__", selfName);
-            SqlQueryStringParser.SqlStringParser strParser = new SqlQueryStringParser.SqlStringParser();
-            strParser.Parse(ParsedQuery);
+            foreach (RbacCondition condition in table.Conditions)
+            {
+                //if this condition's column name already exists in the original query, we need to remove that condition from original query
+                IfSameColumnConditionExistsRemoveCondition(selfName, condition);
 
+                string thisItemWhereClause = condition.WhereClause.Replace("__self__", selfName);                
 
-            string originalWhereClause = strParser.WhereClause;
-            if (string.IsNullOrEmpty(originalWhereClause))
-                strParser.WhereClause = thisItemWhereClause;
-            else
-                strParser.WhereClause = string.Format("({0}) AND ({1})", originalWhereClause, thisItemWhereClause);
+                SqlQueryStringParser.SqlStringParser strParser = new SqlQueryStringParser.SqlStringParser();
+                strParser.Parse(ParsedQuery);
+
+                string originalWhereClause = strParser.WhereClause;
+                if (string.IsNullOrEmpty(originalWhereClause))
+                    strParser.WhereClause = thisItemWhereClause;
+                else
+                    strParser.WhereClause = string.Format("({0}) AND ({1})", originalWhereClause, thisItemWhereClause);
+
+                ParsedQuery = strParser.ToTextAndFixSpaces();
+            }
 
             //if (!string.IsNullOrEmpty(table.OrderBy))
             //{
@@ -217,16 +227,52 @@ namespace Eyedia.Aarbac.Framework
             //}
 
             ConditionAppliedOn.Add(table.Name);
-            ParsedQuery = strParser.ToTextAndFixSpaces();
+            
         }
 
+        private void IfSameColumnConditionExistsRemoveCondition(string tableOrAliasName, RbacCondition condition)
+        {
+            bool somethingReplaced = false;
+            foreach (string column in condition.Columns)
+            {
+                var aWhereClause = WhereClauses.Where(wc => ((wc.OnColumn.Equals(column)) 
+                && (wc.OnTable.Equals(tableOrAliasName, StringComparison.OrdinalIgnoreCase)))).SingleOrDefault();
+
+                if (aWhereClause != null)
+                {
+                    //this column is referred as condition in original query
+                    ParsedQuery = ParsedQuery.Replace(aWhereClause.WhereClauseString, string.Empty);
+                    somethingReplaced = true;
+                }
+                else
+                {
+                    //lets try table alias
+                    aWhereClause = WhereClauses.Where(wc => ((wc.OnColumn.Equals(column))
+                    && (wc.OnTableAlias.Equals(tableOrAliasName, StringComparison.OrdinalIgnoreCase)))).SingleOrDefault();
+
+                    if (aWhereClause != null)
+                    {
+                        //this column is referred as condition in original query
+                        ParsedQuery = ParsedQuery.Replace(aWhereClause.WhereClauseString, string.Empty);
+                        somethingReplaced = true;
+                    }
+                }
+            }
+            if(somethingReplaced)
+            {
+                ParsedQuery = ParsedQuery.TrimEnd();
+                if ((ParsedQuery.Length > 3) && (ParsedQuery.Substring(ParsedQuery.Length - 3, 3).Equals("and", StringComparison.OrdinalIgnoreCase)))
+                    ParsedQuery = ParsedQuery.Remove(ParsedQuery.Length - 3, 3);
+            }
+        }
         
+
         List<string> ConditionAppliedOn = new List<string>();
 
         private void ApplyConditions()
         {
             ConditionAppliedOn.Clear();
-            List<RbacTable> tablesWithCondition = TablesReferred.Where(tr => !string.IsNullOrEmpty(tr.WhereClause)).ToList();
+            List<RbacTable> tablesWithCondition = TablesReferred.Where(tr => tr.Conditions.Count > 0).ToList();
             foreach (RbacTable table in tablesWithCondition)
             {
                 ApplyCondition(table);
