@@ -47,13 +47,12 @@ namespace Eyedia.Aarbac.Framework
         public string RoleName { get; set; }
         public string UserName { get; set; }
         public bool RequestProcessed { get; set; }
-        public List<string> Errors { get; set; }
+        public string Errors { get; set; }
 
         //parser specific
         public string QueryType { get; private set; }
         public string Log { get; private set; }
-        public RbacSelectColumns Columns { get; private set; }
-        public IList<ParseError> ParseErrors { get; private set; }        
+        public RbacSelectColumns Columns { get; private set; }              
         public bool IsParsed { get; private set; }
         public bool IsNotSupported { get; private set; }
         public bool IsZeroSelectColumn { get; private set; }
@@ -68,22 +67,21 @@ namespace Eyedia.Aarbac.Framework
         //engine specific
         public bool IsEngineExecuted { get; private set; }
         public bool IsEngineDebugMode { get; private set; }
-        public DataTable Table { get; private set; }
+        public DataTable Table { get; set; }
 
         public RbacEngineWebResponse()
         {            
-            Errors = new List<string>();
+            
         }
 
         public RbacEngineWebResponse(RbacSqlQueryEngine engine)
-        {
-            Errors = new List<string>();
+        {            
             SetResult(engine);
         }
 
         public void SetResult(string errorMessage)
         {
-            Errors.Add(errorMessage);
+            Errors = errorMessage;
         }
 
         public void SetResult(RbacSqlQueryEngine engine)
@@ -91,7 +89,7 @@ namespace Eyedia.Aarbac.Framework
             QueryType = engine.Parser.QueryType.ToString();
             Log = engine.Parser.AllErrors;
             Columns = engine.Parser.Columns;
-            ParseErrors = engine.Parser.ParseErrors;
+            Errors = engine.Parser.AllErrors;
             IsParsed = engine.Parser.IsParsed;
             IsNotSupported = engine.Parser.IsNotSupported;
             IsZeroSelectColumn = engine.Parser.IsZeroSelectColumn;

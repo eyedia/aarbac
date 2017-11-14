@@ -32,6 +32,7 @@ Description  -
 #endregion Copyright Notice
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -78,6 +79,8 @@ namespace Eyedia.Aarbac.Framework
 
         private void RemoveColumnFromSelect(RbacSelectColumn column)
         {
+            //if (column.TableColumnName == "SSN")
+            //    Debugger.Break();
 
             int fromIndex = ParsedQuery.IndexOf(" from", StringComparison.OrdinalIgnoreCase);
             string selectStatement = ParsedQuery.Substring(0, fromIndex);
@@ -92,6 +95,8 @@ namespace Eyedia.Aarbac.Framework
                 string colName = column.TableColumnName;
                 if (!string.IsNullOrEmpty(column.TableAlias))
                     colName = string.Format("{0}.{1}", column.TableAlias, column.TableColumnName);
+                else if (!string.IsNullOrEmpty(column.ReferencedTableName))
+                    colName = string.Format("{0}.{1}", column.ReferencedTableName, column.TableColumnName);
 
                 int pos = selectStatement.IndexOf(colName);
                 int nextommaPos = selectStatement.IndexOf(",", pos);

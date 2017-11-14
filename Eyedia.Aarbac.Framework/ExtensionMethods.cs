@@ -153,6 +153,53 @@ namespace Eyedia.Aarbac.Framework
                 }
             }
         }
+        //public static RbacWhereClause Find(this List<RbacWhereClause> whereClauses, RbacTable table)
+        //{
+        //    foreach (RbacColumn column in table.Columns)
+        //    {
+        //        var aWhereClause = whereClauses.Where(wc => ((wc.OnColumn.Equals(column.Name))
+        //            && (wc.OnTable.Equals(table.Name, StringComparison.OrdinalIgnoreCase)))).SingleOrDefault();
+
+        //        if (aWhereClause != null)
+        //        {
+        //            return aWhereClause;
+        //        }
+        //        else
+        //        {
+        //            //lets try table alias
+        //            aWhereClause = whereClauses.Where(wc => ((wc.OnColumn.Equals(column))
+        //            && (wc.OnTableAlias.Equals(table.TempAlias, StringComparison.OrdinalIgnoreCase)))).SingleOrDefault();
+
+        //            if (aWhereClause != null)
+        //            {
+        //                return aWhereClause;
+        //            }
+        //        }
+        //    }
+        //    return null;
+        //}
+        public static RbacWhereClause Find(this List<RbacWhereClause> whereClauses, string tableOrAliasName, string column)
+        {
+            var aWhereClause = whereClauses.Where(wc => ((wc.OnColumn.Equals(column))
+                && (wc.OnTable.Equals(tableOrAliasName, StringComparison.OrdinalIgnoreCase)))).SingleOrDefault();
+
+            if (aWhereClause != null)
+            {
+                return aWhereClause;
+            }
+            else
+            {
+                //lets try table alias
+                aWhereClause = whereClauses.Where(wc => ((wc.OnColumn.Equals(column))
+                && (wc.OnTableAlias.Equals(tableOrAliasName, StringComparison.OrdinalIgnoreCase)))).SingleOrDefault();
+
+                if (aWhereClause != null)
+                {
+                    return aWhereClause;
+                }
+            }
+            return null;
+        }
 
         public static void AddParameter(this RbacUser user, string paramName, string paramValue)
         {

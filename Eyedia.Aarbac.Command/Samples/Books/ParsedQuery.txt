@@ -1,1 +1,1 @@
-SELECT Author.AuthorId , Author.Name , Author., Author.ZipCodeId FROM Author   inner join [City] [t1] on [t1].CityId = [ZipCode].CityId WHERE t1.Name in ('Charlotte','Raleigh')  
+SELECT Author.AuthorId , Author.Name , Author.ZipCodeId FROM Author   inner join [ZipCode] [t1] on [t1].ZipCodeId = [Author].ZipCodeId   inner join [City] [t2] on [t2].CityId = [t1].CityId WHERE t2.Name in ('Charlotte','Raleigh')  

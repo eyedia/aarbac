@@ -1,6 +1,6 @@
-Query,User,Role,ParsedQueryStage1,ParsedQueryStage2,Errors
-"select a.AuthorId, a.Name as [AuthorName], a.ZipCodeId, c.Name as City from Author a
+Instance,Query,User,Role
+books,"select a.AuthorId, a.Name as [AuthorName], a.ZipCodeId, c.Name as City from Author a
 inner join Zipcode zc on zc.ZipCodeId = a.ZipCodeId
 inner join City c on c.CityId = zc.CityId
-where c.Name = 'Charlotte'",essie,Country Manager 0,,,
-select * from book,essie,Country Manager 0,,,
+where c.Name = 'Charlotte'",essie,Country Manager 0
+books,select * from book,essie,Country Manager 0

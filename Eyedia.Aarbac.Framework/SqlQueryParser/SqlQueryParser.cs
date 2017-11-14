@@ -235,34 +235,25 @@ namespace Eyedia.Aarbac.Framework
             bool somethingReplaced = false;
             foreach (string column in condition.Columns)
             {
-                var aWhereClause = WhereClauses.Where(wc => ((wc.OnColumn.Equals(column)) 
-                && (wc.OnTable.Equals(tableOrAliasName, StringComparison.OrdinalIgnoreCase)))).SingleOrDefault();
-
+                RbacWhereClause aWhereClause = WhereClauses.Find(tableOrAliasName, column);
                 if (aWhereClause != null)
                 {
                     //this column is referred as condition in original query
                     ParsedQuery = ParsedQuery.Replace(aWhereClause.WhereClauseString, string.Empty);
                     somethingReplaced = true;
                 }
-                else
-                {
-                    //lets try table alias
-                    aWhereClause = WhereClauses.Where(wc => ((wc.OnColumn.Equals(column))
-                    && (wc.OnTableAlias.Equals(tableOrAliasName, StringComparison.OrdinalIgnoreCase)))).SingleOrDefault();
-
-                    if (aWhereClause != null)
-                    {
-                        //this column is referred as condition in original query
-                        ParsedQuery = ParsedQuery.Replace(aWhereClause.WhereClauseString, string.Empty);
-                        somethingReplaced = true;
-                    }
-                }
             }
             if(somethingReplaced)
-            {
+            {                
                 ParsedQuery = ParsedQuery.TrimEnd();
-                if ((ParsedQuery.Length > 3) && (ParsedQuery.Substring(ParsedQuery.Length - 3, 3).Equals("and", StringComparison.OrdinalIgnoreCase)))
-                    ParsedQuery = ParsedQuery.Remove(ParsedQuery.Length - 3, 3);
+                string[] words = new string[] { "and", "where" };
+
+                foreach (string word in words)
+                {
+                    if ((ParsedQuery.Length > word.Length) 
+                        && (ParsedQuery.Substring(ParsedQuery.Length - word.Length, word.Length).Equals(word, StringComparison.OrdinalIgnoreCase)))
+                        ParsedQuery = ParsedQuery.Remove(ParsedQuery.Length - word.Length, word.Length);
+                }
             }
         }
         
@@ -279,6 +270,96 @@ namespace Eyedia.Aarbac.Framework
             }
         }
 
+
+
+        #endregion Conditions
+
+        #region Relations
+        
+        
+        private void ApplyConditionsRelational()
+        {
+            //lets add all joins
+            List<RbacTable> tables = new List<RbacTable>(TablesReferred);
+            foreach (RbacTable table in tables)
+            {
+                AddRelationalJoin(table);
+            }
+           
+        }
+
+        private void AddRelationalJoin(RbacTable table)
+        {
+            if (table.Relations.Count != 0)
+            {
+                foreach (RbacRelation relation in table.Relations)
+                {
+                    RbacTable withTable = Context.User.Role.CrudPermissions.Find(relation.WithTable);
+                    if (withTable != null)
+                    {
+                        AddRelationalJoins(relation, withTable.Conditions);
+                    }
+
+                    AddRelationalJoin(withTable);
+                }
+            }
+            else
+            {
+                //we have reached end of relation (linked list), there is no further relations ahead of us, time to cleanup
+                //let's see if we need those joins, if not let's remove those.
+                List<RbacTable> tables = new List<RbacTable>(TablesReferred);
+                tables = tables.Where(t => t.ReferencedOnly).ToList();
+                tables.Reverse();
+                foreach (RbacTable t in tables)
+                {
+                    if (t.Conditions.Count == 0)
+                    {
+                        var joinTobeRemoved = JoinClauses.Where(jc => jc.WithTableName == t.Name).SingleOrDefault();
+                        JoinClauses.Remove(joinTobeRemoved);
+                    }
+                    else
+                    {
+                        //oops while reversing back we found a condition, let's stop here!
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void AddRelationalJoins(RbacRelation relation, List<RbacCondition> conditions)
+        {
+            //was relation already referred in the query?
+            RbacTable relationTable = TablesReferred.Find(relation.WithTable);
+
+            if (relationTable == null)
+            {
+                //NO:
+                //Is there already join with that table?
+                RbacJoin join = JoinClauses.JoinExists(relation.WithTable, relation.SelfName);
+                if (join == null)
+                {
+                    //add new join, at the end of operation we will stringify sequentially
+                    join = RbacJoin.AddNewJoin(this,
+                        relation.SelfName, relation.SelfColumnName,
+                        relation.WithTable, relation.WithColumn);
+
+                }
+
+                //add into referred table as 'ReferencedOnly'
+                relationTable = new RbacTable(string.Empty, relation.WithTable, false);
+                relationTable.Conditions.AddRange(conditions);
+                relationTable.ReferencedOnly = true;
+                relationTable.TempAlias = join.WithTableAlias;
+                TablesReferred.Add(relationTable);
+
+            }
+            //add condition
+            ApplyCondition(relationTable);
+
+
+        }
+        #region Commented
+        /*
         private void ApplyConditionsRelational()
         {
             Dictionary<RbacRelation, List<RbacCondition>> relationConditions = GetRelationConditions();
@@ -318,13 +399,9 @@ namespace Eyedia.Aarbac.Framework
                     //add condition
                     ApplyCondition(condnTable);
                 }
-                
+
             }
         }
-
-        #endregion Conditions
-
-        #region Relations
         private Dictionary<RbacRelation, List<RbacCondition>> GetRelationConditions()
         {
             Dictionary<RbacRelation, List<RbacCondition>> relationConditions = new Dictionary<RbacRelation, List<RbacCondition>>();
@@ -353,6 +430,8 @@ namespace Eyedia.Aarbac.Framework
                 GetRelationCondition(withTable, relationConditions);
             }
         }
+        */
+        #endregion Commented
         #endregion Relations        
 
         #region Helpers
