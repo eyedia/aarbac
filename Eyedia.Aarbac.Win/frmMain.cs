@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Eyedia.Aarbac.Framework;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Eyedia.Aarbac.Win
 {
@@ -58,7 +60,26 @@ namespace Eyedia.Aarbac.Win
             //    response.SetResult(ex.Message);
             //}
 
-            propertyGrid.SelectedObject = response;
+            TreeNode root = treeView1.Nodes.Add("Root");            
+            JToken token = JToken.Parse(JsonConvert.SerializeObject(response));
+            Traverse(token, root);
+        }
+
+        private void Traverse(JToken token, TreeNode tn)
+        {
+            if (token is JProperty)
+                if (token.First is JValue)
+                    tn.Nodes.Add(((JProperty)token).Name + ": " + ((JProperty)token).Value);
+                else
+                    tn = tn.Nodes.Add(((JProperty)token).Name);
+
+            foreach (JToken token2 in token.Children())
+                Traverse(token2, tn);
+        }
+
+        private void showLoadedQueriesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            splitContainerBase.Panel1Collapsed = !showLoadedQueriesToolStripMenuItem.Checked;
         }
     }
 }
