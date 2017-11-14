@@ -1,8 +1,0 @@
-Query,User,Role,ParsedQueryStage1,ParsedQueryStage2,Errors
-"select a.AuthorId, a.Name as [AuthorName], a.ZipCodeId, c.Name as City from Author a
-inner join Zipcode zc on zc.ZipCodeId = a.ZipCodeId
-inner join City c on c.CityId = zc.CityId
-where c.Name = 'Charlotte'","essie","Country Manager 0","SELECT a.AuthorId , a.Name as [AuthorName] , a.ZipCodeId , c.Name as City  FROM Author a inner join Zipcode zc on zc.ZipCodeId = a.ZipCodeId inner join City c on c.CityId = zc.CityId     inner join [State] [t1] on [t1].StateId = [c].StateId WHERE (((c.Name = 'Charlotte' ) AND (c.Name in { CITYNAME })) AND (zc.ZipCode = '28216' )) AND (t1.StateId = 28)  ","SELECT a.ZipCodeId   FROM Author a inner join Zipcode zc on zc.ZipCodeId = a.ZipCodeId inner join City c on c.CityId = zc.CityId     inner join [State] [t1] on [t1].StateId = [c].StateId WHERE (((c.Name = 'Charlotte' ) AND (c.Name in ('New York'))) AND (zc.ZipCode = '28216' )) AND (t1.StateId = 28)  ","
-"
-"select * from book","essie","Country Manager 0","select BookId, Title, Subject, Price, Isbn13, Isbn10, PublisherId from book","select BookId, Title, Subject, Price, Isbn13, Isbn10, PublisherId from book","
-"
