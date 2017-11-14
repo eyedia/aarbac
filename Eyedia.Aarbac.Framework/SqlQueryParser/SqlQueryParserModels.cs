@@ -196,7 +196,16 @@ namespace Eyedia.Aarbac.Framework
 
         public string ToCommaSeparatedString()
         {
-            return List.Count > 0 ? List.Select(i => i.TableColumnName).Aggregate((i, j) => i + ", " + j) : string.Empty; ;
+            //return List.Count > 0 ? List.Select(i => i.TableColumnName).Aggregate((i, j) =>  i + ", " + j) : string.Empty;
+            string columns = string.Empty;
+            foreach (var i in List)
+            {
+                if (string.IsNullOrEmpty(i.TableAlias))
+                    columns += i.ReferencedTableName + "." + i.TableColumnName + ",";
+                else
+                    columns += i.TableAlias + "." + i.TableColumnName + ",";
+            }
+            return columns.Length > 0 ? columns.Substring(0, columns.Length - 1) : columns;
         }
 
         public void AddTableReference(SchemaObjectName schema, Identifier alias)

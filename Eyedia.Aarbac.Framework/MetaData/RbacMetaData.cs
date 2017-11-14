@@ -281,7 +281,7 @@ namespace Eyedia.Aarbac.Framework
 
                             table.Columns.Add(new RbacColumn(columnNode.Attributes["Name"].Value, columnNode.Attributes["Type"].Value,
                             columnNode.Attributes["Create"].Value, columnNode.Attributes["Read"].Value,
-                            columnNode.Attributes["Update"].Value, columnNode.Attributes["Delete"].Value));
+                            columnNode.Attributes["Update"].Value));
                         }
                     }
                     else if (node.Name == "Conditions")
@@ -300,11 +300,14 @@ namespace Eyedia.Aarbac.Framework
                     }
                     else if (node.Name == "Relations")
                     {
+                        //if (tableNode.Attributes["Name"].Value == "Author")
+                        //    Debugger.Break();
+
                         foreach (XmlNode relationNode in node.ChildNodes)
                         {
                             if (relationNode.NodeType == XmlNodeType.Comment)
                                 continue;
-                            if (relationNode.Attributes.Count == 2)
+                            if (relationNode.Attributes.Count >= 2)
                                 table.Relations.Add(new RbacRelation(table.Name, relationNode.Attributes["My"].Value, relationNode.Attributes["With"].Value));
                         }
                     }

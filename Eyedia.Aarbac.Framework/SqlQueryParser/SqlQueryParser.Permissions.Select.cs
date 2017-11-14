@@ -56,6 +56,12 @@ namespace Eyedia.Aarbac.Framework
                         foreach (RbacSelectColumn column in allColumnnsInATable)
                         {
                             RbacColumn rbacColumn = rbacTable.FindColumn(column.TableColumnName);
+
+                            if (rbacColumn == null)
+                                RbacException.Raise(
+                                    string.Format("Role '{0}' belongs to '{1}' is not in sync with database. The column '{2}' of table '{3}' was not found in the role meta data",
+                                    this.Context.User.UserName, this.Context.User.Role.Name, column.TableColumnName, column.ReferencedTableName));
+                            
                             if (!rbacColumn.AllowedOperations.HasFlag(RbacDBOperations.Read))
                                 RemoveColumnFromSelect(column);
                         }

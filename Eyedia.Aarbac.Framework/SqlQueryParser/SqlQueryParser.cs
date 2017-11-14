@@ -287,6 +287,7 @@ namespace Eyedia.Aarbac.Framework
             {
                 string joinClause = string.Empty;
                 string whereClause = string.Empty;
+
                 foreach (RbacCondition condition in relationCondition.Value)
                 {
                     //was relation already referred in the query?
@@ -300,10 +301,10 @@ namespace Eyedia.Aarbac.Framework
                         if (join == null)
                         {
                             //add new join, at the end of operation we will stringify sequentially
-                            join = RbacJoin.AddNewJoin(this, 
+                            join = RbacJoin.AddNewJoin(this,
                                 relationCondition.Key.SelfName, relationCondition.Key.SelfColumnName,
                                 relationCondition.Key.WithTable, relationCondition.Key.WithColumn);
-                     
+
                         }
 
                         //add into referred table as 'ReferencedOnly'
@@ -317,6 +318,7 @@ namespace Eyedia.Aarbac.Framework
                     //add condition
                     ApplyCondition(condnTable);
                 }
+                
             }
         }
 
@@ -340,13 +342,13 @@ namespace Eyedia.Aarbac.Framework
                 RbacTable withTable = Context.User.Role.CrudPermissions.Find(relation.WithTable);
                 if (withTable != null)
                 {
-                    if (withTable.Conditions.Count > 0)
-                    {
+                    //if (withTable.Conditions.Count > 0)
+                    //{
                         if (!relationConditions.ContainsKey(relation))
                         {
                             relationConditions.Add(relation, new List<RbacCondition>(withTable.Conditions));
                         }
-                    }
+                    //}
                 }
                 GetRelationCondition(withTable, relationConditions);
             }

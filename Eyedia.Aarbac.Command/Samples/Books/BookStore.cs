@@ -61,7 +61,8 @@ namespace Eyedia.Aarbac.Command
             foreach (DataRow r in table.Rows)
             {
                 RbacUser user = Rbac.CreateUser(r[0].ToString(), r[1].ToString(), r[2].ToString(), "password", roles[rnd.Next(0, roles.Count -1)]);
-                user.AddParameter("{CITYNAMES}", "('New York')");
+                user.AddParameter("{CITYNAMES}", "('Charlotte','Raleigh')");
+                user.AddParameter("{ZIPCODES}", "('28105')");
             }
         }
         static List<RbacRole> roles = new List<RbacRole>();

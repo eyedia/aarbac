@@ -52,15 +52,15 @@ namespace Eyedia.Aarbac.Framework
         public RbacDBOperations AllowedOperations { get; set; }
 
         public RbacColumn(string name, RbacDataTypes dataType,
-            bool create = false, bool read = false, bool update = false, bool delete = false)
+            bool create = false, bool read = false, bool update = false)
         {
             this.Name = name;
             this.DataType = dataType;
             //this.IsFilterColumn = isFilterColumn;
-            this.AllowedOperations = Rbac.ParseOperations(create, read, update, delete);
+            this.AllowedOperations = Rbac.ParseOperations(create, read, update, false);
         }
 
-        public RbacColumn(string name, string dataType,string create = "False", string read = "False", string update = "False", string delete = "False")
+        public RbacColumn(string name, string dataType,string create = "False", string read = "False", string update = "False")
         {
             switch (dataType)
             {
@@ -71,7 +71,7 @@ namespace Eyedia.Aarbac.Framework
             this.Name = name;
             this.DataType = (RbacDataTypes)Enum.Parse(typeof(RbacDataTypes), dataType, true);
             //this.IsFilterColumn = bool.Parse(isFilterColumn);
-            this.AllowedOperations = Rbac.ParseOperations(create, read, update, delete);
+            this.AllowedOperations = Rbac.ParseOperations(create, read, update, "False");
         }
 
 
