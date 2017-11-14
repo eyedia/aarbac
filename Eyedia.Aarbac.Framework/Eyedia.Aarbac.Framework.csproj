@@ -207,7 +207,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>rbac.mdf</DependentUpon>
     </Content>
-    <Content Include="Databases\TestQueries.sql" />
     <Content Include="DataManager\RbacDbModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>RbacDbModel.edmx</DependentUpon>
@@ -272,6 +271,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if $(ConfigurationName) == Release (
+copy /Y "$(TargetDir)*.dll" $(SolutionDir)TempReleases\aarbac\
+copy /Y "$(ProjectDir)Databases\" $(SolutionDir)TempReleases\aarbac\Databases
+)</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

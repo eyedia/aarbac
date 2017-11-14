@@ -35,6 +35,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO.Compression;
 
 namespace Eyedia.Aarbac.Command
 {
@@ -47,6 +48,9 @@ namespace Eyedia.Aarbac.Command
                 case "t":
                     BookStore.Setup();
                     BookStore.TestBatch();
+                    break;
+                case "z":
+                    ZipFile.CreateFromDirectory(args[1], args[2]);
                     break;
             }
         }
