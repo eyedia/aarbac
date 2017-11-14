@@ -14,8 +14,10 @@
 
 # Build results
 [Dd]ebug/
+[Dd]ebug/Databases
 [Dd]ebugPublic/
 [Rr]elease/
+[Rr]elease/Databases
 [Rr]eleases/
 x64/
 x86/
