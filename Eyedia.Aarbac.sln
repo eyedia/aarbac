@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedia.Aarbac.Api", "Eyedia
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedia.Aarbac.Win", "Eyedia.Aarbac.Win\Eyedia.Aarbac.Win.csproj", "{2024288F-60DE-4D31-B50E-049D113E8F2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eyedia.Aarbac.Nuget", "Eyedia.Aarbac.Nuget\Eyedia.Aarbac.Nuget.csproj", "{75F5A9DA-F026-46EC-978B-9D5A6ECCE9C7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,10 +35,6 @@ Global
 		{2024288F-60DE-4D31-B50E-049D113E8F2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2024288F-60DE-4D31-B50E-049D113E8F2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2024288F-60DE-4D31-B50E-049D113E8F2F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{75F5A9DA-F026-46EC-978B-9D5A6ECCE9C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{75F5A9DA-F026-46EC-978B-9D5A6ECCE9C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{75F5A9DA-F026-46EC-978B-9D5A6ECCE9C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{75F5A9DA-F026-46EC-978B-9D5A6ECCE9C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
