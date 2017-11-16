@@ -34,7 +34,7 @@ namespace Eyedia.Aarbac.Win
             if(!System.IO.Directory.Exists(path))
                 path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Databases");
             if (!System.IO.Directory.Exists(path))
-            {sd
+            {
                 string msg = "Database files not found! Demo expects .mdf files in " + System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Databases")  + Environment.NewLine;
                 msg += "Microsoft SQL Server or Express 2014 + required.";
 

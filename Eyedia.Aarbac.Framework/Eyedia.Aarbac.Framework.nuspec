@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>aarbac.NET</id>
+    <version>1.0.4</version>
+    <title>An Automated Role Based Access Control</title>
+    <authors>Deb'jyoti Das</authors>
+    <owners>Deb'jyoti Das</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>An automated role based access control .NET framework for Microsoft SQL Server 2014+</description>
+    <releaseNotes>First eelease</releaseNotes>
+    <copyright>Copyright 2017 (c) Debjyoti Das. All rights reserved.</copyright>
+    <tags>automated role based access control microsoft sql server row column level permission authorization data filter crud select insert update delete .NET</tags>
+  </metadata>
+  <files>
+    <file src="..\TempReleases\aarbac\**" target="lib\net452" />
+    <file src="..\TempReleases\aarbac\Databases\**" target="lib\net452\Databases" />
+  </files>
+  <dependencies>
+    <group>      
+      <dependency id="EntityFramework" version="6.2.0" targetFramework="net452" />
+      <dependency id="Microsoft.SqlServer.TransactSql.ScriptDom" version="14.0.3660.1" targetFramework="net452" />
+      <dependency id="CommandLineParser" version="1.9.71" targetFramework="net452" />
+      <dependency id="GenericParser" version="1.1.5" targetFramework="net452" />
+      <dependency id="Newtonsoft.Json" version="10.0.3" targetFramework="net452" />
+      <dependency id="FCTB" version="2.16.21.0" targetFramework="net452" />
+      <dependency id="GenericParser" version="1.1.5" targetFramework="net452" />
+    </group>   
+  </dependencies>
+</package>
