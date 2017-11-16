@@ -192,20 +192,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Databases\Books.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Databases\Books_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>Books.mdf</DependentUpon>
-    </Content>
-    <Content Include="Databases\rbac.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Databases\rbac_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>rbac.mdf</DependentUpon>
-    </Content>
     <Content Include="DataManager\RbacDbModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>RbacDbModel.edmx</DependentUpon>
@@ -255,6 +241,8 @@
     <None Include="MetaData\Entitlement.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Nuget\Content\AarbacSamples.cs.pp" />
+    <None Include="Nuget\Content\app.config.transform" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -272,6 +260,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Release (

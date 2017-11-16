@@ -43,11 +43,12 @@ namespace Eyedia.Aarbac.Command
     {        
         public static void Do(string[] args)
         {
-            switch(args[0].ToLower())
+            switch (args[0].ToLower())
             {
                 case "t":
-                    BookStore.Setup();
-                    BookStore.TestBatch();
+                    BookStore bookStore = new BookStore();
+                    bookStore.Setup();
+                    bookStore.TestBatch();
                     break;
                 case "z":
                     ZipFile.CreateFromDirectory(args[1], args[2]);

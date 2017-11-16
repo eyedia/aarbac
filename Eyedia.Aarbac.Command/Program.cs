@@ -51,25 +51,32 @@ namespace Eyedia.Aarbac.Command
     class Program
     {
         static void Main(string[] args)
-        {
-            SetDataDirectory();
+        {           
             //string query = File.ReadAllText(Path.Combine(@"..\..\..\Eyedia.Aarbac.Command\Samples", "Books", "Query.txt"));
             //string sub = query.Substring(186, 21);
-            //BookStore.Setup();           
-            //var engine = BookStore.TestOne();
+            new BookStore().TestOne(); ;           
+            //TestSamples();
             
-            //return;
+            return;
             CommandLineCommands.Do(args);
             
         }
 
-        private static void SetDataDirectory()
+        private static void TestSamples()
         {
-            var path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Eyedia.Aarbac.Framework\Databases");
-            var fullPath = System.IO.Path.GetFullPath(path);
-            AppDomain.CurrentDomain.SetData("DataDirectory", fullPath);
-        }
+            AarbacSamples samples = new AarbacSamples();
+            Console.WriteLine("Testing book store's one select query");
+            samples.BookStoreTestOne();
 
+            Console.WriteLine("Testing book store's sample queries");
+            samples.BookStoreTestBatch();
+
+            Console.WriteLine("Testing real world's select query");
+            samples.RealWorldSelect();
+
+            Console.WriteLine("Testing real world's insert query");
+            samples.RealWorldInsertOrUpdateOrDelete();
+        }      
 
         #region GetCityId
         private static void GetCityId(string connStr)

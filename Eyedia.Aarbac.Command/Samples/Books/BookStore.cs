@@ -43,46 +43,94 @@ using GenericParsing;
 namespace Eyedia.Aarbac.Command
 {
     public class BookStore
-    {
-        const string __rootDir = @"..\..\..\Eyedia.Aarbac.Command\Samples";
-        public static void Setup()
+    {           
+        public BookStore()
+        {
+            string s = _rootDir;
+        }
+
+        private string _rootDir
+        {
+            get
+            {
+                string path = string.Empty;
+                string codingdir = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
+                if (Directory.Exists(Path.Combine(codingdir, "Samples")))
+                    path = Path.Combine(codingdir, "Samples");
+                else if (Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Samples")))
+                    path = Path.Combine(codingdir, "Samples");
+                else
+                    throw new DirectoryNotFoundException("Samples directory not found!");
+
+                var dbPath = Path.Combine(path, "Databases");                
+                AppDomain.CurrentDomain.SetData("DataDirectory", Path.GetFullPath(dbPath));
+                return path;
+            }
+        }       
+
+        public void Setup()
         {
             Rbac rbac = new Rbac();
             rbac = rbac.CreateNew("books", "books description",
                 @"Data Source=(localdb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|books.mdf;Initial Catalog=books;Integrated Security=True",
-                File.ReadAllText(Path.Combine(__rootDir,"Books","entitlement.xml")));
+                File.ReadAllText(Path.Combine(_rootDir,"Books","entitlement.xml")));
                        
             InsertRoles(rbac);
-            Random rnd = new Random();
-
-            GenericParserAdapter parser = new GenericParserAdapter(Path.Combine(__rootDir, "Users.csv"));
+            GenericParserAdapter parser = new GenericParserAdapter(Path.Combine(_rootDir, "Users.csv"));
             parser.FirstRowHasHeader = true;
             DataTable table = parser.GetDataTable();
-            foreach (DataRow r in table.Rows)
+            Random rnd = new Random();
+            if (table.Rows.Count > 0)
             {
-                RbacUser user = Rbac.CreateUser(r[0].ToString(), r[1].ToString(), r[2].ToString(), "password", roles[rnd.Next(0, roles.Count -1)]);
-                user.AddParameter("{CITYNAMES}", "('Charlotte','Raleigh')");
-                user.AddParameter("{ZIPCODES}", "('28105')");
+                //get 1 random role              
+                int whichrole = rnd.Next(0,2);
+                RbacRole role = roles[whichrole];
+
+                foreach (DataRow r in table.Rows)
+                {
+                    RbacUser user = Rbac.CreateUser(r[0].ToString(), r[1].ToString(), r[2].ToString(), "password", role);
+                    if (role.Name == "role_city_mgr")
+                    {
+                        user.AddParameter("{CityNames}", "('New York','Charlotte')");                        
+                    }
+                    else if (role.Name == "role_state_mgr")
+                    {
+                        user.AddParameter("{ShortNames}", "('NY','NC')");
+                    }
+                    else if (role.Name == "role_country_mgr")
+                    {
+                        user.AddParameter("{CountryCodes}", "('IN','US')");
+                    }
+                }
             }
         }
-        static List<RbacRole> roles = new List<RbacRole>();
-        private static void InsertRoles(Rbac rbac)
+        List<RbacRole> roles = new List<RbacRole>();
+        private void InsertRoles(Rbac rbac)
         {
-            string roleMetaData = File.ReadAllText(Path.Combine(__rootDir, "Books", "role.xml"));
-            for (int i = 0; i <= 3; i++)
+            string path = Path.Combine(_rootDir, "Books");
+            string entitlements = File.ReadAllText(Path.Combine(_rootDir, "Books", "entitlement.xml"));
+
+            string[] roleFiles = Directory.GetFiles(path, "role_*.xml");
+            foreach (string roleFile in roleFiles)
             {
-                RbacRole role = rbac.CreateRole("Country Manager "  + i, "Country manager description", roleMetaData,
-                    File.ReadAllText(Path.Combine(__rootDir, "Books", "entitlement.xml")));
-                roles.Add(role);
+                string fileContent = File.ReadAllText(roleFile);
+                string[] info = fileContent.Split('°');
+
+                if (info.Length > 0)
+                {                   
+                    RbacRole role = rbac.CreateRole(Path.GetFileNameWithoutExtension(roleFile)
+                        , info[0].Trim(), info[1].Trim(), entitlements);
+                    roles.Add(role);
+                }
             }
         }
-        public static RbacSqlQueryEngine TestOne(string query = null)
+        public RbacSqlQueryEngine TestOne(string query = null)
         {
             RbacSqlQueryEngine engine = null;
             using (Rbac rbac = new Rbac("essie"))
             {
                 if (string.IsNullOrEmpty(query))
-                    query = File.ReadAllText(Path.Combine(__rootDir, "Books", "Query.txt"));
+                    query = File.ReadAllText(Path.Combine(_rootDir, "Books", "test.txt"));
                 engine = new RbacSqlQueryEngine(rbac, query);
                 engine.Execute();
                 //if ((!engine.IsErrored) && (engine.SqlQueryParser.IsParsed) && (engine.SqlQueryParser.QueryType == RbacQueryTypes.Select))
@@ -92,28 +140,42 @@ namespace Eyedia.Aarbac.Command
             if (engine.Table != null)
                 Console.WriteLine("The query was a select query and returned {0} records", engine.Table.Rows.Count);
 
-            File.WriteAllText(Path.Combine(__rootDir, "Books", "ParsedQuery.txt"), engine.Parser.ParsedQuery);
+            File.WriteAllText(Path.Combine(_rootDir, "Books", "test_parsed_query.txt"), engine.Parser.ParsedQuery);
             return engine;
         }
-        public static void TestBatch()
+        public void TestBatch()
         {
-            GenericParserAdapter genParser = new GenericParserAdapter(Path.Combine(__rootDir, "Books", "tests.csv"));
+            GenericParserAdapter genParser = new GenericParserAdapter(Path.Combine(_rootDir, "Books", "tests.csv"));
             genParser.FirstRowHasHeader = true;
             DataTable table = genParser.GetDataTable();
+            if(table.Columns["ParsedQueryStage1"] == null)
+            {
+                table.Columns.Add("ParsedQueryStage1");
+                table.Columns.Add("ParsedQuery");
+                table.Columns.Add("Errors");
+            }
 
             Rbac rbac = new Rbac("essie");
             foreach (DataRow row in table.Rows)
             {                
                 RbacRole role = Rbac.GetRole(row[2].ToString());                
                 SqlQueryParser parser = new SqlQueryParser(rbac);
-                parser.Parse(row[0].ToString());
+                try
+                {
+                    parser.Parse(row[0].ToString());
+                }
+                catch(Exception ex)
+                {
+                    row["Errors"] = ex.Message;
+                    continue;
+                }
                 RbacSqlQueryEngine engine = new RbacSqlQueryEngine(parser, true);
                 engine.Execute();
                 row["ParsedQueryStage1"] = parser.ParsedQueryStage1;
-                row["ParsedQueryStage2"] = parser.ParsedQuery;
+                row["ParsedQuery"] = parser.ParsedQuery;
                 row["Errors"] = parser.AllErrors + Environment.NewLine;
             }
-            table.ToCsv(Path.Combine(__rootDir, "Books", "tests_result.csv"));
+            table.ToCsv(Path.Combine(_rootDir, "Books", "tests_result.csv"));
         }
     }
 }
