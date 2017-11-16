@@ -202,6 +202,11 @@
       <DependentUpon>RbacDbModel.edmx</DependentUpon>
       <LastGenOutput>RbacDbModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Graphics\freepik.txt" />
+    <Content Include="Graphics\rbac_128.png" />
+    <Content Include="Graphics\rbac_512.png" />
+    <Content Include="Graphics\rrbac_16.png" />
+    <Content Include="Graphics\rrbac_32.png" />
     <Content Include="MetaData\MetaData.xml">
       <SubType>Designer</SubType>
     </Content>

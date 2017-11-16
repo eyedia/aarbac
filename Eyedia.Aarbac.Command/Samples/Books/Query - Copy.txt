@@ -1,4 +1,0 @@
-﻿select a.AuthorId, a.Name as [AuthorName], a.ZipCodeId, c.Name as City from Author a
-inner join Zipcode zc on zc.ZipCodeId = a.ZipCodeId
- inner join City c on c.CityId = zc.CityId
-where c.Name = 'Charlotte'

@@ -14,11 +14,8 @@
 
 # Build results
 [Dd]ebug/
-[Dd]ebug/Databases
 [Dd]ebugPublic/
 [Rr]elease/
-[Rr]elease/Databases
-[Rr]eleases/
 x64/
 x86/
 bld/
@@ -231,8 +228,8 @@ UpgradeLog*.XML
 UpgradeLog*.htm
 
 # SQL Server files
-*.mdf
-*.ldf
+#*.mdf
+#*.ldf
 *.ndf
 
 # Business Intelligence projects
