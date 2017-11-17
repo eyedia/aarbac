@@ -10,10 +10,12 @@ An Automated Role Based Access Control .NET Framework.
 ### Getting started with sample
 1. Create an console Application
 2. Get [aarbac](https://www.nuget.org/packages/aarbac.NET/) from nuget.
-3. The package will have a sample "Books" application, basically just a database (.mdf file) with same valid data in it. Assume this as your own application and you want to provide row,column level permission along with screen entitlements to your users.
-4. The second database will be rbac database (.mdf file) with preloaded users and 3 roles.
-5. test.csv will contain few sample queries(select, insert, update, delete).
-6. AarbacSamples.cs will contain the sample, and thanks to nuget, which will automatically add the cs into your project. You are all ready to go. Just type this:
+3. Additionally, the package will contain these:
+  1. books.mdf - A sample "Books" application database with some valid data in it. Assume this as your own application and you want to provide row,column level permission along with screen entitlements to your users.
+  2. rbac.mdf - The second rbac database with preloaded users and 3 roles of "Books" application.
+  3. test.txt - One sample query of "Books" application.
+  3. test.csv - Sample queries(select, insert, update, delete) of "Books" applicaition.
+  4. AarbacSamples.cs will contain the sample code, and thanks to nuget, which will automatically add the cs into your project. You are all ready to go. Just type this:
 ```cs
 new TestAarbac.Samples.AarbacSamples().BookStoreTestOne();
 Console.Read();
