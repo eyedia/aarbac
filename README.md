@@ -38,6 +38,10 @@ This code will test all queries from test.csv and put output into test_result.cs
 2. As you may have guessed, you don't need .mdf, .ldf, test.csv, test.txt files. So feel free to delete those.
 3. aarbac comes with command line utility named aarbac.exe, copy the exe and config to a suitable folder.
 4. You need to create an aarbac database. Keep your SQL Server connection string handy and type following
+```shell
 aarbac -i <name of your application> <description> <connectionstring>
+```
 for example, in case of my "Books" application, I would do this:
+```shell
 aarbac -i "Books" "A sample books application with few sample authors, books, publishers, city, state, country, zipcode to showcase various table relationships" "Data Source=(localdb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|rbac.mdf;Initial Catalog=rbac;Integrated Security=True" 
+```
