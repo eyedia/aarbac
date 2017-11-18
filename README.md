@@ -54,16 +54,15 @@ Console.Read();
 ```
 This code will parse all queries from test.csv and store parsed queries into test_result.csv. Study all the input queries and parsed queries to get feel of aarbac framework. Start playing around.
 
+[See WIKI](https://github.com/eyedia/aarbac/wiki)
 
 ### Getting started with real world
 1. Get [aarbac](https://www.nuget.org/packages/aarbac.NET/) from nuget.
-2. As you may have guessed, you don't need .mdf, .ldf, test.csv, test.txt files. So feel free to delete those.
-3. aarbac comes with command line utility named aarbac.exe, copy the exe and config to a suitable folder.
-4. You need to create an aarbac database. Keep your SQL Server connection string handy and type following
-```shell
-aarbac -i <name of your application> <description> <connectionstring>
-```
-for example, in case of my "Books" application, I would do this:
-```shell
-aarbac -i "Books" "A sample books application with few sample authors, books, publishers, city, state, country, zipcode to showcase various table relationships" "Data Source=(localdb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|rbac.mdf;Initial Catalog=rbac;Integrated Security=True" 
-```
+2. As you may have guessed, you don't need .mdf, .ldf, test.csv, test.txt files. So feel free to delete those, or keep those as is.
+3. aarbac comes with command line utility named aarbac.exe. Go to command prompt of the package folder and run various commands to ferform following:
+
+    1. Create aarbac database
+        1. You can create 
+    
+    
+[See WIKI](https://github.com/eyedia/aarbac/wiki)
