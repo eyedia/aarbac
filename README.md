@@ -1,7 +1,7 @@
 ![Aarbac logo](https://github.com/eyedia/aarbac/blob/master/Eyedia.Aarbac.Framework/Graphics/rbac_128.png)
 
 # Disclaimer
-*11/17/2017 - I am new to github and nuget, currently working on preparing nuget release, other basic documentation on github. This document may get updated frequently. Nuget release 1.0.7 is stable, but future release may have some minor changes. Execuse me for that. I will remove this disclaimer once everything is stable.*
+*11/17/2017 - I am new to github and nuget, currently working on nuget release & other basic documentation on github. This document may get updated frequently. aarbac release 1.0.8 is stable, but future release may have some minor changes. PLease execuse me for that. I will remove this disclaimer once everything is stable.*
 
 # What is aarbac?
 An Automated Role Based Access Control .NET framework which can automatically apply row & column level permissions on your SELECT,INSERT,UPDATE & DELETE queries.For example, a read (or select) operation like the following …
