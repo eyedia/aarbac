@@ -22,12 +22,12 @@ And an update query like the following…
 ```sql
 update Author set Name = 'Eyedia', SSN = '999-99-9999' where AuthorId = 9999
 ```
-
+<span style="color:blue">some *This is Blue italic.* text</span>
 may hit exception like *User ‘abc’ does have permission to update table ‘Author’ but does not have permission to update column ‘SSN’*
 
 
 ### Prerequisites:
-1. Microsoft SQL Server. Express will do just fine!
+1. Microsoft SQL Server.
 2. .NET 4.5.2+
 
 ### Getting started with sample
