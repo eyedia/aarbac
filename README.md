@@ -61,8 +61,29 @@ This code will parse all queries from test.csv and store parsed queries into tes
 2. As you may have guessed, you don't need .mdf, .ldf, test.csv, test.txt files. So feel free to delete those, or keep those as is.
 3. aarbac comes with command line utility named aarbac.exe. Go to command prompt of the package folder and run various commands to ferform following:
 
-    1. Create aarbac database
-        1. You can create 
+    1. Create aarbac repository, consists of 4 tables:
+        1. Separate aarbac database - aarbac.exe -d
+        2. Create aarbac tables on your existing database - aarbac.exe -d -e
+    2. Create aarbac instance for your application, basically insert a record into rbac table.
+    3. Create users & roles.
     
-    
+[See WIKI](https://github.com/eyedia/aarbac/wiki)
+
+### aarbac REST API
+aarbac comes with REST APIs to perform various administrative operations to maintain:
+1. aarbac instances
+2. roles & entitlements
+3. users & user parameters
+4. engine - test various queries. A very good place for your developers to test queries. Be careful this is not meant for production release.
+
+[See WIKI](https://github.com/eyedia/aarbac/wiki)
+
+### aarbac Windows Application
+aarbac also has a windows application for testing, where you can test a single or multiple queries along with basic operations. If you want to contribute, please visit contributor page.
+
+See WIKI](https://github.com/eyedia/aarbac/wiki)
+
+### aarbac Web User Interfacev (Admin pages)
+aarbac does not have web interface. Basically we need to write code to call aarbac APIs. If you want to contribute, please visit contributor page.
+
 [See WIKI](https://github.com/eyedia/aarbac/wiki)
