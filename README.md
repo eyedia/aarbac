@@ -1,8 +1,5 @@
 ![Aarbac logo](https://github.com/eyedia/aarbac/blob/master/Eyedia.Aarbac.Framework/Graphics/rbac_128.png)
 
-# Disclaimer
-*11/17/2017 - I am new to github and nuget, currently working on nuget release & other basic documentation on github. This document may get updated frequently. aarbac release 1.0.8 is stable, but future release may have some minor changes. PLease execuse me for that. I will remove this disclaimer once everything is stable.*
-
 # What is aarbac?
 An Automated Role Based Access Control .NET framework which can automatically apply row & column level permissions on your SELECT,INSERT,UPDATE & DELETE queries.For example, a read (or select) operation like the following …
 
@@ -59,14 +56,13 @@ This code will parse all queries from test.csv and store parsed queries into tes
 ### Getting started with real world
 1. Get [aarbac](https://www.nuget.org/packages/aarbac.NET/) from nuget.
 2. As you may have guessed, you don't need .mdf, .ldf, test.csv, test.txt files. So feel free to delete those, or keep those as is.
-3. aarbac comes with command line utility named aarbac.exe. Go to command prompt of the package folder and run various commands to ferform following:
+3. Go to command prompt of the package folder and run aarbac.exe commands to...
 
-    1. Create aarbac repository, consists of 4 tables:
-        1. Separate aarbac database - aarbac.exe -d
-        2. Create aarbac tables on your existing database - aarbac.exe -d -e
-    2. Create aarbac instance for your application, basically insert a record into rbac table.
-    3. Create users & roles.
-    
+    1. Create aarbac repository (only 4 tables)
+    2. For each of your applications, you need to create:
+        1. aarbac instance. This operation will extract metadata of your application database and insert into rbac table, which will be used to create roles.
+        3. Create users & roles.
+   
 [See WIKI](https://github.com/eyedia/aarbac/wiki)
 
 ### aarbac REST API
@@ -74,16 +70,19 @@ aarbac comes with REST APIs to perform various administrative operations to main
 1. aarbac instances
 2. roles & entitlements
 3. users & user parameters
-4. engine - test various queries. A very good place for your developers to test queries. Be careful this is not meant for production release.
+4. engine - test various queries. A good place for your developers to test queries. Be careful this is not meant for production release.
 
 [See WIKI](https://github.com/eyedia/aarbac/wiki)
 
 ### aarbac Windows Application
 aarbac also has a windows application for testing, where you can test a single or multiple queries along with basic operations. If you want to contribute, please visit contributor page.
 
-See WIKI](https://github.com/eyedia/aarbac/wiki)
+[See WIKI](https://github.com/eyedia/aarbac/wiki)
 
 ### aarbac Web User Interfacev (Admin pages)
 aarbac does not have web interface. Basically we need to write code to call aarbac APIs. If you want to contribute, please visit contributor page.
 
 [See WIKI](https://github.com/eyedia/aarbac/wiki)
+
+# Disclaimer
+*11/17/2017 - I am new to github and nuget, currently working on nuget release & other basic documentation on github. This document may get updated frequently. aarbac release 1.0.8 is stable, but future release may have some minor changes. PLease execuse me for that. I will remove this disclaimer once everything is stable.*
