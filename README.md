@@ -25,7 +25,7 @@ update Author set Name = 'Eyedia', SSN = '999-99-9999' where AuthorId = 9999
 may hit exception like 
 
 ```diff
-- User ‘abc’ does have permission to update table ‘Author’ but does not have permission to update column ‘SSN’
+User ‘abc’ does have permission to update table ‘Author’ but does not have permission to update column ‘SSN’
 ```
 
 ### Prerequisites:
