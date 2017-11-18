@@ -75,12 +75,12 @@ aarbac comes with REST APIs to perform various administrative operations to main
 [See WIKI](https://github.com/eyedia/aarbac/wiki)
 
 ### aarbac Windows Application
-aarbac also has a windows application for testing, where you can test a single or multiple queries along with basic operations. If you want to contribute, please visit contributor page.
+aarbac also has a windows application for testing, where you can test a single or multiple queries along with basic operations. If you want to contribute, [please visit contributor page.](https://github.com/eyedia/aarbac/wiki/Contributors)
 
 [See WIKI](https://github.com/eyedia/aarbac/wiki)
 
 ### aarbac Web User Interfacev (Admin pages)
-aarbac does not have web interface. Basically we need to write code to call aarbac APIs. If you want to contribute, please visit contributor page.
+aarbac does not have web interface. Basically we need to write code to call aarbac APIs. If you want to contribute, [please visit contributor page.](https://github.com/eyedia/aarbac/wiki/Contributors)
 
 [See WIKI](https://github.com/eyedia/aarbac/wiki)
 
