@@ -4,7 +4,7 @@
 *11/17/2017 - I am new to github and nuget, currently working on preparing nuget release, other basic documentation on github. This document may get updated frequently. Nuget release 1.0.7 is stable, but future release may have some minor changes. Execuse me for that. I will remove this disclaimer once everything is stable.*
 
 # What is aarbac?
-An Automated Role Based Access Control .NET framework which can automatically apply row & column level permissions on your SELECT,INSERT,UPDATE & DELETE queries.For example, a read (or select) operation like this …
+An Automated Role Based Access Control .NET framework which can automatically apply row & column level permissions on your SELECT,INSERT,UPDATE & DELETE queries.For example, a read (or select) operation like the following …
 
 ```sql
 select * from Author
@@ -15,7 +15,9 @@ automatically may get converted to…
 select AuthorId, Name, ZipCodeId from Author inner join Zipcode zc on zc.ZipCodeId = Author.ZipCodeId inner join City c on c.CityId = zc.CityId where c.Name = 'New York'
 ```
 
-assuming user belongs to a role which allows him to see only 3 columns from author table and only allowed to see authors from New York city. And an update query like this…
+assuming user belongs to a role which allows him to see only 3 columns from author table and only allowed to see authors from New York city.
+
+And an update query like the following…
 
 ```sql
 update Author set Name = 'Eyedia', SSN = '999-99-9999' where AuthorId = 9999
@@ -33,22 +35,22 @@ may hit exception like *User ‘abc’ does have permission to update table ‘A
 2. Get [aarbac](https://www.nuget.org/packages/aarbac.NET/) from nuget.
 3. Additionally, the package will contain these:
     1. books.mdf - A sample "Books" application database with some valid data in it. Assume this as your own application and you want to provide row,column level permission along with screen entitlements to your users.
-    2. rbac.mdf - The second rbac database with preloaded users and 3 roles of "Books" application.
+    2. rbac.mdf - The rbac database with 20 users and 3 roles of "Books" application preloaded.
     3. test.txt - One sample query of "Books" application.
-    4. test.csv - Sample queries(select, insert, update, delete) of "Books" applicaition.
-    5. AarbacSamples.cs will contain the sample code, and thanks to nuget, which will automatically add the cs into your project. You are all ready to go. Just type this:
+    4. test.csv - Few sample queries(select, insert, update, delete) of "Books" applicaition.
+    5. AarbacSamples.cs will contain the sample code, and thanks to nuget, which will automatically add the cs into your project. You are all set, just type this:
 ```cs
 new TestAarbac.Samples.AarbacSamples().BookStoreTestOne();
 Console.Read();
 ```
-Above code will test a query from test.txt. This will ensure everything is good, the .mdf files are attached correctly. Mostly .mdf attachment related issues may come here, just troubleshoot as you regularly do. Alternatively you can attach the .mdfs manually into your SQL Server instance and change the connection strings in the config file.
+Above code will test a query from test.txt. This will ensure everything is good, the .mdf files are attached correctly. Mostly .mdf attachment related issues may occure here, just troubleshoot as you regularly do. Alternatively you can attach the .mdfs manually into your SQL Server instance and change the connection strings in the config file. Check out the test_result.txt (the output) along with test.txt (the input).
 
 Alright...interesting, huuuh?! Try this out then...
 ```cs
 new TestAarbac.Samples.AarbacSamples().BookStoreTestBatch();
 Console.Read();
 ```
-This code will test all queries from test.csv and put output into test_result.csv. You are all set to play around.
+This code will parse all queries from test.csv and store parsed queries into test_result.csv. Study all the input queries and parsed queries to get feel of aarbac framework. Start playing around.
 
 
 ### Getting started with real world
