@@ -32,6 +32,7 @@ Description  -
 #endregion Copyright Notice
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Microsoft.Owin;
 using Owin;
@@ -44,16 +45,8 @@ namespace Eyedia.Aarbac.Api
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
-            SetDataDirectory();
-        }
-
-        private static void SetDataDirectory()
-        {
-            var path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\Eyedia.Aarbac.Framework\Databases");
-            var fullPath = System.IO.Path.GetFullPath(path);
-            AppDomain.CurrentDomain.SetData("DataDirectory", fullPath);
-        }
+            ConfigureAuth(app);           
+        }       
 
     }
 }

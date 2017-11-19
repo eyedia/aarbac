@@ -51,7 +51,8 @@ namespace Eyedia.Aarbac.Framework
         public string FullName { get; set; }
         public string Email { get; set; }
 
-        public RbacRegisterUser() { }
+        public RbacRegisterUser() { }      
+
         public RbacRegisterUser(int roleId, string userName, string fullName, string email, string password)
         {            
             this.RoleId = roleId;

@@ -32,6 +32,7 @@ Description  -
 #endregion Copyright Notice
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -101,9 +102,12 @@ namespace Eyedia.Aarbac.Framework
             this.Role.ParseMetaData();
         }
 
-
+        [ReadOnly(true)]
         public int UserId { get; set; }
+
+        [ReadOnly(true)]
         public string UserName { get; set; }
+
         public string FullName { get; set; }        
         public string Email { get; set; }
         private RbacRole _Role;

@@ -66,7 +66,18 @@ namespace Eyedia.Aarbac.Command
                 AppDomain.CurrentDomain.SetData("DataDirectory", Path.GetFullPath(dbPath));
                 return path;
             }
-        }       
+        }
+
+        private static readonly Random random = new Random(0);
+        private static readonly object syncLock = new object();
+        public static int RandomNumber(int min, int max)
+        {
+            lock (syncLock)
+            { // synchronize
+                return random.Next(min, max) * (max - min) + min;
+               
+            }
+        }
 
         public void Setup()
         {
@@ -79,15 +90,21 @@ namespace Eyedia.Aarbac.Command
             GenericParserAdapter parser = new GenericParserAdapter(Path.Combine(_rootDir, "Users.csv"));
             parser.FirstRowHasHeader = true;
             DataTable table = parser.GetDataTable();
-            Random rnd = new Random();
+
+            
             if (table.Rows.Count > 0)
             {
-                //get 1 random role              
-                int whichrole = rnd.Next(0,2);
-                RbacRole role = roles[whichrole];
-
+                int counter = 0;
                 foreach (DataRow r in table.Rows)
                 {
+                    int whichrole = 1;
+                    if (counter > 3)
+                        whichrole = RandomNumber(0, 2);
+                    else
+                        counter++;
+
+                    RbacRole role = roles[whichrole];
+
                     RbacUser user = Rbac.CreateUser(r[0].ToString(), r[1].ToString(), r[2].ToString(), "password", role);
                     if (role.Name == "role_city_mgr")
                     {

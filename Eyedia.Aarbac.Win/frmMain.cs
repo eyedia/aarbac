@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using GenericParsing;
 using System.IO;
+using System.Drawing.Design;
 
 namespace Eyedia.Aarbac.Win
 {
@@ -158,35 +159,7 @@ namespace Eyedia.Aarbac.Win
             }
         }
 
-        private void cbRoles_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cbRoles.SelectedItem != null)
-            {
-                RbacRole role = Rbac.GetRole(((RbacRole)cbRoles.SelectedItem).Name);
-                tabPage2.Tag = role;
-                tabPage2.Text = role.Name;
-                txtRole.Text = role.MetaDataRbac;
-                txtEntitlements.Text = role.MetaDataEntitlements;
-            }
-            else
-            {
-                tabPage2.Tag = null;
-                tabPage2.Text = "Role";
-            }
-        }
-
-        private void btnSaveRole_Click(object sender, EventArgs e)
-        {
-            if (tabPage2.Tag != null)
-            {
-                RbacRole role = tabPage2.Tag as RbacRole;
-                RbacRoleWeb wRole = new RbacRoleWeb(role);
-                wRole.MetaDataRbac = txtRole.Text;
-                wRole.MetaDataEntitlements = txtEntitlements.Text;
-                Rbac.Save(wRole);
-            }
-        }
-
+      
         private void btnExecuteAll_Click(object sender, EventArgs e)
         {
             if (lvwQueries.Tag != null)
@@ -232,5 +205,103 @@ namespace Eyedia.Aarbac.Win
                 }
             }
         }
+
+        private void cbInstances_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbInstances.SelectedIndex > -1)
+            {
+                propInstance.SelectedObject = new RbacEngineWeb(Rbac.GetRbac(((Rbac)cbInstances.SelectedItem).Name));
+                tabPage2.Text = ((RbacEngineWeb)propInstance.SelectedObject).Name;
+            }
+                
+        }
+
+        private void cbUsers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbUsers.SelectedIndex > -1)
+            {
+                var user = (RbacUser)cbUsers.SelectedItem;
+                int roleId = 0;
+                if (cbRoles.SelectedItem != null)
+                    roleId = ((RbacRole)cbRoles.SelectedItem).RoleId;
+
+                propUser.SelectedObject = new RbacRegisterUser(roleId, user.UserName, user.FullName, user.Email, string.Empty);
+                tabPage3.Text = user.UserName;
+
+                LoadUserParameters();
+            }
+        }
+
+        private void LoadUserParameters()
+        {
+            lvwUserParameters.Items.Clear();
+            if (cbUsers.SelectedIndex > -1)
+            {
+                var selUser = (RbacUser)cbUsers.SelectedItem;
+                RbacUser user = new RbacUser(selUser.UserName);
+                if(user.Parameters != null)
+                {
+                    foreach(var paramter in user.Parameters)
+                    {
+                        ListViewItem item = new ListViewItem(paramter.Key);
+                        item.SubItems.Add(paramter.Value);
+                        lvwUserParameters.Items.Add(item);
+                    }
+                }
+            }
+        }
+
+        private void cbRoles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbRoles.SelectedItem != null)
+            {
+                RbacRole dbRole = Rbac.GetRole(((RbacRole)cbRoles.SelectedItem).Name);
+                RbacRoleWeb role = new RbacRoleWeb(dbRole);
+
+                tabPage4.Text = role.Name;
+                txtRole.Text = role.MetaDataRbac;
+                txtEntitlements.Text = role.MetaDataEntitlements;
+
+                role.MetaDataRbac = string.Empty;
+                role.MetaDataEntitlements = string.Empty;
+                propRole.SelectedObject = role;
+            }
+            else
+            {
+                tabPage4.Tag = null;
+                tabPage4.Text = "Role";
+            }
+        }
+
+        private void btnSaveInstance_Click(object sender, EventArgs e)
+        {
+             
+            if (propInstance != null)
+            {
+                RbacEngineWeb rbac = propInstance.SelectedObject as RbacEngineWeb;          
+                Rbac.Save(rbac);
+            }
+        }
+
+        private void btnSaveUser_Click(object sender, EventArgs e)
+        {            
+            if (propUser.SelectedObject != null)
+            {
+                //RbacUser user = propUser.SelectedObject as RbacUser;            
+                //Rbac.Save(user);
+            }
+        }
+
+        private void btnSaveRole_Click(object sender, EventArgs e)
+        {
+            if (propRole.SelectedObject != null)
+            {
+                RbacRoleWeb wRole = propRole.SelectedObject as RbacRoleWeb;              
+                wRole.MetaDataRbac = txtRole.Text;
+                wRole.MetaDataEntitlements = txtEntitlements.Text;
+                Rbac.Save(wRole);
+            }
+        }
+
     }
 }

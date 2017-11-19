@@ -112,19 +112,13 @@
     <Content Include="Samples\Books\role_country_mgr.xml" />
     <Content Include="Samples\Books\role_state_mgr.xml" />
     <Content Include="Samples\Books\test.txt" />
-    <Content Include="Samples\Databases\Books.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Samples\Databases\Books.mdf" />
     <Content Include="Samples\Databases\books_log.ldf">
       <DependentUpon>Books.mdf</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Databases\rbac.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Samples\Databases\rbac.mdf" />
     <Content Include="Samples\Databases\rbac_log.ldf">
       <DependentUpon>rbac.mdf</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Disclaimer\Disclaimer.txt" />
     <Content Include="Samples\Books\entitlement.xml" />

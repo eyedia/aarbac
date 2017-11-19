@@ -32,6 +32,8 @@ Description  -
 #endregion Copyright Notice
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -60,16 +62,27 @@ namespace Eyedia.Aarbac.Framework
             this.MetaDataEntitlements = role.MetaDataEntitlements;
         }
 
+        [ReadOnly(true)]
         public int RoleId { get; set; }
+
+        [ReadOnly(true)]
         public int RbacId { get; set; }
+
         public string Name { get; set; }
+
         public string Description { get; set; }
+
+        [Browsable(false)]
         public string MetaDataRbac { get; set; }
+
+        [Browsable(false)]
         public string MetaDataEntitlements { get; set; }
 
+        [Browsable(false)]
         [XmlIgnore]
         public RbacEntitlement Entitlement { get; set; }
 
+        [Browsable(false)]
         [XmlIgnore]
         public List<RbacTable> CrudPermissions { get; set; }
 

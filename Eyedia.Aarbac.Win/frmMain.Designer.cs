@@ -63,17 +63,33 @@
             this.engineInput = new System.Windows.Forms.PropertyGrid();
             this.label9 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.propInstance = new System.Windows.Forms.PropertyGrid();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnSaveInstance = new System.Windows.Forms.Button();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.propUser = new System.Windows.Forms.PropertyGrid();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.btnSaveUser = new System.Windows.Forms.Button();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.txtRole = new FastColoredTextBoxNS.FastColoredTextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtEntitlements = new FastColoredTextBoxNS.FastColoredTextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.btnSaveRole = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.propRole = new System.Windows.Forms.PropertyGrid();
+            this.label12 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.batchTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadQueriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showLoadedQueriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.usertabPage1 = new System.Windows.Forms.TabPage();
+            this.usertabPage2 = new System.Windows.Forms.TabPage();
+            this.lvwUserParameters = new System.Windows.Forms.ListView();
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerBase)).BeginInit();
             this.splitContainerBase.Panel1.SuspendLayout();
@@ -93,10 +109,17 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtRole)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtEntitlements)).BeginInit();
-            this.panel2.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.tabControl2.SuspendLayout();
+            this.usertabPage1.SuspendLayout();
+            this.usertabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -252,6 +275,7 @@
             this.cbUsers.Name = "cbUsers";
             this.cbUsers.Size = new System.Drawing.Size(254, 28);
             this.cbUsers.TabIndex = 4;
+            this.cbUsers.SelectedIndexChanged += new System.EventHandler(this.cbUsers_SelectedIndexChanged);
             // 
             // cbInstances
             // 
@@ -261,6 +285,7 @@
             this.cbInstances.Name = "cbInstances";
             this.cbInstances.Size = new System.Drawing.Size(254, 28);
             this.cbInstances.TabIndex = 1;
+            this.cbInstances.SelectedIndexChanged += new System.EventHandler(this.cbInstances_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -343,7 +368,6 @@
             this.txtQuery.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtQuery.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtQuery.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtQuery.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtQuery.IsReplaceMode = false;
             this.txtQuery.Language = FastColoredTextBoxNS.Language.SQL;
             this.txtQuery.LeftBracket = '(';
@@ -380,7 +404,6 @@
             this.txtParsedQuerys1.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtParsedQuerys1.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtParsedQuerys1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtParsedQuerys1.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtParsedQuerys1.IsReplaceMode = false;
             this.txtParsedQuerys1.Language = FastColoredTextBoxNS.Language.SQL;
             this.txtParsedQuerys1.LeftBracket = '(';
@@ -417,7 +440,6 @@
             this.txtParsedQuery.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtParsedQuery.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtParsedQuery.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtParsedQuery.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtParsedQuery.IsReplaceMode = false;
             this.txtParsedQuery.Language = FastColoredTextBoxNS.Language.SQL;
             this.txtParsedQuery.LeftBracket = '(';
@@ -466,6 +488,8 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -539,18 +563,98 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.txtRole);
-            this.tabPage2.Controls.Add(this.label10);
-            this.tabPage2.Controls.Add(this.txtEntitlements);
-            this.tabPage2.Controls.Add(this.label8);
+            this.tabPage2.Controls.Add(this.propInstance);
             this.tabPage2.Controls.Add(this.panel2);
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(520, 443);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Role";
+            this.tabPage2.Text = "Instance";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // propInstance
+            // 
+            this.propInstance.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.propInstance.Location = new System.Drawing.Point(3, 3);
+            this.propInstance.Name = "propInstance";
+            this.propInstance.Size = new System.Drawing.Size(514, 394);
+            this.propInstance.TabIndex = 2;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.btnSaveInstance);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(3, 397);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(514, 43);
+            this.panel2.TabIndex = 1;
+            // 
+            // btnSaveInstance
+            // 
+            this.btnSaveInstance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveInstance.Location = new System.Drawing.Point(425, 3);
+            this.btnSaveInstance.Name = "btnSaveInstance";
+            this.btnSaveInstance.Size = new System.Drawing.Size(84, 37);
+            this.btnSaveInstance.TabIndex = 0;
+            this.btnSaveInstance.Text = "Save";
+            this.btnSaveInstance.UseVisualStyleBackColor = true;
+            this.btnSaveInstance.Click += new System.EventHandler(this.btnSaveInstance_Click);
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.tabControl2);
+            this.tabPage3.Controls.Add(this.panel4);
+            this.tabPage3.Location = new System.Drawing.Point(4, 29);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(520, 443);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "User";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // propUser
+            // 
+            this.propUser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.propUser.Location = new System.Drawing.Point(3, 3);
+            this.propUser.Name = "propUser";
+            this.propUser.Size = new System.Drawing.Size(506, 361);
+            this.propUser.TabIndex = 0;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.btnSaveUser);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel4.Location = new System.Drawing.Point(0, 400);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(520, 43);
+            this.panel4.TabIndex = 2;
+            // 
+            // btnSaveUser
+            // 
+            this.btnSaveUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveUser.Location = new System.Drawing.Point(431, 3);
+            this.btnSaveUser.Name = "btnSaveUser";
+            this.btnSaveUser.Size = new System.Drawing.Size(84, 37);
+            this.btnSaveUser.TabIndex = 0;
+            this.btnSaveUser.Text = "Save";
+            this.btnSaveUser.UseVisualStyleBackColor = true;
+            this.btnSaveUser.Click += new System.EventHandler(this.btnSaveUser_Click);
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.txtRole);
+            this.tabPage4.Controls.Add(this.label10);
+            this.tabPage4.Controls.Add(this.txtEntitlements);
+            this.tabPage4.Controls.Add(this.panel5);
+            this.tabPage4.Controls.Add(this.label8);
+            this.tabPage4.Controls.Add(this.propRole);
+            this.tabPage4.Controls.Add(this.label12);
+            this.tabPage4.Location = new System.Drawing.Point(4, 29);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(520, 443);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Role";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // txtRole
             // 
@@ -578,7 +682,7 @@
             this.txtRole.Language = FastColoredTextBoxNS.Language.XML;
             this.txtRole.LeftBracket = '<';
             this.txtRole.LeftBracket2 = '(';
-            this.txtRole.Location = new System.Drawing.Point(3, 23);
+            this.txtRole.Location = new System.Drawing.Point(0, 159);
             this.txtRole.Name = "txtRole";
             this.txtRole.Paddings = new System.Windows.Forms.Padding(0);
             this.txtRole.RightBracket = '>';
@@ -586,18 +690,18 @@
             this.txtRole.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.txtRole.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("txtRole.ServiceColors")));
             this.txtRole.ShowLineNumbers = false;
-            this.txtRole.Size = new System.Drawing.Size(514, 209);
-            this.txtRole.TabIndex = 0;
+            this.txtRole.Size = new System.Drawing.Size(520, 122);
+            this.txtRole.TabIndex = 6;
             this.txtRole.Zoom = 100;
             // 
             // label10
             // 
             this.label10.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.label10.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label10.Location = new System.Drawing.Point(3, 232);
+            this.label10.Location = new System.Drawing.Point(0, 281);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(514, 20);
-            this.label10.TabIndex = 4;
+            this.label10.Size = new System.Drawing.Size(520, 20);
+            this.label10.TabIndex = 8;
             this.label10.Text = "Entitlements";
             // 
             // txtEntitlements
@@ -626,7 +730,7 @@
             this.txtEntitlements.Language = FastColoredTextBoxNS.Language.XML;
             this.txtEntitlements.LeftBracket = '<';
             this.txtEntitlements.LeftBracket2 = '(';
-            this.txtEntitlements.Location = new System.Drawing.Point(3, 252);
+            this.txtEntitlements.Location = new System.Drawing.Point(0, 301);
             this.txtEntitlements.Name = "txtEntitlements";
             this.txtEntitlements.Paddings = new System.Windows.Forms.Padding(0);
             this.txtEntitlements.RightBracket = '>';
@@ -634,39 +738,58 @@
             this.txtEntitlements.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.txtEntitlements.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("txtEntitlements.ServiceColors")));
             this.txtEntitlements.ShowLineNumbers = false;
-            this.txtEntitlements.Size = new System.Drawing.Size(514, 145);
-            this.txtEntitlements.TabIndex = 5;
+            this.txtEntitlements.Size = new System.Drawing.Size(520, 99);
+            this.txtEntitlements.TabIndex = 9;
             this.txtEntitlements.Zoom = 100;
             // 
-            // label8
+            // panel5
             // 
-            this.label8.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label8.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label8.Location = new System.Drawing.Point(3, 3);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(514, 20);
-            this.label8.TabIndex = 3;
-            this.label8.Text = "Row && Column Permissions";
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.btnSaveRole);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(3, 397);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(514, 43);
-            this.panel2.TabIndex = 1;
+            this.panel5.Controls.Add(this.btnSaveRole);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel5.Location = new System.Drawing.Point(0, 400);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(520, 43);
+            this.panel5.TabIndex = 12;
             // 
             // btnSaveRole
             // 
             this.btnSaveRole.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveRole.Location = new System.Drawing.Point(425, 3);
+            this.btnSaveRole.Location = new System.Drawing.Point(431, 3);
             this.btnSaveRole.Name = "btnSaveRole";
             this.btnSaveRole.Size = new System.Drawing.Size(84, 37);
             this.btnSaveRole.TabIndex = 0;
             this.btnSaveRole.Text = "Save";
             this.btnSaveRole.UseVisualStyleBackColor = true;
             this.btnSaveRole.Click += new System.EventHandler(this.btnSaveRole_Click);
+            // 
+            // label8
+            // 
+            this.label8.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label8.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label8.Location = new System.Drawing.Point(0, 139);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(520, 20);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "Row && Column Permissions";
+            // 
+            // propRole
+            // 
+            this.propRole.Dock = System.Windows.Forms.DockStyle.Top;
+            this.propRole.HelpVisible = false;
+            this.propRole.Location = new System.Drawing.Point(0, 20);
+            this.propRole.Name = "propRole";
+            this.propRole.Size = new System.Drawing.Size(520, 119);
+            this.propRole.TabIndex = 11;
+            // 
+            // label12
+            // 
+            this.label12.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label12.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label12.Location = new System.Drawing.Point(0, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(520, 20);
+            this.label12.TabIndex = 10;
+            this.label12.Text = "Basic Properties";
             // 
             // menuStrip1
             // 
@@ -709,6 +832,63 @@
             this.openFileDialog1.FileName = "test.csv";
             this.openFileDialog1.Filter = "\"Csv files|*.csv|All files|*.*\"";
             // 
+            // tabControl2
+            // 
+            this.tabControl2.Controls.Add(this.usertabPage1);
+            this.tabControl2.Controls.Add(this.usertabPage2);
+            this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl2.Location = new System.Drawing.Point(0, 0);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(520, 400);
+            this.tabControl2.TabIndex = 3;
+            // 
+            // usertabPage1
+            // 
+            this.usertabPage1.Controls.Add(this.propUser);
+            this.usertabPage1.Location = new System.Drawing.Point(4, 29);
+            this.usertabPage1.Name = "usertabPage1";
+            this.usertabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.usertabPage1.Size = new System.Drawing.Size(512, 367);
+            this.usertabPage1.TabIndex = 0;
+            this.usertabPage1.Text = "Basic Properties";
+            this.usertabPage1.UseVisualStyleBackColor = true;
+            // 
+            // usertabPage2
+            // 
+            this.usertabPage2.Controls.Add(this.lvwUserParameters);
+            this.usertabPage2.Location = new System.Drawing.Point(4, 29);
+            this.usertabPage2.Name = "usertabPage2";
+            this.usertabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.usertabPage2.Size = new System.Drawing.Size(512, 367);
+            this.usertabPage2.TabIndex = 1;
+            this.usertabPage2.Text = "Parameters";
+            this.usertabPage2.UseVisualStyleBackColor = true;
+            // 
+            // lvwUserParameters
+            // 
+            this.lvwUserParameters.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader2,
+            this.columnHeader3});
+            this.lvwUserParameters.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwUserParameters.FullRowSelect = true;
+            this.lvwUserParameters.Location = new System.Drawing.Point(3, 3);
+            this.lvwUserParameters.Name = "lvwUserParameters";
+            this.lvwUserParameters.Size = new System.Drawing.Size(506, 361);
+            this.lvwUserParameters.TabIndex = 0;
+            this.lvwUserParameters.UseCompatibleStateImageBehavior = false;
+            this.lvwUserParameters.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Name";
+            this.columnHeader2.Width = 200;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Value";
+            this.columnHeader3.Width = 300;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -743,11 +923,18 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtRole)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtEntitlements)).EndInit();
-            this.panel2.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.tabControl2.ResumeLayout(false);
+            this.usertabPage1.ResumeLayout(false);
+            this.usertabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -787,18 +974,34 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private FastColoredTextBoxNS.FastColoredTextBox txtRole;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.PropertyGrid engineInput;
         private System.Windows.Forms.TextBox txtErrors;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button btnSaveRole;
-        private FastColoredTextBoxNS.FastColoredTextBox txtEntitlements;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btnSaveInstance;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button btnExecuteAll;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabPage4;
+        private FastColoredTextBoxNS.FastColoredTextBox txtRole;
+        private System.Windows.Forms.Label label10;
+        private FastColoredTextBoxNS.FastColoredTextBox txtEntitlements;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.PropertyGrid propInstance;
+        private System.Windows.Forms.PropertyGrid propUser;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Button btnSaveUser;
+        private System.Windows.Forms.PropertyGrid propRole;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Button btnSaveRole;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage usertabPage1;
+        private System.Windows.Forms.TabPage usertabPage2;
+        private System.Windows.Forms.ListView lvwUserParameters;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
     }
 }
 
