@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>aarbac.NET</id>
+    <version>1.0.7</version>
+    <title>An Automated Role Based Access Control</title>
+    <authors>Deb'jyoti Das</authors>
+    <owners>Deb'jyoti Das</owners>
+    <licenseUrl>https://github.com/eyedia/aarbac/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/eyedia/aarbac</projectUrl>
+    <iconUrl>https://github.com/eyedia/aarbac/blob/master/Eyedia.Aarbac.Framework/Graphics/rbac_128.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>An automated role based access control .NET framework for Microsoft SQL Server to manage your row and column level security as well as user interface entitlements like menu, submenu, screen and screen elements.</description>
+    <releaseNotes>First Release</releaseNotes>
+    <copyright>Copyright 2017 (c) Debjyoti Das. All rights reserved.</copyright>
+    <tags>automated role based access control microsoft sql server row column level permission authorization entitlement menu screen elements data filter crud select insert update delete .NET SQL Parser Engine</tags>
+    <dependencies>      
+        <dependency id="EntityFramework" version="6.2.0" />
+        <dependency id="Microsoft.SqlServer.TransactSql.ScriptDom" version="14.0.3660.1" />
+        <dependency id="CommandLineParser" version="1.9.71" />
+        <dependency id="GenericParser" version="1.1.5" />
+        <dependency id="Newtonsoft.Json" version="10.0.3"/>
+        <dependency id="FCTB" version="2.16.21.0"  />      
+    </dependencies>
+    <contentFiles>      
+      <files include="Content\*.*" buildAction="Compile"/>
+      <files include="..\..\Eyedia.Aarbac.Command\Samples\Users.csv" buildAction="Compile"/>
+      <files include="..\..\Eyedia.Aarbac.Command\Samples\Books\*.xml" buildAction="Compile"/>
+      <files include="..\..\Eyedia.Aarbac.Command\Samples\Books\test.txt" buildAction="Compile"/>
+      <files include="..\..\Eyedia.Aarbac.Command\Samples\Books\tests.csv" buildAction="Compile"/>
+    </contentFiles>
+  </metadata>
+  <files>
+    <file src="..\..\TempReleases\aarbac\**" target="lib\net452" />
+    <file src="..\..\Eyedia.Aarbac.Command\Samples\Databases\**" target="content\Samples\Databases" />
+    <file src="Content\AarbacSamples.cs.pp" target="content\AarbacSamples.cs.pp" />
+    <file src="Content\app.config.transform" target="content\aarbac.config" />
+    <file src="..\..\Eyedia.Aarbac.Command\Samples\Users.csv" target="content\Samples"/>
+    <file src="..\..\Eyedia.Aarbac.Command\Samples\Books\*.xml" target="content\Samples\Books"/>
+    <file src="..\..\Eyedia.Aarbac.Command\Samples\Books\test.txt" target="content\Samples\Books"/>
+    <file src="..\..\Eyedia.Aarbac.Command\Samples\Books\tests.csv" target="content\Samples\Books"/>
+  </files>
+</package>

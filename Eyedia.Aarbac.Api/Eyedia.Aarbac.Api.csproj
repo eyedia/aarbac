@@ -13,8 +13,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Symplus.Rbac.Api</RootNamespace>
-    <AssemblyName>Symplus.Rbac.Api</AssemblyName>
+    <RootNamespace>Eyedia.Aarbac.Api</RootNamespace>
+    <AssemblyName>Eyedia.Aarbac.Api</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -247,6 +247,8 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Nuget\Content\web.config.transform" />
+    <Content Include="Nuget\Eyedia.Aarbac.Api.nuspec" />
     <None Include="Properties\PublishProfiles\rbac_clt.pubxml" />
     <None Include="Properties\PublishProfiles\rbac_temp.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

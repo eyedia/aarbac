@@ -240,14 +240,12 @@
     <None Include="DataManager\RbacDbModel.edmx.diagram">
       <DependentUpon>RbacDbModel.edmx</DependentUpon>
     </None>
-    <None Include="Eyedia.Aarbac.Framework.nuspec">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="MetaData\Entitlement.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Nuget\Content\AarbacSamples.cs.pp" />
     <None Include="Nuget\Content\app.config.transform" />
+    <None Include="Nuget\Eyedia.Aarbac.Framework.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

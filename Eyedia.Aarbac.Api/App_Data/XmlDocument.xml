@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>Symplus.Rbac.Api</name>
+        <name>Eyedia.Aarbac.Api</name>
     </assembly>
     <members>
         <member name="M:Eyedia.Aarbac.Api.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
