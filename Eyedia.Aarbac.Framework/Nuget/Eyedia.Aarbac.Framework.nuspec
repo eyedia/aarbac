@@ -8,7 +8,7 @@
     <owners>Deb'jyoti Das</owners>
     <licenseUrl>https://github.com/eyedia/aarbac/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/eyedia/aarbac</projectUrl>
-    <iconUrl>https://github.com/eyedia/aarbac/blob/master/Eyedia.Aarbac.Framework/Graphics/rbac_128.png</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Framework/Graphics/rbac_128.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>An automated role based access control .NET framework for Microsoft SQL Server to manage your row and column level security as well as user interface entitlements like menu, submenu, screen and screen elements.</description>
     <releaseNotes>First Release</releaseNotes>
