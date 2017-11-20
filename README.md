@@ -9,10 +9,10 @@ select * from Author
 automatically may get converted to…
 
 ```sql
-select AuthorId, Name, ZipCodeId from Author inner join Zipcode zc on zc.ZipCodeId = Author.ZipCodeId inner join City c on c.CityId = zc.CityId where c.Name = 'New York'
+SELECT Author.AuthorId, Author.Name, Author.ZipCodeId FROM Author inner join [ZipCode] [t9] on [t9].ZipCodeId = [Author].ZipCodeId inner join [City] [t10] on [t10].CityId = [t9].CityId WHERE t10.Name in ('New York','Charlotte')
 ```
 
-assuming user belongs to a role which allows him to see only 3 columns from author table and only allowed to see authors from New York city.
+assuming user belongs to a role which allows him to see only 3 columns from author table and only allowed to see authors from New York and Charlotte cities.
 
 And an update query like the following…
 
