@@ -66,7 +66,7 @@ When user logs in, i.e. authenticated and authorized based on your authenticatio
 ### Prerequisites:
 1. Microsoft SQL Server.
 2. .NET 4.5.2+
-
+---
 ### Getting started with sample
 1. Create an console Application
 2. Get [aarbac](https://www.nuget.org/packages/aarbac.NET/) from nuget.
@@ -90,7 +90,7 @@ Console.Read();
 This code will parse all queries from test.csv and store parsed queries into test_result.csv. Study all the input queries and parsed queries to get feel of aarbac framework. Start playing around.
 
 [See WIKI](https://github.com/eyedia/aarbac/wiki)
-
+---
 ### Getting started with real world
 1. Get [aarbac](https://www.nuget.org/packages/aarbac.NET/) from nuget.
 2. As you may have guessed, you don't need .mdf, .ldf, test.csv, test.txt files. So feel free to delete those, or keep as is.
@@ -102,7 +102,7 @@ This code will parse all queries from test.csv and store parsed queries into tes
         3. Create users & roles.
    
 [See WIKI](https://github.com/eyedia/aarbac/wiki)
-
+---
 ### aarbac REST API
 aarbac comes with REST APIs to perform various administrative operations to maintain:
 1. aarbac instances
@@ -111,16 +111,16 @@ aarbac comes with REST APIs to perform various administrative operations to main
 4. engine - test various queries. A good place for your developers to test queries. Be careful this is not meant for production release.
 
 [See WIKI](https://github.com/eyedia/aarbac/wiki)
-
+---
 ### aarbac Windows Application
 aarbac windows application can be used for testing; you can test a single query or multiple queries. It also allows developers to modify the rule & entitlements xmls, hence not suitable for end users.  If you want to contribute, [please visit contributor page.](https://github.com/eyedia/aarbac/wiki/Contributors)
 
 [See WIKI](https://github.com/eyedia/aarbac/wiki)
-
+---
 ### aarbac Web User Interfacev (Admin pages)
 aarbac does __not__ have web interface. Basically you need to develop an user interface & call aarbac APIs to perform various operations. If you want to contribute, [please visit contributor page.](https://github.com/eyedia/aarbac/wiki/Contributors)
 
 [See WIKI](https://github.com/eyedia/aarbac/wiki)
-
+---
 # Disclaimer
 *11/20/2017 - I am new to github and nuget, currently working on nuget release & other basic documentation on github. This document may get updated frequently. aarbac release 1.0.8 is stable, but future release may have some minor changes. PLease execuse me for that. I will remove this disclaimer once everything is stable.*
