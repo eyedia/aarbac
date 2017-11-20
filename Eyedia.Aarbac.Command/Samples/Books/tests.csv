@@ -2,6 +2,6 @@ Instance,Query,User,Role
 books,"select a.AuthorId, a.Name as [AuthorName], a.ZipCodeId, c.Name as City from Author a
 inner join Zipcode zc on zc.ZipCodeId = a.ZipCodeId
 inner join City c on c.CityId = zc.CityId
-where c.Name = 'Charlotte'",essie,Country Manager 0
-books,select * from book,essie,Country Manager 0
+where c.Name = 'Charlotte'",Lashawn, role_city_mgr
+books,select * from book,Lashawn, role_city_mgr
 books,"select * from Author where Author.ZipCodeId in (select zc.ZipCodeId from ZipCode zc where zc.CityId in (select c.CityId from City c where c.StateId in (select StateId from State where ShortName in ('NY', 'NC'))))", Lashawn, role_city_mgr
