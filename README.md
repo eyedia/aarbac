@@ -1,5 +1,11 @@
 ![Aarbac logo](https://github.com/eyedia/aarbac/blob/master/Eyedia.Aarbac.Framework/Graphics/rbac_128.png)
 
+# Background & Thoughts
+Technology solution is vast these days, and there is always solution to every technical problem, well..almost! Still there are major number of applications are being written using RDBMS databases with a data access layer which performs various CRUD operations on the database. Abosultely the applications are developed for specific requirements and there will be lot of code to handle those business logics. Abosolutely we need authentication & authorization layers - may be an active directory or various other kinds of authentication and authorizations mechanisms.
+
+However you authenticate  & authorize users, ultimately it's app owner's responsibility to provide necessary rights on the user interface(i.e. entitlements), which will define what all 
+
+---
 # What is aarbac?
 An Automated Role Based Access Control .NET framework which can handle...
 
