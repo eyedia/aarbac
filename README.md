@@ -1,25 +1,28 @@
 ![Aarbac logo](https://github.com/eyedia/aarbac/blob/master/Eyedia.Aarbac.Framework/Graphics/rbac_128.png)
 
 # What is aarbac?
-An Automated Role Based Access Control .NET framework which can automatically apply row & column level permissions on your SELECT,INSERT,UPDATE & DELETE queries.For example, a read (or select) operation like the following …
+An Automated Role Based Access Control .NET framework which can handle...
+
+## 1. Automated Data Filters & Permissions
+Apply row & column level permissions on your SELECT,INSERT,UPDATE & DELETE queries. For example, a read (or select) operation like the following …
 
 ```sql
 select * from Author
 ```
-automatically may get converted to…
+automatically may get converted to...
 
 ```sql
 SELECT Author.AuthorId, Author.Name, Author.ZipCodeId FROM Author inner join [ZipCode] [t9] on [t9].ZipCodeId = [Author].ZipCodeId inner join [City] [t10] on [t10].CityId = [t9].CityId WHERE t10.Name in ('New York','Charlotte')
 ```
 
-assuming user belongs to a role which allows him to see only 3 columns from author table and only allowed to see authors from New York and Charlotte cities.
+...assuming user belongs to a role which allows him to see only 3 columns from author table and only allowed to see authors from New York and Charlotte cities.
 
-And an update query like the following…
+And an update query like the following...
 
 ```sql
 update Author set Name = 'Eyedia', SSN = '999-99-9999' where AuthorId = 9999
 ```
-may hit exception like 
+may hit exception like...
 
 ```diff
 - User ‘abc’ does have permission to update table ‘Author’ but does not have permission to update column ‘SSN’
@@ -45,10 +48,20 @@ using (Rbac rbac = new Rbac("essie"))   //<-- you should pass the logged in user
     using (SqlQueryParser parser = new SqlQueryParser(rbac))
     {
         parser.Parse(query); //<-- this will throw exception if not permitted                   
-
+        //<-- if you are here, you are goood. Just perform basic insert/update/delete here.
     }
 }
 ```
+---
+## 2. Entitlements of User Interface (Menu, Sub Menu, Screen, Screen Elements)
+Every rule in aarbac has screen entitlement, you can define entitlements for your applications in following 2 categories:
+#### 1. Menus - Menu and sub menues within (linked list nodes)
+#### 2. Screens - Screen and Screen Elements (linked list nodes)
+
+And just set visible and enabled properties on those nodes.
+
+When user logs in, i.e. authenticated and authorized based on your authentication mechanism(for example active directory of the organization), just map user with a specific aarbac role, & each role will have entitlement. App developers need to apply the entitlement xml into the menu and screen elements.
+
 ---
 ### Prerequisites:
 1. Microsoft SQL Server.
