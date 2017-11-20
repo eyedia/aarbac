@@ -24,7 +24,32 @@ may hit exception like
 ```diff
 - User ‘abc’ does have permission to update table ‘Author’ but does not have permission to update column ‘SSN’
 ```
+---
+### Sample Code
+#### Select:
+```cs
+using (Rbac rbac = new Rbac("essie"))   //<-- you should pass the logged in user name from the context
+{
+    using (RbacSqlQueryEngine engine = new RbacSqlQueryEngine(rbac, query))
+    {
+        engine.Execute(); //<-- automatically parse and transform query based on role
+        if ((!engine.IsErrored) && (engine.Parser.IsParsed) && (engine.Parser.QueryType == RbacQueryTypes.Select))
+            return engine.Table; //<-- if it is select query, the table will be loaded
+    }
+}
+```
+#### Inserts, updates and deletes
+```cs
+using (Rbac rbac = new Rbac("essie"))   //<-- you should pass the logged in user name from the context
+{
+    using (SqlQueryParser parser = new SqlQueryParser(rbac))
+    {
+        parser.Parse(query); //<-- this will throw exception if not permitted                   
 
+    }
+}
+```
+---
 ### Prerequisites:
 1. Microsoft SQL Server.
 2. .NET 4.5.2+
