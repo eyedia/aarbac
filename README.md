@@ -64,14 +64,14 @@ using (Rbac rbac = new Rbac("essie"))   //<-- you should pass the logged in user
     4. test.csv - Few sample queries(select, insert, update, delete) of "Books" applicaition.
     5. AarbacSamples.cs will contain the sample code, and thanks to nuget, which will automatically add the cs into your project. You are all set, just type this:
 ```cs
-new TestAarbac.Samples.AarbacSamples().BookStoreTestOne();
+new AarbacSamples().BookStoreTestOne();
 Console.Read();
 ```
 Above code will test a query from test.txt. This will ensure everything is good, the .mdf files are attached correctly. Mostly .mdf attachment related issues may occure here, just troubleshoot as you regularly do. Alternatively you can attach the .mdfs manually into your SQL Server instance and change the connection strings in the config file. Check out the test_result.txt (the output) along with test.txt (the input).
 
 Alright...interesting, huuuh?! Try this out then...
 ```cs
-new TestAarbac.Samples.AarbacSamples().BookStoreTestBatch();
+new AarbacSamples().BookStoreTestBatch();
 Console.Read();
 ```
 This code will parse all queries from test.csv and store parsed queries into test_result.csv. Study all the input queries and parsed queries to get feel of aarbac framework. Start playing around.
