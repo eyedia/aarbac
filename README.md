@@ -93,10 +93,10 @@ This code will parse all queries from test.csv and store parsed queries into tes
 
 ### Getting started with real world
 1. Get [aarbac](https://www.nuget.org/packages/aarbac.NET/) from nuget.
-2. As you may have guessed, you don't need .mdf, .ldf, test.csv, test.txt files. So feel free to delete those, or keep those as is.
-3. Go to command prompt of the package folder and run aarbac.exe commands to...
+2. As you may have guessed, you don't need .mdf, .ldf, test.csv, test.txt files. So feel free to delete those, or keep as is.
+3. Go to command prompt of the package folder and run aarbac.exe to...
 
-    1. Create aarbac repository (only 4 tables)
+    1. Create aarbac repository (4 aarbac tables will be created on new database or your existing database)
     2. For each of your applications, you need to create:
         1. aarbac instance. This operation will extract metadata of your application database and insert into rbac table, which will be used to create roles.
         3. Create users & roles.
@@ -113,14 +113,14 @@ aarbac comes with REST APIs to perform various administrative operations to main
 [See WIKI](https://github.com/eyedia/aarbac/wiki)
 
 ### aarbac Windows Application
-aarbac also has a windows application for testing, where you can test a single or multiple queries along with basic operations. If you want to contribute, [please visit contributor page.](https://github.com/eyedia/aarbac/wiki/Contributors)
+aarbac windows application can be used for testing; you can test a single query or multiple queries. It also allows developers to modify the rule & entitlements xmls, hence not suitable for end users.  If you want to contribute, [please visit contributor page.](https://github.com/eyedia/aarbac/wiki/Contributors)
 
 [See WIKI](https://github.com/eyedia/aarbac/wiki)
 
 ### aarbac Web User Interfacev (Admin pages)
-aarbac does not have web interface. Basically we need to write code to call aarbac APIs. If you want to contribute, [please visit contributor page.](https://github.com/eyedia/aarbac/wiki/Contributors)
+aarbac does __not__ have web interface. Basically you need to develop an user interface & call aarbac APIs to perform various operations. If you want to contribute, [please visit contributor page.](https://github.com/eyedia/aarbac/wiki/Contributors)
 
 [See WIKI](https://github.com/eyedia/aarbac/wiki)
 
 # Disclaimer
-*11/17/2017 - I am new to github and nuget, currently working on nuget release & other basic documentation on github. This document may get updated frequently. aarbac release 1.0.8 is stable, but future release may have some minor changes. PLease execuse me for that. I will remove this disclaimer once everything is stable.*
+*11/20/2017 - I am new to github and nuget, currently working on nuget release & other basic documentation on github. This document may get updated frequently. aarbac release 1.0.8 is stable, but future release may have some minor changes. PLease execuse me for that. I will remove this disclaimer once everything is stable.*
