@@ -5,3 +5,4 @@ inner join City c on c.CityId = zc.CityId
 where c.Name = 'Charlotte'",Lashawn, role_city_mgr
 books,select * from book,Lashawn, role_city_mgr
 books,"select * from Author where Author.ZipCodeId in (select zc.ZipCodeId from ZipCode zc where zc.CityId in (select c.CityId from City c where c.StateId in (select StateId from State where ShortName in ('NY', 'NC'))))", Lashawn, role_city_mgr
+books, "select zc.ZipCode, a.Name from ZipCode zc inner join Author a on a.ZipCodeId = zc.ZipCodeId where zc.ZipCodeId = 12",Lashawn, role_city_mgr
