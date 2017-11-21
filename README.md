@@ -8,9 +8,9 @@ Technology solution is vast these days, and there is always at least one solutio
 4. Data Access Layer
 5. And a RDBMS database
 
-Security layer generally just perform authentication and authorization and developers injects various code in these layers(2, 3 & 4) to satisfy the business needs. To facilitate these roles, permissions, entitlements, generally they implement various ```HasPermission(), IsInGroup(), etc.``` type methods with many ifs elses, switches, and other conditions to make sure that user with appropriate rights are performing appropriate operations.
+Security layer generally just perform authentication and authorization and developers inject various code in these layers(2, 3 & 4) to satisfy the business needs. To facilitate these roles, permissions, entitlements, generally they implement various ```HasPermission(), IsInGroup(), etc.``` type methods with many ```ifs elses, switches, ``` and other conditions to make sure that user with appropriate rights are performing appropriate operations.
 
-During initial days (e.g. 1st release), everything looks good, but messed up soon when complex business scenarios, exceptions are introduced, more ifs, switches are introduced in those layers, code quality decreases and code volume increases and makes production support & enhancements difficult. Nightmare for new team members! 
+During initial days, everything looks good, but messed up soon when complex business scenarios, exceptions are introduced, more ifs, switches are introduced in those layers, code quality decreases and code volume increases and makes production support & enhancements difficult. Nightmare for new team members! 
 
 Solution (or just a try) - "Can we separate out permission related code into a complete new layer? and let these layers (2, 3 & 4) do their regular job and not worried about the permission at all?"
 
