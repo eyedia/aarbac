@@ -67,7 +67,7 @@ namespace Eyedia.Aarbac.Win
                 }
 
             }
-            catch (Exception ex)
+            catch (RbacException ex)
             {
                 txtErrors.Text = ex.Message;
                 txtErrors.Visible = true;

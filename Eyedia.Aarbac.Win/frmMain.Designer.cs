@@ -498,9 +498,9 @@
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.label11);
+            //             
             this.tabPage1.Controls.Add(this.treeView1);
+            this.tabPage1.Controls.Add(this.label11);
             this.tabPage1.Controls.Add(this.txtErrors);
             this.tabPage1.Controls.Add(this.engineInput);
             this.tabPage1.Controls.Add(this.label9);

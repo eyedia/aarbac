@@ -49,6 +49,18 @@ namespace Eyedia.Aarbac.Framework
         public bool SkipExecution { get; set; }
         public List<string> Errors { get; set; }
         public DataTable Table { get; private set; }
+        public string AllErrors
+        {
+            get
+            {
+                string allErrors = string.Empty;
+                             
+                if ((Errors != null) && (Errors.Count > 0))
+                    allErrors += Errors.ToLine();
+
+                return allErrors;
+            }
+        }
 
         public RbacSqlQueryEngine(SqlQueryParser sqlQueryParser, bool isDebugMode = false)
         {

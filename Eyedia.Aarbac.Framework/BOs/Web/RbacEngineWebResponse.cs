@@ -87,9 +87,9 @@ namespace Eyedia.Aarbac.Framework
         public void SetResult(RbacSqlQueryEngine engine)
         {
             QueryType = engine.Parser.QueryType.ToString();
-            Log = engine.Parser.AllErrors;
+            Log = engine.Parser.AllErrors + engine.AllErrors;
             Columns = engine.Parser.Columns;
-            Errors = engine.Parser.AllErrors;
+            Errors = engine.Parser.AllErrors + engine.AllErrors;
             IsParsed = engine.Parser.IsParsed;
             IsNotSupported = engine.Parser.IsNotSupported;
             IsZeroSelectColumn = engine.Parser.IsZeroSelectColumn;
@@ -103,7 +103,7 @@ namespace Eyedia.Aarbac.Framework
 
             IsEngineExecuted = engine.IsExecuted;
             IsEngineDebugMode = engine.IsDebugMode;
-            Table = engine.Table;            
+            Table = engine.Table;
         }
        
     }
