@@ -1,9 +1,18 @@
 ![Aarbac logo](https://github.com/eyedia/aarbac/blob/master/Eyedia.Aarbac.Framework/Graphics/rbac_128.png)
 
 # Background & Thoughts
-Technology solution is vast these days, and there is always a solution for every technical problem if not many. Typical applications use RDBMS database with data access layer to perform various CRUD operations on the database. Applications are developed for specific requirements as developers we call those business logics, we also need authentication & authorization layers, e.g. Active Directory.
+Technology solution is vast these days, and there is always at least one solution for every technical problem. A typical application has following layers:
+1. Security Layer (Authentication & Authorization)
+2. User Interface Layer
+3. Business Logic Layer
+4. Data Access Layer
+5. And a RDBMS database
 
-However you authenticate  & authorize users, ultimately it's app owner's responsibility to provide necessary rights on the user interface(i.e. entitlements), which will define what all 
+Security layer generally just perform authentication and authorization and developers injects various code in these layers 2,3 & 4 to satisfy the business needs. You will various roles, permissions, entitlement data structure and various "HasPermissions()", ifs, switches, and other conditions to make sure that user with appropriate rights are performing appropriate operations.
+
+In mid level application during initial days, everything looks good, but started messed up when complex business scenarios, exceptions are introduced, more ifs, switches are introduced in these layers, code quality decreases, code volume increases and makes production support & enhancements difficult.
+
+Solution, or just a thought - "Can we separate out our permission related code into a complete new layer? and let these layers (2, 3 & 4) do their regular job and not worried about the permission at all?"
 
 ---
 # What is aarbac?
