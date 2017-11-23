@@ -18,7 +18,7 @@ Solution (or just a try) - "Can we separate out permission related code into a c
 # What is aarbac?
 An Automated Role Based Access Control .NET framework which can handle...
 
-## 1. Automated Data Filters & Permissions
+## 1. Automated Data Filters & Permissions (Schema Based)
 Apply row & column level permissions on your SELECT,INSERT,UPDATE & DELETE queries. For example, a read (or select) operation like the following …
 
 ```sql
