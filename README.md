@@ -1,15 +1,24 @@
 ![Aarbac logo](https://github.com/eyedia/aarbac/blob/master/Eyedia.Aarbac.Framework/Graphics/rbac_128.png)
 
 # Background & Thoughts
-Technology solution is vast these days, and there is always solution to every technical problem, well..almost! Still there are major number of applications are being written using RDBMS databases with a data access layer which performs various CRUD operations on the database. Abosultely the applications are developed for specific requirements and there will be lot of code to handle those business logics. Abosolutely we need authentication & authorization layers - may be an active directory or various other kinds of authentication and authorizations mechanisms.
+Technology solution is vast these days, and there is always at least one solution for every technical problem. A typical application has following layers:
+1. Security Layer (Authentication & Authorization)
+2. User Interface Layer
+3. Business Logic Layer
+4. Data Access Layer
+5. And a RDBMS database
 
-However you authenticate  & authorize users, ultimately it's app owner's responsibility to provide necessary rights on the user interface(i.e. entitlements), which will define what all 
+Security layer generally just perform authentication and authorization and developers inject various code in these layers(2, 3 & 4) to satisfy the business needs. To facilitate these roles, permissions, entitlements, generally they implement various ```HasPermission(), IsInGroup(), etc.``` type methods with many ```ifs elses, switches, ``` and other conditions to make sure that user with appropriate rights are performing appropriate operations.
+
+During initial days, everything looks good, but messed up soon when complex business scenarios, exceptions are introduced, more ifs, switches are introduced in those layers, code quality decreases and code volume increases and makes production support & enhancements difficult. Nightmare for new team members! 
+
+Solution (or just a try) - "Can we separate out permission related code into a complete new layer? and let these layers (2, 3 & 4) do their regular job and not worried about the permission at all?"
 
 ---
 # What is aarbac?
 An Automated Role Based Access Control .NET framework which can handle...
 
-## 1. Automated Data Filters & Permissions
+## 1. Automated Data Filters & Permissions (Schema Based)
 Apply row & column level permissions on your SELECT,INSERT,UPDATE & DELETE queries. For example, a read (or select) operation like the following …
 
 ```sql
