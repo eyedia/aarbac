@@ -267,8 +267,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Release (
-copy /Y "$(TargetDir)*.dll" $(SolutionDir)TempReleases\aarbac\
-copy /Y "$(ProjectDir)Databases\" $(SolutionDir)TempReleases\aarbac\Databases
+copy /Y "$(TargetDir)Eyedia.Aarbac.Framework.dll" $(SolutionDir)TempReleases\aarbac\
 )</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
