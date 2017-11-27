@@ -38,6 +38,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Eyedia.Aarbac.Framework;
+using System.Threading.Tasks;
 
 namespace Eyedia.Aarbac.Api.Controllers
 {
@@ -108,17 +109,19 @@ namespace Eyedia.Aarbac.Api.Controllers
        
         [HttpPut]
         [Route("{id}")]        
-        public void Put(int id, [FromBody]RbacEngineWeb rbacEngineWeb)
-        {
-            Rbac.Save(rbacEngineWeb);
+        public RbacEngineWeb Put(int id, [FromBody]RbacEngineWeb rbacEngineWeb)
+        {            
+            return Rbac.Save(rbacEngineWeb);
         }
         
         [HttpDelete]
         [Route("{id}")]
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
             Rbac.Delete(Rbac.GetRbac(id));
+            return Ok();
         }
+       
     }
 }
 

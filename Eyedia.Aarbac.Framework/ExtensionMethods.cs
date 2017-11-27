@@ -246,23 +246,25 @@ namespace Eyedia.Aarbac.Framework
             return null;
         }
 
-        public static void ToCsv(this DataTable table, string fileName)
+        public static void ToCsv(this DataTable table, string fileName, string delimiter = ",")
         {
             StringBuilder sb = new StringBuilder();
 
             IEnumerable<string> columnNames = table.Columns.Cast<DataColumn>().
                                               Select(column => column.ColumnName);
-            sb.AppendLine(string.Join(",", columnNames));
+            sb.AppendLine(string.Join(delimiter, columnNames));         
 
             foreach (DataRow row in table.Rows)
             {
                 IEnumerable<string> fields = row.ItemArray.Select(field =>
                   string.Concat("\"", field.ToString().Replace("\"", "\"\""), "\""));
-                sb.AppendLine(string.Join(",", fields));
+                sb.AppendLine(string.Join(delimiter, fields));
             }
 
             File.WriteAllText(fileName, sb.ToString());
         }
+
+       
     }
 }
 

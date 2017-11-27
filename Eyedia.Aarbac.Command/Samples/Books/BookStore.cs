@@ -144,7 +144,7 @@ namespace Eyedia.Aarbac.Command
         public RbacSqlQueryEngine TestOne(string query = null)
         {
             RbacSqlQueryEngine engine = null;
-            using (Rbac rbac = new Rbac("essie"))
+            using (Rbac rbac = new Rbac("Lashawn"))
             {
                 if (string.IsNullOrEmpty(query))
                     query = File.ReadAllText(Path.Combine(_rootDir, "Books", "test.txt"));
@@ -154,6 +154,9 @@ namespace Eyedia.Aarbac.Command
                 //    table = engine.Table; //--> gives you data table if it is a select query
 
             }
+            if (!string.IsNullOrEmpty(engine.AllErrors))
+                Console.WriteLine("Errors:{0}", engine.AllErrors);
+
             if (engine.Table != null)
                 Console.WriteLine("The query was a select query and returned {0} records", engine.Table.Rows.Count);
 
@@ -165,23 +168,24 @@ namespace Eyedia.Aarbac.Command
             GenericParserAdapter genParser = new GenericParserAdapter(Path.Combine(_rootDir, "Books", "tests.csv"));
             genParser.FirstRowHasHeader = true;
             DataTable table = genParser.GetDataTable();
-            if(table.Columns["ParsedQueryStage1"] == null)
+            if (table.Columns["ParsedQueryStage1"] == null)
             {
                 table.Columns.Add("ParsedQueryStage1");
                 table.Columns.Add("ParsedQuery");
+                table.Columns.Add("Records");
                 table.Columns.Add("Errors");
             }
 
-            Rbac rbac = new Rbac("essie");
             foreach (DataRow row in table.Rows)
-            {                
-                RbacRole role = Rbac.GetRole(row[2].ToString());                
+            {
+                Rbac rbac = new Rbac(row["User"].ToString());
+                RbacRole role = Rbac.GetRole(row["Role"].ToString());
                 SqlQueryParser parser = new SqlQueryParser(rbac);
                 try
                 {
-                    parser.Parse(row[0].ToString());
+                    parser.Parse(row["Query"].ToString());
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     row["Errors"] = ex.Message;
                     continue;
@@ -190,9 +194,77 @@ namespace Eyedia.Aarbac.Command
                 engine.Execute();
                 row["ParsedQueryStage1"] = parser.ParsedQueryStage1;
                 row["ParsedQuery"] = parser.ParsedQuery;
-                row["Errors"] = parser.AllErrors + Environment.NewLine;
+                if (engine.IsErrored)
+                    row["Records"] = "Errored";
+                else if ((parser.QueryType == RbacQueryTypes.Select) && (engine.Table == null))
+                    row["Records"] = "Errored";
+                else if ((parser.QueryType == RbacQueryTypes.Select) && (engine.Table != null))
+                    row["Records"] = engine.Table.Rows.Count + " record(s)";
+                else
+                    row["Records"] = "Not Applicable";
+
+                if (!string.IsNullOrEmpty(parser.AllErrors))
+                    row["Errors"] += parser.AllErrors + Environment.NewLine;
+
+                if (!string.IsNullOrEmpty(engine.AllErrors))
+                    row["Errors"] += engine.AllErrors + Environment.NewLine;
             }
             table.ToCsv(Path.Combine(_rootDir, "Books", "tests_result.csv"));
+            ToCsvMarkdownFormat(table, Path.Combine(_rootDir, "Books", "tests_result.md"));
+        }
+
+        public void ToCsvMarkdownFormat(DataTable table, string fileName)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            string rbac = "books";
+
+            int counter = 1;
+            foreach (DataRow row in table.Rows)
+            {
+                string oneRecord = counter + ". " + row["Comment"] + Environment.NewLine;
+                oneRecord += "```" + Environment.NewLine;
+                oneRecord += "Rbac:" + rbac + Environment.NewLine;
+                oneRecord += "User:" + row["User"] + Environment.NewLine;
+                oneRecord += "Role:" + row["Role"] + Environment.NewLine;
+                oneRecord += "Query:" + Environment.NewLine;
+                oneRecord += "```" + Environment.NewLine;
+
+
+                oneRecord += "```sql" + Environment.NewLine + FormatQuery(row["Query"]) + Environment.NewLine + "```" + Environment.NewLine;
+
+                oneRecord += "```" + Environment.NewLine;
+                oneRecord += "Parsed Query:" + Environment.NewLine;
+                oneRecord += "```" + Environment.NewLine;
+                oneRecord += "```sql" + Environment.NewLine + FormatQuery(row["ParsedQuery"]) + Environment.NewLine + "```" + Environment.NewLine;
+
+                
+                if (string.IsNullOrEmpty(row["Records"].ToString()))
+                    oneRecord += "```" + Environment.NewLine + "Record Count(s):" + Environment.NewLine + "```" + Environment.NewLine;
+                else
+                    oneRecord += "```" + Environment.NewLine + "Record Count(s):" + row["Records"] + Environment.NewLine + "```" + Environment.NewLine;
+
+                if (string.IsNullOrEmpty(row["Errors"].ToString()))
+                    oneRecord += "```" + Environment.NewLine + "Errors(s):" + Environment.NewLine + "```" + Environment.NewLine;
+                else
+                    oneRecord += "```diff" + Environment.NewLine + "- " + row["Errors"] + Environment.NewLine + "```" + Environment.NewLine;
+
+                
+                oneRecord += "***" + Environment.NewLine;
+
+                sb.AppendLine(oneRecord);
+                counter++;
+            }
+
+            File.WriteAllText(fileName, sb.ToString());
+        }
+        private string FormatQuery(object cell)
+        {
+            string fQuery = cell.ToString().Replace("where", Environment.NewLine + "where").Replace("inner", Environment.NewLine + "inner");
+            fQuery = fQuery.Replace("WHERE", Environment.NewLine + "WHERE");
+            fQuery = fQuery.Replace(" in ", Environment.NewLine + " in ");
+            fQuery = fQuery.Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine);
+            return fQuery;
         }
     }
 }

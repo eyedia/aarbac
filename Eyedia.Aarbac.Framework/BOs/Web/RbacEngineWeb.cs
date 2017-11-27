@@ -48,7 +48,7 @@ namespace Eyedia.Aarbac.Framework
         {
             this.RbacId = rbac.RbacId;
             this.Name = rbac.Name;
-            this.Description = rbac.Description;
+            this.Description = rbac.Description;            
             this.ConnectionString = rbac.ConnectionString;
             this.MetaDataRbac = rbac.MetaDataRbac;
             this.MetaDataEntitlements = rbac.MetaDataEntitlements;

@@ -100,6 +100,8 @@
     </None>
     <None Include="packages.config" />
     <None Include="Samples\Books\tests.csv" />
+    <None Include="Samples\Books\tests_result.csv" />
+    <None Include="Samples\Books\tests_result.md" />
     <None Include="Samples\Users.csv" />
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +114,7 @@
     <Content Include="Samples\Books\role_country_mgr.xml" />
     <Content Include="Samples\Books\role_state_mgr.xml" />
     <Content Include="Samples\Books\test.txt" />
+    <Content Include="Samples\Books\test_parsed_query.txt" />
     <Content Include="Samples\Databases\Books.mdf" />
     <Content Include="Samples\Databases\books_log.ldf">
       <DependentUpon>Books.mdf</DependentUpon>

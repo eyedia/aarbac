@@ -44,13 +44,6 @@ namespace Eyedia.Aarbac.Framework
     {
         private void ParseSelect(string query)
         {
-            //Columns = new RbacSelectColumns();
-            //TSql120Parser SqlParser = new TSql120Parser(false);
-            //IList<ParseError> parseErrors;
-            //TSqlFragment result = SqlParser.Parse(new StringReader(query), out parseErrors);
-            //ParseErrors = parseErrors;
-            //PrintErrors();
-
             TSqlScript sqlScript = InitiateTSql110Parser(query) as TSqlScript;
             foreach (TSqlBatch sqlBatch in sqlScript.Batches)
             {
@@ -108,14 +101,19 @@ namespace Eyedia.Aarbac.Framework
                         else
                         {
                             //lets try using SqlCommand
-                            if (!ParseUsingSqlCommand())
+                            if (ParseUsingSqlCommand())
+                            {
+
+                            }
+                            else
                             {
                                 //If still fail then give up
                                 Columns.AddIfNeeded(aSelectElementID,
                                     "Error, something else than SelectScalarExpression found");
                                 Errors.Add("Currently only SelectScalarExpressions are supported!");
-                                IsNotSupported = true;                                
+                                IsNotSupported = true;
                             }
+                           
                             return;
                         }
                         aSelectElementID = aSelectElementID + 1;                        
@@ -134,7 +132,7 @@ namespace Eyedia.Aarbac.Framework
                                       .ToList();
                     }
                     
-                    ParseWhereClause(aQuerySpecification.WhereClause);                    
+                    ParseWhereClause(aQuerySpecification.WhereClause);
                     
                 }
                 Columns.FillEmptyAlias(); 

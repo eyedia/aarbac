@@ -1,8 +1,15 @@
-Instance,Query,User,Role
-books,"select a.AuthorId, a.Name as [AuthorName], a.ZipCodeId, c.Name as City from Author a
+Comment,Query,User,Role
+Simple inner join,"select a.AuthorId, a.Name as [AuthorName], a.ZipCodeId, c.Name as City from Author a
 inner join Zipcode zc on zc.ZipCodeId = a.ZipCodeId
 inner join City c on c.CityId = zc.CityId
 where c.Name = 'Charlotte'",Lashawn,role_city_mgr
-books,select * from book,Lashawn,role_city_mgr
-books,"select * from Author where Author.ZipCodeId in (select zc.ZipCodeId from ZipCode zc where zc.CityId in (select c.CityId from City c where c.StateId in (select StateId from State where ShortName in ('NY', 'NC'))))",Lashawn,role_city_mgr
-books,"select zc.ZipCode, a.Name from ZipCode zc inner join Author a on a.ZipCodeId = zc.ZipCodeId where zc.ZipCodeId = 12",Lashawn,role_city_mgr
+simple non scalar,select * from book,Lashawn,role_city_mgr
+non scalar complex,"select * from Author where Author.ZipCodeId in (select zc.ZipCodeId from ZipCode zc where zc.CityId in (select c.CityId from City c where c.StateId in (select StateId from State where ShortName in ('NY', 'NC'))))",Lashawn,role_city_mgr
+,"select zc.ZipCode, a.Name from ZipCode zc inner join Author a on a.ZipCodeId = zc.ZipCodeId where zc.ZipCodeId = 12",Lashawn,role_city_mgr
+"aarbac recommends to use table or alias prefix, this query will parse good, but will throw error while executing ```Ambiguous column name 'ZipCodeId'```","select * from Author where ZipCodeId in (select zc.ZipCodeId from ZipCode zc where zc.CityId in (select c.CityId from City c where c.StateId in (select StateId from State where ShortName in ('NY', 'NC'))))",Lashawn,role_city_mgr
+incorrect query,select,Lashawn,role_city_mgr
+incorrect query,abc,Lashawn,role_city_mgr
+incorrect query,select * ,Lashawn,role_city_mgr
+incorrect query,select * from ,Lashawn,role_city_mgr
+incorrect query,select * from book where,Lashawn,role_city_mgr
+incorrect table,select * from abc,Lashawn,role_city_mgr

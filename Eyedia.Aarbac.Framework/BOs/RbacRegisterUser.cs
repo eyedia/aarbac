@@ -76,5 +76,6 @@ namespace Eyedia.Aarbac.Framework
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string NewPassword { get; set; }
     }
+   
 }
 

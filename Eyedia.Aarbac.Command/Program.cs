@@ -55,8 +55,8 @@ namespace Eyedia.Aarbac.Command
            
             //string query = File.ReadAllText(Path.Combine(@"..\..\..\Eyedia.Aarbac.Command\Samples", "Books", "Query.txt"));
             //string sub = query.Substring(186, 21);
-            new BookStore().Setup();
-            new BookStore().TestOne(); ;           
+            //new BookStore().Setup();
+            new BookStore().TestBatch();        
             //TestSamples();
             
             return;

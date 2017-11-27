@@ -158,11 +158,20 @@ namespace Eyedia.Aarbac.Framework.DataManager
                     }
                     else
                     {
-                        dbRbac.Name = rbac.Name;
-                        dbRbac.Description = rbac.Description;
-                        dbRbac.ConnectionString = GetEncryptedString(rbac.ConnectionString);
-                        dbRbac.MetaDataRbac = GetEncryptedString(rbac.MetaDataRbac);
-                        dbRbac.MetaDataEntitlements = GetEncryptedString(rbac.MetaDataEntitlements);                        
+                        if(!string.IsNullOrEmpty(rbac.Name))
+                            dbRbac.Name = rbac.Name;
+
+                        if (!string.IsNullOrEmpty(rbac.Description))
+                            dbRbac.Description = rbac.Description;
+
+                        if (!string.IsNullOrEmpty(rbac.ConnectionString))
+                            dbRbac.ConnectionString = GetEncryptedString(rbac.ConnectionString);
+
+                        if (!string.IsNullOrEmpty(rbac.MetaDataRbac))
+                            dbRbac.MetaDataRbac = GetEncryptedString(rbac.MetaDataRbac);
+
+                        if (!string.IsNullOrEmpty(rbac.MetaDataEntitlements))
+                            dbRbac.MetaDataEntitlements = GetEncryptedString(rbac.MetaDataEntitlements);                        
                         dbRbac.Version = rbac.Version + 1;                        
                     }
 

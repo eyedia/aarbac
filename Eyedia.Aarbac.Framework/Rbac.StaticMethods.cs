@@ -67,12 +67,15 @@ namespace Eyedia.Aarbac.Framework
             new DataManager.Manager().Delete(rbac);
         }
 
-        public static void Save(RbacEngineWeb rbacEngineWeb)
+        public static RbacEngineWeb Save(RbacEngineWeb rbacEngineWeb)
         {
             Rbac rbac = GetRbac(rbacEngineWeb.Name);
             rbac.Description = rbacEngineWeb.Description;
             rbac.ConnectionString = rbacEngineWeb.ConnectionString;
-            new DataManager.Manager().AddOrUpdate(rbac);
+            rbac.MetaDataRbac = rbacEngineWeb.MetaDataRbac;
+            rbac.MetaDataEntitlements = rbacEngineWeb.MetaDataEntitlements;
+            rbac = new DataManager.Manager().AddOrUpdate(rbac);
+            return rbacEngineWeb;
         }
 
         public static void Save(RbacRegisterUser user)
