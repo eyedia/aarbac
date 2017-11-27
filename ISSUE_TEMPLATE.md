@@ -1,17 +1,20 @@
 Your issue may already be reported!
 Please search on the [issue track](../) before creating one.
 
+<!--- An issue can be submitted without providing access to database -->
+
+## Issue or Suggestion
+<!--- Tell us if it is a problem or suggestion -->
+
 ## Query
-<!--- If you're describing a bug, tell us what should happen -->
-<!--- If you're suggesting a change/improvement, tell us how it should work -->
+<!--- Provide a valid SQL query -->
 
 ## Parsed Query
-<!--- If describing a bug, tell us what happens instead of the expected behavior -->
-<!--- If suggesting a change/improvement, explain the difference from current behavior -->
+<!--- If the framework is able to parse, then paste the parsed query here -->
 
 ## Expected Parsed Query
-<!--- Not obligatory, but suggest a fix/reason for the bug, -->
-<!--- or ideas how to implement the addition or change -->
+<!--- Expected parsed query -->
+
 
 ## Steps to Reproduce (for bugs)
 <!--- Provide a link to a live example, or an unambiguous set of steps to -->
