@@ -71,7 +71,7 @@ using (Rbac rbac = new Rbac("essie"))   //<-- you should pass the logged in user
 }
 ```
 ---
-## 2. Entitlements of User Interface (Menu, Sub Menu, Screen, Screen Elements)
+## 2. Entitlements (Menu, Sub Menu, Screen, Screen Elements)
 Every rule in aarbac has screen entitlement, you can define entitlements for your applications in following 2 categories:
 #### 1. Menus - Menu and sub menues within (linked list nodes)
 #### 2. Screens - Screen and Screen Elements (linked list nodes)
