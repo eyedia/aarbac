@@ -27,7 +27,9 @@ select * from Author
 automatically may get converted to...
 
 ```sql
-SELECT Author.AuthorId, Author.Name, Author.ZipCodeId FROM Author inner join [ZipCode] [t9] on [t9].ZipCodeId = [Author].ZipCodeId inner join [City] [t10] on [t10].CityId = [t9].CityId WHERE t10.Name in ('New York','Charlotte')
+SELECT Author.AuthorId, Author.Name, Author.ZipCodeId FROM Author 
+inner join [ZipCode] [t9] on [t9].ZipCodeId = [Author].ZipCodeId 
+inner join [City] [t10] on [t10].CityId = [t9].CityId WHERE t10.Name in ('New York','Charlotte')
 ```
 
 ...assuming user belongs to a role which allows him to see only 3 columns from author table and only allowed to see authors from New York and Charlotte cities.
@@ -51,7 +53,8 @@ using (Rbac rbac = new Rbac("essie"))   //<-- you should pass the logged in user
     using (RbacSqlQueryEngine engine = new RbacSqlQueryEngine(rbac, query))
     {
         engine.Execute(); //<-- automatically parse and transform query based on role
-        if ((!engine.IsErrored) && (engine.Parser.IsParsed) && (engine.Parser.QueryType == RbacQueryTypes.Select))
+        if ((!engine.IsErrored) && (engine.Parser.IsParsed) 
+            && (engine.Parser.QueryType == RbacQueryTypes.Select))
             return engine.Table; //<-- if it is select query, the table will be loaded
     }
 }
