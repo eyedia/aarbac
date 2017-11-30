@@ -12,12 +12,12 @@ Security layer generally just performs authentication & authorization, and to fa
 
 During initial few releases, everything looks good, but messed up soon when complex business scenarios, exceptions are introduced, more ```ifs, switches``` are introduced in those layers, code quality decreases and code volume increases and makes production support & enhancements difficult. Nightmare for new team members! 
 
-**Solution (or just a try)** - Can we separate out permission related code into a complete new layer? and let these layers (2, 3 & 4) do their regular job and not worried about the permission at all?
-
 ---
 
 # What is aarbac?
-An Automated Role Based Access Control .NET framework which can handle
+Simple...Can we separate out permission related code into a complete new layer? and let these layers (2, 3 & 4) do their regular job and not worried about the permission at all?
+
+An Automated Role Based Access Control .NET framework which can override all CRUD(Create, Read Update, Delete) operations automatically based on the logged in user role. Additionally it also maintains user entitlements.
 
 <table border="0">
     <tr>
@@ -27,6 +27,10 @@ An Automated Role Based Access Control .NET framework which can handle
                <td width="40%"><img alt="Without aarbac" src="https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Framework/Graphics/with_aarbac.png" /></td>
     </tr>
 </table>
+
+1. Data Filter & Permissions are abstracted into a separate layer.
+2. 
+
 
 ## 1. Automated Data Filters & Permissions (Schema Based)
 Apply row & column level permissions on your SELECT,INSERT,UPDATE & DELETE queries. For example, a read (or select) operation like the following …
