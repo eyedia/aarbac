@@ -13,14 +13,15 @@ Security layer generally just performs authentication & authorization, and to fa
 During initial few releases, everything looks good, but messed up soon when complex business scenarios, exceptions are introduced, more ```ifs, switches``` are introduced in those layers, code quality decreases and code volume increases and makes production support & enhancements difficult. Nightmare for new team members! 
 
 **Solution (or just a try)** - Can we separate out permission related code into a complete new layer? and let these layers (2, 3 & 4) do their regular job and not worried about the permission at all?
+
 ---
+
 # What is aarbac?
-An Automated Role Based Access Control .NET framework which can handle...
+An Automated Role Based Access Control .NET framework which can handle
 
 <table border=0>
     <tr>
-    <td width="40%">
-        
+    <td width="40%">       
         <img alt="Without aarbac" src="https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Framework/Graphics/without_aarbac.png" /></td>
                <td></td>
                <td width="40%"><img alt="Without aarbac" src="https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Framework/Graphics/with_aarbac.png" /></td>
