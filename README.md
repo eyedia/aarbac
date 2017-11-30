@@ -20,7 +20,6 @@ During initial few releases, everything looks good, but messed up soon when comp
 </td>
     </tr>
 </table>
----
 
 # What is aarbac?
 
@@ -30,13 +29,12 @@ During initial few releases, everything looks good, but messed up soon when comp
     <td width="35%">       
         <img alt="With aarbac" src="https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Framework/Graphics/with_aarbac.png" /></td>               
                <td valign="top">
-         ...Can we separate out permission related code into a complete new layer? and let these layers (2, 3 & 4) do their regular job and not worried about the permission at all? aarbac (An Automated Role Based Access Control) .NET framework which can override all CRUD(Create, Read Update, Delete) operations automatically based on the logged in user role. Additionally it also maintains user entitlements.
-        </td>
+                   <b>aarbac (An Automated Role Based Access Control)</b> is a .NET framework which can override all CRUD(Create, Read Update, Delete) operations automatically based on the logged in user role. It separates out permission related code into a complete new layer and let these layers (2, 3 & 4) do their regular job & not worried about the permission at all.  Additionally it also maintains user entitlements.
+</td>
     </tr>
 </table>
 
-1. Data Filter & Permissions are abstracted into a separate layer.
-2. 
+1. Data Filter & Permissions are abstracted into a separate layer.  
 
 
 ## 1. Automated Data Filters & Permissions (Schema Based)
