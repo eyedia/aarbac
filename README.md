@@ -8,7 +8,7 @@ Technology solution is vast these days, and there is always at least one solutio
 4. Data Access Layer
 5. And a RDBMS database
 
-Security layer generally just perform authentication and authorization and developers and to facilitate roles, permissions, entitlements, generally developers implement various ```HasPermission(), IsInGroup(), etc.``` type methods with many ```ifs elses, switches, ``` etc and inject code into these layers(2, 3 & 4) to satisfy the business needs. Basically to enure that **users with appropriate rights are performing appropriate operations.** Users should **see** what they should see on the screens, users able to **do** what they are allowed to do with data.
+Security layer generally just performs authentication & authorization, and to facilitate roles, permissions & entitlements, developers implement various ```HasPermission(), IsInGroup(), etc.``` type methods with many ```ifs elses, switches, ``` various sql queries and inject code into these layers(2, 3 & 4) to satisfy the business needs. Basically to enure that **users with appropriate rights are performing appropriate operations.** Users should **see** what they should see on the screens, users able to **do** what they are allowed to do with data.
 
 During initial few releases, everything looks good, but messed up soon when complex business scenarios, exceptions are introduced, more ```ifs, switches``` are introduced in those layers, code quality decreases and code volume increases and makes production support & enhancements difficult. Nightmare for new team members! 
 
