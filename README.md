@@ -19,13 +19,13 @@ During initial few releases, everything looks good, but messed up soon when comp
 # What is aarbac?
 An Automated Role Based Access Control .NET framework which can handle
 
-<table border=0>
-    <tr>
-    <td width="40%">       
+<table style="border:none">
+    <tr style="border:none">
+    <td width="40%" style="border:none">       
         <img alt="Without aarbac" src="https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Framework/Graphics/without_aarbac.png" /></td>
-               <td></td>
+               <td style="border:none"></td>
                <td width="40%"><img alt="Without aarbac" src="https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Framework/Graphics/with_aarbac.png" /></td>
-    <tr>
+    </tr>
 </table>
 
 ## 1. Automated Data Filters & Permissions (Schema Based)
