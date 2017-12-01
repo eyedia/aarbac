@@ -24,11 +24,10 @@ During initial few releases, everything looks good, but messed up soon when comp
 1. Automated - Data Filter & Permissions are abstracted into a separate layer and all automated.
 2. Schema based - Data filters and permissions are based on your database schema.
 3. Clean Code - Clean code, less error, less testing, less maintenance. 
-4. Easiness
-5. Encrypted - The role, entitlements & user parameters are encrypted and stored as binary in the aarbac database.
-6. Disable overriding for specific queries - As we do understand there will be few queries where aarbac may not able to produce automated result as desired, in those cases, just switch off aarbac. 
+4. Encrypted - The role, entitlements & user parameters are encrypted and stored as binary in the aarbac database.
+5. Disable overriding for specific queries - As we do understand there will be few queries where aarbac may not able to produce automated result as desired, in those cases, just switch off aarbac. 
 6. Comes with REST API, Utility, WinApp testbed, Sample Code.
-7. Pluggable - Very easily pluggable.
+7. Pluggable.
 8. ![nuget](https://www.nuget.org/packages/aarbac.NET/) deployed</li>
 
 
