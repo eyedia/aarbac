@@ -21,14 +21,14 @@ During initial few releases, everything looks good, but messed up soon when comp
 
 **aarbac** is **An Automated Role Based Access Control** .NET framework which can override all CRUD(Create, Read Update, Delete) operations automatically based on the logged in user role. It separates out permission related code into a complete new layer and let these layers (2, 3 & 4) do their regular job & not worried about the permission at all.  Additionally it also maintains user entitlements.
 ![aarbac](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Framework/Graphics/with_aarbac_x.png)
-1. Data Filter & Permissions are abstracted into a separate layer.
-2. Schema based
-3. Clean Code
+1. Automated - Data Filter & Permissions are abstracted into a separate layer and all automated.
+2. Schema based - Data filters and permissions are based on your database schema.
+3. Clean Code - Clean code, less error, less testing, less maintenance. 
 4. Easiness
 5. Encrypted - The role, entitlements & user parameters are encrypted and stored as binary in the aarbac database.
 6. Disable overriding for specific queries - As we do understand there will be few queries where aarbac may not able to produce automated result as desired, in those cases, just switch off aarbac. 
 6. Comes with REST API, Utility, WinApp testbed, Sample Code.
-7. Pluggable
+7. Pluggable - Very easily pluggable.
 8. ![nuget](https://www.nuget.org/packages/aarbac.NET/) deployed</li>
 
 
