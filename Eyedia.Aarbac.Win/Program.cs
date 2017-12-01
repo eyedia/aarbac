@@ -18,15 +18,15 @@ namespace Eyedia.Aarbac.Win
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            try
-            {                
+            //try
+            //{                
                 if(SetDataDirectory())
                     Application.Run(new frmMain());
-            }
-            catch(Exception e)
-            {
-                MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //}
+            //catch(Exception e)
+            //{
+            //    MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
         private static bool SetDataDirectory()

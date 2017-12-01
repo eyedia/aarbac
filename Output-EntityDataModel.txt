@@ -1,0 +1,1 @@
+﻿Could not parse the configuration file. The error message is: 'An item with the same key has already been added.'. Try editing the file manually and then saving it.

@@ -157,7 +157,7 @@ namespace Eyedia.Aarbac.Command
             if (!string.IsNullOrEmpty(engine.AllErrors))
                 Console.WriteLine("Errors:{0}", engine.AllErrors);
 
-            if (engine.Table != null)
+            if ((engine.Parser.QueryType == RbacQueryTypes.Select) && (engine.Table != null))
                 Console.WriteLine("The query was a select query and returned {0} records", engine.Table.Rows.Count);
 
             File.WriteAllText(Path.Combine(_rootDir, "Books", "test_parsed_query.txt"), engine.Parser.ParsedQuery);

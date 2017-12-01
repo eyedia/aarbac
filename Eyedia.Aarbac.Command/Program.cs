@@ -52,11 +52,18 @@ namespace Eyedia.Aarbac.Command
     {
         static void Main(string[] args)
         {
-           
+
             //string query = File.ReadAllText(Path.Combine(@"..\..\..\Eyedia.Aarbac.Command\Samples", "Books", "Query.txt"));
             //string sub = query.Substring(186, 21);
             //new BookStore().Setup();
-            new BookStore().TestBatch();        
+            try
+            {
+                new BookStore().TestBatch();
+            }
+            catch(RbacException e)
+            {
+                Console.WriteLine(e.Message);
+            }
             //TestSamples();
             
             return;

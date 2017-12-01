@@ -43,8 +43,11 @@ namespace Eyedia.Aarbac.Win
         private void btnExecute_Click(object sender, EventArgs e)
         {
             txtErrors.Text = string.Empty;
+            txtParsedQuerys1.Text = string.Empty;
+            txtParsedQuery.Text = string.Empty;
             txtErrors.Visible = false;
             RbacEngineWebResponse response = new RbacEngineWebResponse();
+            this.Cursor = Cursors.WaitCursor;
             try
             {
                 _Request.RbacName = ((Rbac)cbInstances.SelectedItem).Name;
@@ -58,11 +61,14 @@ namespace Eyedia.Aarbac.Win
                     SqlQueryParser parser = new SqlQueryParser(ctx, _Request.SkipParsing);
                     parser.Parse(_Request.Query);
 
-                    using (RbacSqlQueryEngine eng = new RbacSqlQueryEngine(parser, _Request.DebugMode))
+                    if (parser.QueryType == RbacQueryTypes.Select)
                     {
-                        eng.SkipExecution = _Request.SkipExecution;
-                        eng.Execute();
-                        response.SetResult(eng);
+                        using (RbacSqlQueryEngine eng = new RbacSqlQueryEngine(parser, _Request.DebugMode))
+                        {
+                            eng.SkipExecution = _Request.SkipExecution;
+                            eng.Execute();
+                            response.SetResult(eng);
+                        }
                     }
                 }
 
@@ -74,7 +80,7 @@ namespace Eyedia.Aarbac.Win
             }
 
             BindResult(response);
-
+            this.Cursor = Cursors.Default;
         }
 
         private void BindResult(RbacEngineWebResponse response)
@@ -85,8 +91,8 @@ namespace Eyedia.Aarbac.Win
             response.RoleName = _Request.RoleName;
             if (string.IsNullOrEmpty(response.Errors))
             {
-                txtParsedQuerys1.Text = response.ParsedQueryStage1;
-                txtParsedQuery.Text = response.ParsedQuery;
+                txtParsedQuerys1.Text = FormatQuery(response.ParsedQueryStage1);
+                txtParsedQuery.Text = FormatQuery(response.ParsedQuery);
                 TreeNode root = treeView1.Nodes.Add("Root");
                 JToken token = JToken.Parse(JsonConvert.SerializeObject(response));
                 Traverse(token, root);
@@ -97,6 +103,18 @@ namespace Eyedia.Aarbac.Win
                 txtErrors.Visible = true;
                 txtErrors.Text = response.Errors;
             }
+        }
+
+        private string FormatQuery(string query)
+        {
+            if (string.IsNullOrEmpty(query))
+                return query;
+
+            query = query.Replace("where", Environment.NewLine + "where").Replace("inner", Environment.NewLine + "inner");
+            query = query.Replace("WHERE", Environment.NewLine + "WHERE");
+            query = query.Replace(" in ", Environment.NewLine + " in ");
+            query = query.Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine);
+            return query;
         }
 
         private void Traverse(JToken token, TreeNode tn)
@@ -150,12 +168,14 @@ namespace Eyedia.Aarbac.Win
         {
             if (lvwQueries.SelectedItems.Count == 1)
             {
+                this.Cursor = Cursors.WaitCursor;
                 DataRow row = (DataRow)lvwQueries.SelectedItems[0].Tag;
-                cbInstances.Text = row["Instance"].ToString();
+                //cbInstances.Text = row["Instance"].ToString();
                 cbUsers.Text = row["User"].ToString();
                 cbRoles.Text = row["Role"].ToString();
-                txtQuery.Text = row["Query"].ToString();
+                txtQuery.Text = FormatQuery(row["Query"].ToString());
                 btnExecute_Click(sender, e);
+                this.Cursor = Cursors.Default;
             }
         }
 
@@ -176,10 +196,10 @@ namespace Eyedia.Aarbac.Win
                 {
                     try
                     {
-                        Rbac rbac = new Rbac(row[2].ToString(), row[0].ToString(), row[3].ToString());
+                        Rbac rbac = new Rbac(row["User"].ToString(), "Books", row["Role"].ToString());
 
                         SqlQueryParser parser = new SqlQueryParser(rbac);
-                        parser.Parse(row[1].ToString());
+                        parser.Parse(row["Query"].ToString());
                         RbacSqlQueryEngine engine = new RbacSqlQueryEngine(parser, true);
                         engine.Execute();
                         row["ParsedQueryStage1"] = parser.ParsedQueryStage1;

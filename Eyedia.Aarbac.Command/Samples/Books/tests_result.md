@@ -234,13 +234,15 @@ select *
 Parsed Query:
 ```
 ```sql
-
+select * 
 ```
 ```
-Record Count(s):
+Record Count(s):0 record(s)
 ```
 ```diff
 - Must specify table to select from.
+Currently only SelectScalarExpressions are supported!
+
 ```
 ***
 
@@ -312,13 +314,115 @@ select * from abc
 Parsed Query:
 ```
 ```sql
+select * from abc
+```
+```
+Record Count(s):0 record(s)
+```
+```diff
+- Invalid object name 'abc'.
+Currently only SelectScalarExpressions are supported!
+
+```
+***
+
+12. Simple Insert
+```
+Rbac:books
+User:Lashawn
+Role:role_city_mgr
+Query:
+```
+```sql
+insert into Author values ('','',1)
+```
+```
+Parsed Query:
+```
+```sql
 
 ```
 ```
 Record Count(s):
 ```
 ```diff
-- Invalid object name 'abc'.
+- RBAC.PRS - User 'Lashawn' does not have permission to insert record into the table 'Author'!
+```
+***
+
+13. Simple insert with specific column names
+```
+Rbac:books
+User:Lashawn
+Role:role_city_mgr
+Query:
+```
+```sql
+insert into Author(Name,SSN,ZipCodeId) values ('','',1)
+```
+```
+Parsed Query:
+```
+```sql
+
+```
+```
+Record Count(s):
+```
+```diff
+- RBAC.PRS - User 'Lashawn' does not have permission to insert record into the table 'Author'!
+```
+***
+
+14. Simple update, Lashawn has permission to update Name
+```
+Rbac:books
+User:Lashawn
+Role:role_city_mgr
+Query:
+```
+```sql
+update Author set Name='abc' 
+where AuthorId = 1
+```
+```
+Parsed Query:
+```
+```sql
+update Author set Name='abc' 
+where AuthorId = 1
+```
+```
+Record Count(s):Errored
+```
+```diff
+- Incorrect syntax near '10'.
+
+```
+***
+
+15. Simple update, Lashawn does not have permission to update SSN
+```
+Rbac:books
+User:Lashawn
+Role:role_city_mgr
+Query:
+```
+```sql
+update Author set SSN='abc' 
+where AuthorId = 1
+```
+```
+Parsed Query:
+```
+```sql
+
+```
+```
+Record Count(s):
+```
+```diff
+- RBAC.PRS - User 'Lashawn' has permission to update table 'Author', however has no permission to update column 'SSN'!
 ```
 ***
 

@@ -131,7 +131,7 @@ namespace Eyedia.Aarbac.Framework
                 if (!IsParsed)
                     return;
 
-                if ((QueryType != RbacQueryTypes.Insert) && (QueryType != RbacQueryTypes.Delete))
+                if (QueryType == RbacQueryTypes.Select)
                 {
                     ExecutionTime.Start("Conditions & Relations");
                     ApplyConditions();

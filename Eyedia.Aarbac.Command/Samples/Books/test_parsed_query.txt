@@ -1,1 +1,1 @@
-SELECT Author.AuthorId , Author.Name , Author.ZipCodeId FROM Author   inner join [ZipCode] [t1] on [t1].ZipCodeId = [Author].ZipCodeId   inner join [City] [t2] on [t2].CityId = [t1].CityId WHERE (ZipCodeId in (SELECT zc.ZipCodeId  FROM ZipCode zc  WHERE zc.CityId in (SELECT c.CityId  FROM City c  WHERE c.StateId in (SELECT StateId  FROM State  WHERE ShortName in ('NY'  , 'NC' ) ) ) )) AND (t2.Name in ('New York','Charlotte'))  
+update Author set Name='abc' where AuthorId = 1

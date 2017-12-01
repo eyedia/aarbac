@@ -44,14 +44,6 @@ namespace Eyedia.Aarbac.Framework
     {
         private void ParseUpdate(string query)
         {
-            //Columns = new RbacSelectColumns();
-            //TablesReferred = new List<RbacTable>();
-            //IList<ParseError> parseErrors;
-            //TSql110Parser parser = new TSql110Parser(true);
-            //TSqlFragment tree = parser.Parse(new StringReader(query), out parseErrors);
-            //ParseErrors = parseErrors;
-            //PrintErrors();
-
             TSqlFragment tree = InitiateTSql110Parser(query);
             if (SyntaxError)
                 return;

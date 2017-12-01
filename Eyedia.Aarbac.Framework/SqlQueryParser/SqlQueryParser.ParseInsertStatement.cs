@@ -83,31 +83,41 @@ namespace Eyedia.Aarbac.Framework
                 InsertStatement aInsertStatement = (InsertStatement)sqlStatement;
                 string tableName = string.Empty;
                 string tableAlias = string.Empty;
-
+                RbacTable table = null;
                 if (aInsertStatement.InsertSpecification.Target is NamedTableReference)
                 {
                     NamedTableReference tableRef = aInsertStatement.InsertSpecification.Target as NamedTableReference;
-                    tableName = ((SchemaObjectName)tableRef.SchemaObject).Identifiers[1].Value;
+                    tableName = ((SchemaObjectName)tableRef.SchemaObject).Identifiers[0].Value;
                     tableAlias = tableRef.Alias != null ? tableRef.Alias.ToString() : string.Empty;
-                }
 
-                foreach (ColumnReferenceExpression columnExp in aInsertStatement.InsertSpecification.Columns)
-                {
-                    
-                    var columnName = columnExp.MultiPartIdentifier.Identifiers[0].Value;
-
-                    RbacSelectColumn column = new RbacSelectColumn();
-                    column.Alias = string.Empty;
-                    column.TableColumnName = columnName;
-                    column.ReferencedTableName = tableName;
-                    Columns.Add(column);
-                    RbacTable table = Context.User.Role.CrudPermissions.Find(column.ReferencedTableName);
+                    table = Context.User.Role.CrudPermissions.Find(tableName);
                     if (table != null)
                         TablesReferred.Add(table);
                     else
                         RbacException.Raise(string.Format("The referred table {0} was not found in meta data!", tableName), RbacExceptionCategories.Parser);
                 }
-                
+
+                if (aInsertStatement.InsertSpecification.Columns.Count == 0)
+                {
+                    //insert query does not specific columns                    
+                    int howManyColumnValues = ((ValuesInsertSource)aInsertStatement.InsertSpecification.InsertSource).RowValues[0].ColumnValues.Count;
+                    //add table column sequentially
+                    for (int i = 0; i < howManyColumnValues; i++)
+                    {
+                        AddSelectColumn(tableName, table.Columns[i].Name);
+                    }
+
+                }
+                else
+                {
+                    //insert query has specific columns
+                    foreach (ColumnReferenceExpression columnExp in aInsertStatement.InsertSpecification.Columns)
+                    {
+                        var columnName = columnExp.MultiPartIdentifier.Identifiers[0].Value;
+                        AddSelectColumn(tableName, columnName);
+
+                    }
+                }
                 Columns.FillEmptyAlias();
             }
             else
@@ -115,8 +125,19 @@ namespace Eyedia.Aarbac.Framework
                 Errors.Add("Not a update statement!");
             }
         }
+
+        private void AddSelectColumn(string tableName, string columnName)
+        {
+            RbacSelectColumn column = new RbacSelectColumn();
+            column.Alias = string.Empty;
+            column.TableColumnName = columnName;
+            column.ReferencedTableName = tableName;
+            Columns.Add(column);
+        }
+       
     }
-   
+
+    
 
 }
 
