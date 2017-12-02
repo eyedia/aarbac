@@ -12,10 +12,7 @@ Technology solution is vast these days, and there is always at least one solutio
 
 Security layer generally just performs authentication & authorization, and to facilitate roles (permissions & entitlements), developers implement various ```HasPermission(), IsInGroup(), etc.``` type methods with many ```ifs elses & switches, ``` various sql queries and inject code into these layers(2, 3 & 4). Basically to enure that **users with appropriate rights are performing appropriate operations.** Users should **see** what they should see on the screens, users able to **do** what they are allowed to do with data.
 
-During initial few releases, everything looks good, but messed up soon when complex business scenarios, exceptions are introduced, more ```ifs, switches``` are introduced in those layers, code quality decreases and code volume increases and makes production support & enhancements difficult. Nightmare for new team members! 
-</td>
-    </tr>
-</table>
+During initial few releases, everything looks good, but messed up soon when complex business scenarios, exceptions are introduced, more ```ifs, switches``` are introduced in those layers, code quality decreases and code volume increases and makes production support & enhancements difficult. Nightmare for new team members!
 
 # What is aarbac?
 
