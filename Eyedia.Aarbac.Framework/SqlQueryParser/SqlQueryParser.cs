@@ -160,6 +160,18 @@ namespace Eyedia.Aarbac.Framework
             
         }
 
+        private void ParseInternal(string query)
+        {
+            if (QueryType == RbacQueryTypes.Select)
+                ParseSelect(query);
+            else if (QueryType == RbacQueryTypes.Insert)
+                ParseInsert(query);
+            else if (QueryType == RbacQueryTypes.Update)
+                ParseUpdate(query);
+            else if (QueryType == RbacQueryTypes.Delete)
+                ParseDelete(query);
+        }
+
         private void WriteLogParseDetails()
         {
             Context.Trace.Write(ExecutionTime.ToString());

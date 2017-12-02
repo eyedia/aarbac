@@ -40,10 +40,8 @@ using System.IO;
 
 namespace Eyedia.Aarbac.Framework
 {
-    /*
     public partial class SqlQueryParser
     {
-        
         private void ParseSelect(string query)
         {
             TSqlScript sqlScript = InitiateTSql110Parser(query) as TSqlScript;
@@ -61,7 +59,7 @@ namespace Eyedia.Aarbac.Framework
                 GetReferredTables();
                 IsParsed = true;
             }
-
+            // IsParsed = true;
         }
 
         private void ParseSqlSelectStatement(TSqlStatement sqlStatement)
@@ -73,77 +71,43 @@ namespace Eyedia.Aarbac.Framework
                 if (aQueryExpression.GetType() == typeof(QuerySpecification))
                 {
                     QuerySpecification aQuerySpecification = (QuerySpecification)aQueryExpression;
-                    int aSelectElementID = 0;
-                     
-                    foreach (SelectElement aSelectElement in aQuerySpecification.SelectElements)
-                    {
-                        if (aSelectElement.GetType() == typeof(SelectScalarExpression))
-                        {
-                            SelectScalarExpression aSelectScalarExpression = (SelectScalarExpression)aSelectElement;
 
-                            string identStr = string.Empty;
-                            IdentifierOrValueExpression aIdentifierOrValueExpression =
-                                aSelectScalarExpression.ColumnName;
-                            if (aIdentifierOrValueExpression != null)
-                            {
-                                if (aIdentifierOrValueExpression.ValueExpression == null)
-                                {                                    
-                                    identStr = aIdentifierOrValueExpression.Identifier.Value;
-                                }
-                                else
-                                {
-                                    Errors.Add("Expression");
-                                }
-                            }
-                            Columns.AddIfNeeded(aSelectElementID, identStr);
 
-                            ScalarExpression aScalarExpression = aSelectScalarExpression.Expression;
-                            ParseScalarExperssions(aSelectElementID, aScalarExpression);
-                        }
-                        else
-                        {
-                            //lets try using SqlCommand
-                            if (ParseUsingSqlCommand())
-                            {
+                    //tables
+                    NamedTableReferenceVisitor ntVisitor = new NamedTableReferenceVisitor(Context);
+                    aQueryExpression.AcceptChildren(ntVisitor);
+                    TablesReferred = ntVisitor.Tables;
 
-                            }
-                            else
-                            {
-                                //If still fail then give up
-                                Columns.AddIfNeeded(aSelectElementID,
-                                    "Error, something else than SelectScalarExpression found");
-                                Errors.Add("Currently only SelectScalarExpressions are supported!");
-                                IsNotSupported = true;
-                            }
-                           
-                            return;
-                        }
-                        aSelectElementID = aSelectElementID + 1;                        
-                    }                   
-                    FromClause aFromClause = aQuerySpecification.FromClause;
-                   
-                    foreach (TableReference aTableReference in aFromClause.TableReferences)
-                    {
-                        ParseTableReferences(aTableReference);
-                    }
-                    if (aFromClause.TableReferences[0] is QualifiedJoin)
-                    {
-                        ParseJoins((QualifiedJoin)aFromClause.TableReferences[0]);
-                        JoinClauses = JoinClauses.GroupBy(d => new { d.FromTableAlias, d.FromTableColumn, d.FromTableName, d.WithTableAlias, d.WithTableColumn, d.WithTableName })
-                                      .Select(d => d.First())
-                                      .ToList();
-                    }
-                    
-                    ParseWhereClause(aQuerySpecification.WhereClause);
-                    
+                    //columns
+                    ScalarExpressionVisitor seVisitor = new ScalarExpressionVisitor();
+                    aQueryExpression.AcceptChildren(seVisitor);
+                    Columns = seVisitor.Columns;
+                    UpdateReferredTables(Columns);
+
+                    //ensure unique tables
+                    TablesReferred = new List<RbacTable>(TablesReferred.DistinctBy(t => t.Name));
+
+                    //joins
+                    JoinClauseVisitor jcVisitor = new JoinClauseVisitor(Context);
+                    aQueryExpression.AcceptChildren(jcVisitor);
+                    JoinClauses = jcVisitor.JoinClauses;                  
+
+                    //where clause
+                    EqualVisitor cidv = new EqualVisitor(ParsedQuery);
+                    InPredicateVisitor inpv = new InPredicateVisitor(ParsedQuery);
+                    aQuerySpecification.WhereClause.AcceptChildren(cidv);
+                    aQuerySpecification.WhereClause.AcceptChildren(inpv);
+                    WhereClauses.AddRange(cidv.WhereClauses);
+                    WhereClauses.AddRange(inpv.WhereClauses);
+                    WhereClauses.ParseReferenceTableNames(JoinClauses);
                 }
-                Columns.FillEmptyAlias(); 
+                
             }
             else
             {
                 Errors.Add("Not a select statement!");
             }
         }
-    }*/
+    }
 }
 

@@ -144,15 +144,15 @@
       <DependentUpon>MessagesConfigurations.resx</DependentUpon>
     </Compile>
     <Compile Include="Scripts\RbacDba.cs" />
-    <Compile Include="SqlQueryParser\RbacTSqlFragmentVisitor.cs" />
+    <Compile Include="Visitors\RbacTSqlFragmentVisitor.cs" />
     <Compile Include="SqlQueryParser\SqlParser.Helpers.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.Parameters.cs" />
-    <Compile Include="SqlQueryParser\SqlQueryParser.ParseSelectStatement.New.cs" />
-    <Compile Include="SqlQueryParser\SqlQueryParser.ParseSqlStatement.cs" />
+    <Compile Include="SqlQueryParser\SqlQueryParser.ParseSelectStatement.cs" />
+    <Compile Include="SqlQueryParser\Commented\SqlQueryParser.ParseSqlStatement.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.ParseDeleteStatement.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.ParseInsertStatement.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.ParseUpdateStatement.cs" />
-    <Compile Include="SqlQueryParser\SqlQueryParser.ParseWhereClause.cs" />
+    <Compile Include="SqlQueryParser\Commented\SqlQueryParser.ParseWhereClause.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.Permissions.Select.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.Permissions.Delete.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.Permissions.Insert.cs" />
@@ -160,12 +160,12 @@
     <Compile Include="SqlQueryParser\SqlQueryParser.Permissions.cs" />
     <Compile Include="SqlQueryEngine\RbacSqlQueryEngine.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.SqlCommand.cs" />
-    <Compile Include="SqlQueryParser\SqlQueryParser.ParseJoins.cs" />
+    <Compile Include="SqlQueryParser\Commented\SqlQueryParser.ParseJoins.cs" />
     <Compile Include="BOs\RbacSelectColumn.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.cs" />
-    <Compile Include="SqlQueryParser\SqlQueryParser.ParseScalarExperssions.cs" />
-    <Compile Include="SqlQueryParser\SqlQueryParser.ParseTableReferences.cs" />
-    <Compile Include="SqlQueryParser\SqlQueryParser.ParseSelectStatement.cs" />
+    <Compile Include="SqlQueryParser\Commented\SqlQueryParser.ParseScalarExperssions.cs" />
+    <Compile Include="SqlQueryParser\Commented\SqlQueryParser.ParseTableReferences.cs" />
+    <Compile Include="SqlQueryParser\Commented\SqlQueryParser.ParseSelectStatement.cs" />
     <Compile Include="SqlQueryStringParser\BracesTag.cs" />
     <Compile Include="SqlQueryStringParser\ForUpdateTag.cs" />
     <Compile Include="SqlQueryStringParser\FromTag.cs" />
