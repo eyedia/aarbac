@@ -232,6 +232,8 @@ namespace Eyedia.Aarbac.Win
             {
                 propInstance.SelectedObject = new RbacEngineWeb(Rbac.GetRbac(((Rbac)cbInstances.SelectedItem).Name));
                 tabPage2.Text = ((RbacEngineWeb)propInstance.SelectedObject).Name;
+
+                ParseInline();
             }
                 
         }
@@ -249,6 +251,8 @@ namespace Eyedia.Aarbac.Win
                 tabPage3.Text = user.UserName;
 
                 LoadUserParameters();
+
+                ParseInline();
             }
         }
 
@@ -267,7 +271,7 @@ namespace Eyedia.Aarbac.Win
                         item.SubItems.Add(paramter.Value);
                         lvwUserParameters.Items.Add(item);
                     }
-                }
+                }                
             }
         }
 
@@ -291,6 +295,7 @@ namespace Eyedia.Aarbac.Win
                 tabPage4.Tag = null;
                 tabPage4.Text = "Role";
             }
+            ParseInline();
         }
 
         private void btnSaveInstance_Click(object sender, EventArgs e)
@@ -322,6 +327,15 @@ namespace Eyedia.Aarbac.Win
                 Rbac.Save(wRole);
             }
         }
+        private void txtQuery_TextChanged(object sender, FastColoredTextBoxNS.TextChangedEventArgs e)
+        {
+            ParseInline();
+        }
 
+        private void ParseInline()
+        {
+            if (inlineParsingToolStripMenuItem.Checked)
+                btnExecute_Click(null, null);
+        }
     }
 }

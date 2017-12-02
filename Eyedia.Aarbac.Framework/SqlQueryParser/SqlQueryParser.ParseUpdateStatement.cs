@@ -72,37 +72,51 @@ namespace Eyedia.Aarbac.Framework
             if (sqlStatement.GetType() == typeof(UpdateStatement))
             {
                 UpdateStatement aUpdateStatement = (UpdateStatement)sqlStatement;
-                string tableName = string.Empty;
-                string tableAlias = string.Empty;
 
-                if (aUpdateStatement.UpdateSpecification.Target is NamedTableReference)
+                #region Handle Target Table
+
+                ReferredTable targetTable = new ReferredTable();
+                NamedTableReferenceVisitor ntVisitor = new NamedTableReferenceVisitor();
+                aUpdateStatement.UpdateSpecification.Target.Accept(ntVisitor);
+
+                if (ntVisitor.Tables.Count == 0)
+                    RbacException.Raise("No target table found in the update query!");
+                else if (ntVisitor.Tables.Count == 1)
+                    targetTable = ntVisitor.Tables[0];
+                else
+                    RbacException.Raise("More than 1 target tables found in the update query! Currently not supported.");
+
+                #endregion Handle Target Table
+
+                #region Handle From Clause - When Update with Join
+                if (aUpdateStatement.UpdateSpecification.FromClause != null)
                 {
-                    NamedTableReference tableRef = aUpdateStatement.UpdateSpecification.Target as NamedTableReference;
-                    tableName = ((SchemaObjectName)tableRef.SchemaObject).Identifiers[0].Value;
-                    tableAlias = tableRef.Alias != null ? tableRef.Alias.ToString() : string.Empty;
-                }
-                
-                foreach(SetClause setClause in aUpdateStatement.UpdateSpecification.SetClauses)
-                {
-                    if(setClause is AssignmentSetClause)
+                    //mostly update with join case
+                    ntVisitor = new NamedTableReferenceVisitor();
+                    aUpdateStatement.UpdateSpecification.FromClause.AcceptChildren(ntVisitor);
+                    UpdateReferredTables(ntVisitor.Tables);
+
+                    //if alias is being updated, we need to fix table name
+                    RbacTable tryTable = Context.User.Role.CrudPermissions.Find(targetTable.Name);
+                    if (tryTable == null)
                     {
-                        AssignmentSetClause assignSetClause = setClause as AssignmentSetClause;
-                        var columnName = assignSetClause.Column.MultiPartIdentifier.Identifiers[0].Value;
-
-                        RbacSelectColumn column = new RbacSelectColumn();
-                        column.Alias = string.Empty;
-                        column.TableColumnName = columnName;
-                        column.ReferencedTableName = tableName;
-                        Columns.Add(column);
-                        RbacTable table = Context.User.Role.CrudPermissions.Find(column.ReferencedTableName);
-                        if (table != null)
-                            TablesReferred.Add(table);
-                        else
-                            RbacException.Raise(string.Format("The referred table {0} was not found in meta data!", tableName), RbacExceptionCategories.Parser);
+                        //alias is being updated, lets get the actual table name
+                        var tt = ntVisitor.Tables.Where(t => t.Alias == targetTable.Name).ToList()[0];
+                        if (tt != null)
+                            targetTable.Name = tt.Name;
                     }
                 }
-                
+                #endregion Handle From Clause - When Update with Join
+
+                #region Handle Columns
+
+                SetClauseVisitor scVisitor = new SetClauseVisitor(targetTable.Name);
+                aUpdateStatement.UpdateSpecification.AcceptChildren(scVisitor);                
+                Columns = scVisitor.Columns;
+                UpdateReferredTables(Columns);
                 Columns.FillEmptyAlias();
+
+                #endregion Handle Columns
             }
             else
             {

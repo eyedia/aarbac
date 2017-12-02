@@ -89,6 +89,7 @@
     <Compile Include="BOs\RbacTable.cs" />
     <Compile Include="BOs\RbacUser.cs" />
     <Compile Include="BOs\RbacWhereClause.cs" />
+    <Compile Include="BOs\ReferredTable.cs" />
     <Compile Include="BOs\Web\RbacEngineWeb.cs" />
     <Compile Include="BOs\Web\RbacEngineWebRequest.cs" />
     <Compile Include="BOs\Web\RbacEngineWebResponse.cs" />
@@ -145,6 +146,7 @@
     </Compile>
     <Compile Include="Scripts\RbacDba.cs" />
     <Compile Include="SqlQueryParser\RbacTSqlFragmentVisitor.cs" />
+    <Compile Include="SqlQueryParser\SqlParser.Helpers.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.Parameters.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.ParseSqlStatement.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.ParseDeleteStatement.cs" />
@@ -190,6 +192,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Visitors\SetClauseVisitor.cs" />
+    <Compile Include="Visitors\NamedTableReferenceVisitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataManager\RbacDbModel.Context.tt">

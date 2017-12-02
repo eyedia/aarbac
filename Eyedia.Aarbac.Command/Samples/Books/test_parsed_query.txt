@@ -1,1 +1,6 @@
-update Author set Name='abc' where AuthorId = 1
+UPDATE a 
+SET a.Name = 'abc' 
+FROM dbo.Author AS a
+INNER JOIN dbo.ZipCode AS zc 
+       ON a.ZipCodeId = a.ZipCodeId
+WHERE zc.ZipCode = '00000' 

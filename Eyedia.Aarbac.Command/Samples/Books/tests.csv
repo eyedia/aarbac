@@ -17,3 +17,9 @@ where c.Name = 'Charlotte'",Lashawn,role_city_mgr
 13,Simple insert with specific column names,"insert into Author(Name,SSN,ZipCodeId) values ('','',1)",Lashawn,role_city_mgr
 14,"Simple update, Lashawn has permission to update Name",update Author set Name='abc' where AuthorId = 1,Lashawn,role_city_mgr
 14,"Simple update, Lashawn does not have permission to update SSN",update Author set SSN='abc' where AuthorId = 1,Lashawn,role_city_mgr
+15,Update with Join Clause,"UPDATE a 
+SET a.Name = 'abc' 
+FROM dbo.Author AS a
+INNER JOIN dbo.ZipCode AS zc 
+       ON a.ZipCodeId = a.ZipCodeId
+WHERE zc.ZipCode = '00000' ",Lashawn,role_city_mgr

@@ -218,30 +218,13 @@ namespace Eyedia.Aarbac.Framework
                     if (alias != null &&
                         column.TableAlias.ToLower() == alias.Value.ToLower())
                     {
-                        AssignSchemaDetailsToColumn(column, schema);
-                        //if (schema.ServerIdentifier != null)
-                        //    aColumnInfo.ReferencedTableServer = schema.ServerIdentifier.Value;
-                        //if (schema.DatabaseIdentifier != null)
-                        //    aColumnInfo.ReferencedTableDatabase = schema.DatabaseIdentifier.Value;
-                        //if (schema.SchemaIdentifier != null)
-                        //    aColumnInfo.ReferencedTableSchema = schema.SchemaIdentifier.Value;
-                        //if (schema.BaseIdentifier != null)
-                        //    aColumnInfo.ReferencedTableName = schema.BaseIdentifier.Value;
+                        AssignSchemaDetailsToColumn(column, schema);                  
                     }
                     else if ((alias == null) &&
                              (schema.BaseIdentifier != null) &&
                              (schema.BaseIdentifier.Value.ToLower() == column.TableAlias.ToLower()))
                     {
                         AssignSchemaDetailsToColumn(column, schema);
-
-                        //if (schema.ServerIdentifier != null)
-                        //    aColumnInfo.ReferencedTableServer = schema.ServerIdentifier.Value;
-                        //if (schema.DatabaseIdentifier != null)
-                        //    aColumnInfo.ReferencedTableDatabase = schema.DatabaseIdentifier.Value;
-                        //if (schema.SchemaIdentifier != null)
-                        //    aColumnInfo.ReferencedTableSchema = schema.SchemaIdentifier.Value;
-                        //if (schema.BaseIdentifier != null)
-                        //    aColumnInfo.ReferencedTableName = schema.BaseIdentifier.Value;
                     }
                 }
             }
