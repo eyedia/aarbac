@@ -21,17 +21,17 @@ namespace Eyedia.Aarbac.Framework
         {
             RbacSelectColumn column = new RbacSelectColumn();
             if (!string.IsNullOrEmpty(TableName))
-                column.ReferencedTableName = TableName;
+                column.Table.Name = TableName;
 
             if (assignSetClause.Column.MultiPartIdentifier.Identifiers.Count == 1)
             {                
-                column.TableColumnName = assignSetClause.Column.MultiPartIdentifier.Identifiers[0].Value;
+                column.Name = assignSetClause.Column.MultiPartIdentifier.Identifiers[0].Value;
 
             }
             else if (assignSetClause.Column.MultiPartIdentifier.Identifiers.Count == 2)
             {
-                column.TableAlias = assignSetClause.Column.MultiPartIdentifier.Identifiers[0].Value;
-                column.TableColumnName = assignSetClause.Column.MultiPartIdentifier.Identifiers[1].Value;
+                column.Table.Alias = assignSetClause.Column.MultiPartIdentifier.Identifiers[0].Value;
+                column.Name = assignSetClause.Column.MultiPartIdentifier.Identifiers[1].Value;
             }
            
             Columns.Add(column);

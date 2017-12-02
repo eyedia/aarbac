@@ -44,24 +44,24 @@ namespace Eyedia.Aarbac.Framework
     {       
         public void ApplyPermissionSelect()
         {
-            var tables = Columns.List.GroupBy(c => c.ReferencedTableName).Select(grp => grp.ToList()).ToList();
+            var tables = Columns.List.GroupBy(c => c.Table.Name).Select(grp => grp.ToList()).ToList();
             foreach (var allColumnnsInATable in tables)
             {
                 if (allColumnnsInATable.Count > 0)
                 {
-                    RbacTable rbacTable = TablesReferred.Find(allColumnnsInATable[0].ReferencedTableName);
+                    RbacTable rbacTable = TablesReferred.Find(allColumnnsInATable[0].Table.Name);
                     if (rbacTable == null)
                         throw new Exception("Could not find table name in referred tables!");
                     if (rbacTable.AllowedOperations.HasFlag(RbacDBOperations.Read))
                     {
                         foreach (RbacSelectColumn column in allColumnnsInATable)
                         {
-                            RbacColumn rbacColumn = rbacTable.FindColumn(column.TableColumnName);
+                            RbacColumn rbacColumn = rbacTable.FindColumn(column.Name);
 
                             if (rbacColumn == null)
                                 RbacException.Raise(
                                     string.Format("Role '{0}' belongs to '{1}' is not in sync with database. The column '{2}' of table '{3}' was not found in the role meta data",
-                                    this.Context.User.UserName, this.Context.User.Role.Name, column.TableColumnName, column.ReferencedTableName));
+                                    this.Context.User.UserName, this.Context.User.Role.Name, column.Name, column.Table.Name));
                             
                             if (!rbacColumn.AllowedOperations.HasFlag(RbacDBOperations.Read))
                                 RemoveColumnFromSelect(column);
@@ -92,11 +92,11 @@ namespace Eyedia.Aarbac.Framework
             }
             else
             {
-                string colName = column.TableColumnName;
-                if (!string.IsNullOrEmpty(column.TableAlias))
-                    colName = string.Format("{0}.{1}", column.TableAlias, column.TableColumnName);
-                else if (!string.IsNullOrEmpty(column.ReferencedTableName))
-                    colName = string.Format("{0}.{1}", column.ReferencedTableName, column.TableColumnName);
+                string colName = column.Name;
+                if (!string.IsNullOrEmpty(column.Table.Alias))
+                    colName = string.Format("{0}.{1}", column.Table.Alias, column.Name);
+                else if (!string.IsNullOrEmpty(column.Table.Name))
+                    colName = string.Format("{0}.{1}", column.Table.Name, column.Name);
 
                 int pos = selectStatement.IndexOf(colName);
                 int nextommaPos = selectStatement.IndexOf(",", pos);

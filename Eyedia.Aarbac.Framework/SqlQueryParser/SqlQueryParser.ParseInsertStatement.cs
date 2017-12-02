@@ -130,8 +130,8 @@ namespace Eyedia.Aarbac.Framework
         {
             RbacSelectColumn column = new RbacSelectColumn();
             column.Alias = string.Empty;
-            column.TableColumnName = columnName;
-            column.ReferencedTableName = tableName;
+            column.Name = columnName;
+            column.Table.Name = tableName;
             Columns.Add(column);
         }
        

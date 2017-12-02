@@ -8,25 +8,33 @@ namespace Eyedia.Aarbac.Framework
 {
     public partial class SqlQueryParser
     {
-       private void UpdateReferredTables(List<ReferredTable> tables)
-        {
-            foreach (ReferredTable referredTable in tables)
-            {
-                UpdateReferredTables(referredTable.Name);
-            }
-        }
 
         private void UpdateReferredTables(RbacSelectColumns columns)
         {
             foreach (RbacSelectColumn column in columns.List)
             {
-                UpdateReferredTables(column.ReferencedTableName);
+                if (string.IsNullOrEmpty(column.Table.Name))
+                {
+                    RbacTable table = TablesReferred.Find(column.Table.Alias);
+                    if (table == null)
+                    {
+                        UpdateReferredTables(column.Table.Name, column.Table.Alias);
+                    }
+                    else
+                    {
+                        column.Table = table;
+                    }
+
+                }
+
             }
         }
 
-        private void UpdateReferredTables(string tableName)
+        private void UpdateReferredTables(string tableName, string tableAlias)
         {
             RbacTable actualTable = Context.User.Role.CrudPermissions.Find(tableName);
+            actualTable.Alias = tableAlias;
+
             if (actualTable != null)
                 TablesReferred.Add(actualTable);
             else

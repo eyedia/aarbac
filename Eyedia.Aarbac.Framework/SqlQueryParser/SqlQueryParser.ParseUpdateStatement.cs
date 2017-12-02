@@ -75,8 +75,8 @@ namespace Eyedia.Aarbac.Framework
 
                 #region Handle Target Table
 
-                ReferredTable targetTable = new ReferredTable();
-                NamedTableReferenceVisitor ntVisitor = new NamedTableReferenceVisitor();
+                RbacTable targetTable = new RbacTable();
+                NamedTableReferenceVisitor ntVisitor = new NamedTableReferenceVisitor(Context);
                 aUpdateStatement.UpdateSpecification.Target.Accept(ntVisitor);
 
                 if (ntVisitor.Tables.Count == 0)
@@ -92,9 +92,9 @@ namespace Eyedia.Aarbac.Framework
                 if (aUpdateStatement.UpdateSpecification.FromClause != null)
                 {
                     //mostly update with join case
-                    ntVisitor = new NamedTableReferenceVisitor();
+                    ntVisitor = new NamedTableReferenceVisitor(Context);
                     aUpdateStatement.UpdateSpecification.FromClause.AcceptChildren(ntVisitor);
-                    UpdateReferredTables(ntVisitor.Tables);
+                    this.TablesReferred = ntVisitor.Tables;
 
                     //if alias is being updated, we need to fix table name
                     RbacTable tryTable = Context.User.Role.CrudPermissions.Find(targetTable.Name);

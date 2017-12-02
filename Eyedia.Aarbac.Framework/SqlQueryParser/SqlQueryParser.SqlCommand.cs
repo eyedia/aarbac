@@ -66,10 +66,10 @@ namespace Eyedia.Aarbac.Framework
 
                         RbacSelectColumn column = new RbacSelectColumn();
                         column.Alias = row["ColumnName"].ToString();
-                        column.TableColumnName = row["BaseColumnName"].ToString();
-                        column.ReferencedTableName = row["BaseTableName"].ToString();
+                        column.Name = row["BaseColumnName"].ToString();
+                        column.Table.Name = row["BaseTableName"].ToString();
                         Columns.Add(column);
-                        RbacTable table = Context.User.Role.CrudPermissions.Find(column.ReferencedTableName);
+                        RbacTable table = Context.User.Role.CrudPermissions.Find(column.Table.Name);
                         if (table != null)
                             TablesReferred.Add(table);
                         else

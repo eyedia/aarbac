@@ -44,19 +44,19 @@ namespace Eyedia.Aarbac.Framework
 
         public void ApplyPermissionUpdate()
         {
-            var tables = Columns.List.GroupBy(c => c.ReferencedTableName).Select(grp => grp.ToList()).ToList();
+            var tables = Columns.List.GroupBy(c => c.Table.Name).Select(grp => grp.ToList()).ToList();
             foreach (var allColumnnsInATable in tables)
             {
                 if (allColumnnsInATable.Count > 0)
                 {
-                    RbacTable rbacTable = TablesReferred.Find(allColumnnsInATable[0].ReferencedTableName);
+                    RbacTable rbacTable = TablesReferred.Find(allColumnnsInATable[0].Table.Name);
                     if (rbacTable == null)
                         throw new Exception("Could not find table name in referred tables!");
                     if (rbacTable.AllowedOperations.HasFlag(RbacDBOperations.Update))
                     {
                         foreach (RbacSelectColumn column in allColumnnsInATable)
                         {
-                            RbacColumn rbacColumn = rbacTable.FindColumn(column.TableColumnName);
+                            RbacColumn rbacColumn = rbacTable.FindColumn(column.Name);
                             if (!rbacColumn.AllowedOperations.HasFlag(RbacDBOperations.Update))
                                 RbacException.Raise(string.Format("User '{0}' has permission to update table '{1}', however has no permission to update column '{2}'!",
                                     Context.User.UserName, rbacTable.Name, rbacColumn.Name), RbacExceptionCategories.Parser);

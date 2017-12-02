@@ -1,6 +1,1 @@
-UPDATE a 
-SET a.Name = 'abc' 
-FROM dbo.Author AS a
-INNER JOIN dbo.ZipCode AS zc 
-       ON a.ZipCodeId = a.ZipCodeId
-WHERE zc.ZipCode = '00000' 
+SELECT a.AuthorId , a.Name as [AuthorName] , a.ZipCodeId , c.Name as City  FROM Author a inner join Zipcode zc on zc.ZipCodeId = a.ZipCodeId inner join City c on c.CityId = zc.CityId   WHERE c.Name in ('New York','Charlotte')  

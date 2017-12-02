@@ -89,7 +89,6 @@
     <Compile Include="BOs\RbacTable.cs" />
     <Compile Include="BOs\RbacUser.cs" />
     <Compile Include="BOs\RbacWhereClause.cs" />
-    <Compile Include="BOs\ReferredTable.cs" />
     <Compile Include="BOs\Web\RbacEngineWeb.cs" />
     <Compile Include="BOs\Web\RbacEngineWebRequest.cs" />
     <Compile Include="BOs\Web\RbacEngineWebResponse.cs" />
@@ -148,6 +147,7 @@
     <Compile Include="SqlQueryParser\RbacTSqlFragmentVisitor.cs" />
     <Compile Include="SqlQueryParser\SqlParser.Helpers.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.Parameters.cs" />
+    <Compile Include="SqlQueryParser\SqlQueryParser.ParseSelectStatement.New.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.ParseSqlStatement.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.ParseDeleteStatement.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.ParseInsertStatement.cs" />
@@ -161,7 +161,7 @@
     <Compile Include="SqlQueryEngine\RbacSqlQueryEngine.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.SqlCommand.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.ParseJoins.cs" />
-    <Compile Include="SqlQueryParser\SqlQueryParserModels.cs" />
+    <Compile Include="BOs\RbacSelectColumn.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.ParseScalarExperssions.cs" />
     <Compile Include="SqlQueryParser\SqlQueryParser.ParseTableReferences.cs" />
@@ -192,6 +192,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Visitors\EqualVisitor.cs" />
+    <Compile Include="Visitors\InPredicateVisitor.cs" />
+    <Compile Include="Visitors\JoinClauseVisitor.cs" />
+    <Compile Include="Visitors\ScalarExpressionVisitor.cs" />
     <Compile Include="Visitors\SetClauseVisitor.cs" />
     <Compile Include="Visitors\NamedTableReferenceVisitor.cs" />
   </ItemGroup>

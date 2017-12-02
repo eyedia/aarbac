@@ -441,11 +441,11 @@ namespace Eyedia.Aarbac.Framework
             TablesReferred = new List<RbacTable>();
             foreach (RbacSelectColumn cInfo in Columns.List)
             {
-                RbacTable table = Context.User.Role.CrudPermissions.Find(cInfo.ReferencedTableName);
+                RbacTable table = Context.User.Role.CrudPermissions.Find(cInfo.Table.Name);
                 if (table != null)
                     TablesReferred.Add(table);
                 else
-                    throw new Exception(string.Format("The referred table {0} was not found in meta data!", cInfo.ReferencedTableName));
+                    throw new Exception(string.Format("The referred table {0} was not found in meta data!", cInfo.Table.Name));
             }
             TablesReferred = new List<RbacTable>(TablesReferred.DistinctBy(t => t.Name));
         }

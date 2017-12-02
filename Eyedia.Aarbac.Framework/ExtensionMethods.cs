@@ -44,8 +44,17 @@ namespace Eyedia.Aarbac.Framework
     {
         public static RbacTable Find(this List<RbacTable> tables, string tableName)
         {
-            if (tables != null)
-                return tables.Where(t => t.Name.Equals(tableName, StringComparison.OrdinalIgnoreCase)).SingleOrDefault();
+            if (tables == null)
+                return null;
+
+            List<RbacTable> filteredTables = tables.Where(t => t.Name.Equals(tableName, StringComparison.OrdinalIgnoreCase)).ToList();
+            if (filteredTables.Count > 0)
+                return filteredTables[0];
+
+            filteredTables = tables.Where(t => (t.Alias != null) && (t.Alias.Equals(tableName, StringComparison.OrdinalIgnoreCase))).ToList();
+            if (filteredTables.Count > 0)
+                return filteredTables[0];
+
             return null;
         }
 
@@ -62,9 +71,9 @@ namespace Eyedia.Aarbac.Framework
 
         public static string GetTableNameOrAlias(this SqlQueryParser sqlQueryParser, string tableName)
         {
-            List<RbacSelectColumn> filtered = sqlQueryParser.Columns.List.Where(c => c.ReferencedTableName.ToLower() == tableName.ToLower()).ToList();
-            if ((filtered.Count > 0) && (string.IsNullOrEmpty(filtered[0].TableAlias) == false))
-                return filtered[0].TableAlias;
+            List<RbacSelectColumn> filtered = sqlQueryParser.Columns.List.Where(c => c.Table.Name.ToLower() == tableName.ToLower()).ToList();
+            if ((filtered.Count > 0) && (string.IsNullOrEmpty(filtered[0].Table.Alias) == false))
+                return filtered[0].Table.Alias;
 
             RbacTable tempReferredtable = sqlQueryParser.TablesReferred.Where(t => t.ReferencedOnly && (t.Name == tableName)).SingleOrDefault();
             if (tempReferredtable != null)

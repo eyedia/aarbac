@@ -46,6 +46,18 @@ namespace Eyedia.Aarbac.Framework
         public string Name { get; set; }
 
         [DataMember]
+        public string Server { get; set; }
+
+        [DataMember]
+        public string Database { get; set; }
+
+        [DataMember]
+        public string Schema { get; set; }
+
+        [DataMember]
+        public string Alias { get; set; }
+
+        [DataMember]
         public string ObjectId { get; set; }
 
         [DataMember]
@@ -65,6 +77,11 @@ namespace Eyedia.Aarbac.Framework
         public RbacDBOperations AllowedOperations { get; set; }
         public bool ReferencedOnly { get; internal set; }
         public string TempAlias { get; internal set; }
+
+        public RbacTable()
+        {
+
+        }
 
         public RbacTable(string objectId, string name,
             bool create = false, bool read = false, bool update = false, bool delete = false)

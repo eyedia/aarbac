@@ -40,8 +40,10 @@ using System.IO;
 
 namespace Eyedia.Aarbac.Framework
 {
+    /*
     public partial class SqlQueryParser
     {
+        
         private void ParseSelect(string query)
         {
             TSqlScript sqlScript = InitiateTSql110Parser(query) as TSqlScript;
@@ -142,6 +144,6 @@ namespace Eyedia.Aarbac.Framework
                 Errors.Add("Not a select statement!");
             }
         }
-    }
+    }*/
 }
 
