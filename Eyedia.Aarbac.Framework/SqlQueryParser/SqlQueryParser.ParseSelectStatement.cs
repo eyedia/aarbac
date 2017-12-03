@@ -68,7 +68,8 @@ namespace Eyedia.Aarbac.Framework
                 if (aQueryExpression.GetType() == typeof(QuerySpecification))
                 {
                     QuerySpecification aQuerySpecification = (QuerySpecification)aQueryExpression;
-
+                    if (aQuerySpecification.FromClause == null)
+                        return; //'select *' is valid query, but not of our interest
                     
                     //tables
                     NamedTableReferenceVisitor ntVisitor = new NamedTableReferenceVisitor(Context);

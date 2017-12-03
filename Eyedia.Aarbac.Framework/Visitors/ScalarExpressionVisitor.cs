@@ -23,15 +23,25 @@ namespace Eyedia.Aarbac.Framework
             string query = String.Join(string.Empty, node.ScriptTokenStream.Select(sts => sts.Text).ToArray());
             
             string tableNameOrAlias = string.Empty;
+            bool hasIdentifier = false;
 
             if (node.Qualifier != null)
             {
                 tableNameOrAlias = node.Qualifier.Identifiers[0].Value;
+                hasIdentifier = true;
             }
             else
             {
                 int pos = node.ScriptTokenStream.Select((v, i) => new { token = v, index = i }).First(sts => sts.token.TokenType == TSqlTokenType.From).index;
                 tableNameOrAlias = node.ScriptTokenStream[pos + 2].Text;
+
+                if ((node.ScriptTokenStream.Count >
+                    (pos + 2 + 2))
+                    && (node.ScriptTokenStream[pos + 4].TokenType == TSqlTokenType.Identifier))
+                {
+                    //e.g. 'select * from Author a' getting 'a'
+                    tableNameOrAlias = node.ScriptTokenStream[pos + 4].Text;
+                }
             }
 
             bool isAlias = false;
@@ -44,18 +54,22 @@ namespace Eyedia.Aarbac.Framework
                     if (isAlias)
                     {
                         column.Table.Alias = tableNameOrAlias;
-                        column.Table.Name = table.Name;
-                        ParsedQuery = query.Replace(tableNameOrAlias + ".*", table.Columns.ToCommaSeparatedString(tableNameOrAlias));
+                        column.Table.Name = table.Name;                       
                     }
                     else
                     {
-                        column.Table.Name = tableNameOrAlias;
-                        ParsedQuery = query.Replace("*", table.Columns.ToCommaSeparatedString(tableNameOrAlias));
+                        column.Table.Name = tableNameOrAlias;                       
                     }
 
                     column.Name = col.Name;
                     Columns.Add(column);
                 }
+
+                if ((isAlias) && (hasIdentifier))
+                    ParsedQuery = query.Replace(tableNameOrAlias + ".*", table.Columns.ToCommaSeparatedString(tableNameOrAlias));
+                else
+                    ParsedQuery = query.Replace("*", table.Columns.ToCommaSeparatedString(tableNameOrAlias));
+
             }
             else
             {

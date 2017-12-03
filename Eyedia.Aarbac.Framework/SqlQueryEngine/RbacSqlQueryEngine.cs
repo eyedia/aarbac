@@ -122,6 +122,9 @@ namespace Eyedia.Aarbac.Framework
 
         private string LimitNumberOfRows(string parsedQuery)
         {
+            if (Parser.QueryType != RbacQueryTypes.Select)
+                return parsedQuery;
+
             if(IsDebugMode)
             {
                 string selectTop10 = parsedQuery.Substring(0, 6) + " top 10";

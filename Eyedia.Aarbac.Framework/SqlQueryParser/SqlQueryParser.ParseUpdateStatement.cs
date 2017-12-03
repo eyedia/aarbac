@@ -106,6 +106,10 @@ namespace Eyedia.Aarbac.Framework
                             targetTable.Name = tt.Name;
                     }
                 }
+                else
+                {
+                    TablesReferred.Add(targetTable);
+                }
                 #endregion Handle From Clause - When Update with Join
 
                 #region Handle Columns

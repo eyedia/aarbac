@@ -79,14 +79,20 @@ namespace Eyedia.Aarbac.Framework
 
         public static string GetTableNameOrAlias(this SqlQueryParser sqlQueryParser, string tableName)
         {
-            List<RbacSelectColumn> filtered = sqlQueryParser.Columns.Where(c => c.Table.Name.ToLower() == tableName.ToLower()).ToList();
-            if ((filtered.Count > 0) && (string.IsNullOrEmpty(filtered[0].Table.Alias) == false))
-                return filtered[0].Table.Alias;
+            //List<RbacSelectColumn> filtered = sqlQueryParser.Columns.Where(c => c.Table.Name.ToLower() == tableName.ToLower()).ToList();
+            //if ((filtered.Count > 0) && (string.IsNullOrEmpty(filtered[0].Table.Alias) == false))
+            //    return filtered[0].Table.Alias;
 
-            RbacTable tempReferredtable = sqlQueryParser.TablesReferred.Where(t => t.ReferencedOnly && (t.Name == tableName)).SingleOrDefault();
-            if (tempReferredtable != null)
-                return tempReferredtable.TempAlias;
-
+            RbacTable table = sqlQueryParser.TablesReferred.Where(t => t.Name == tableName).SingleOrDefault();
+            if (table != null)
+            {
+                if (table.ReferencedOnly)
+                    return table.TempAlias;
+                else if (!string.IsNullOrEmpty(table.Alias))
+                    return table.Alias;
+                else
+                    return table.Name;
+            }
             return tableName;
         }
 

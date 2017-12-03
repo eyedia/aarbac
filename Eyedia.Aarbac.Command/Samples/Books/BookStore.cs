@@ -39,6 +39,7 @@ using Eyedia.Aarbac.Framework;
 using System.Data;
 using System.IO;
 using GenericParsing;
+using System.Diagnostics;
 
 namespace Eyedia.Aarbac.Command
 {
@@ -178,6 +179,9 @@ namespace Eyedia.Aarbac.Command
 
             foreach (DataRow row in table.Rows)
             {
+                //if (row["Id"].ToString() == "14")
+                //    Debugger.Break();
+
                 Rbac rbac = new Rbac(row["User"].ToString());
                 RbacRole role = Rbac.GetRole(row["Role"].ToString());
                 SqlQueryParser parser = new SqlQueryParser(rbac);

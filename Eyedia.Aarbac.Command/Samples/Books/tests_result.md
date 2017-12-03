@@ -18,16 +18,11 @@ Parsed Query:
 SELECT a.AuthorId , a.Name as [AuthorName] , a.ZipCodeId , c.Name as City  FROM Author a 
 inner join Zipcode zc on zc.ZipCodeId = a.ZipCodeId 
 inner join City c on c.CityId = zc.CityId   
-WHERE City.Name
+WHERE c.Name
  in ('New York','Charlotte')  
 ```
 ```
-Record Count(s):Errored
-```
-```diff
-- The multi-part identifier "City.Name" could not be bound.
-The multi-part identifier "City.Name" could not be bound.
-
+Record Count(s):10 record(s)
 ```
 ***
 
@@ -214,8 +209,18 @@ Query:
 ```sql
 select * 
 ```
+```
+Parsed Query:
+```
+```sql
+select * 
+```
+```
+Record Count(s):Errored
+```
 ```diff
-- Object reference not set to an instance of an object.
+- Must specify table to select from.
+
 ```
 ***
 
@@ -329,8 +334,15 @@ Query:
 update Author set Name='abc' 
 where AuthorId = 1
 ```
-```diff
-- Could not find table name in referred tables!
+```
+Parsed Query:
+```
+```sql
+update Author set Name='abc' 
+where AuthorId = 1
+```
+```
+Record Count(s):Not Applicable
 ```
 ***
 
@@ -346,7 +358,7 @@ update Author set SSN='abc'
 where AuthorId = 1
 ```
 ```diff
-- Could not find table name in referred tables!
+- RBAC.PRS - User 'Lashawn' has permission to update table 'Author', however has no permission to update column 'SSN'!
 ```
 ***
 
@@ -379,11 +391,7 @@ INNER JOIN dbo.ZipCode AS zc
 WHERE zc.ZipCode = '00000' 
 ```
 ```
-Record Count(s):Errored
-```
-```diff
-- Incorrect syntax near '10'.
-
+Record Count(s):Not Applicable
 ```
 ***
 
@@ -451,21 +459,14 @@ select * from Author a
 Parsed Query:
 ```
 ```sql
-SELECT Author.AuthorId , Author.Name , Author.ZipCodeId FROM Author a   
-inner join [ZipCode] [t23] on [t23].ZipCodeId = [Author].ZipCodeId   
+SELECT a.AuthorId , a.Name , a.ZipCodeId FROM Author a   
+inner join [ZipCode] [t23] on [t23].ZipCodeId = [a].ZipCodeId   
 inner join [City] [t24] on [t24].CityId = [t23].CityId 
 WHERE t24.Name
  in ('New York','Charlotte')  
 ```
 ```
-Record Count(s):Errored
-```
-```diff
-- The multi-part identifier "Author.ZipCodeId" could not be bound.
-The multi-part identifier "Author.AuthorId" could not be bound.
-The multi-part identifier "Author.Name" could not be bound.
-The multi-part identifier "Author.ZipCodeId" could not be bound.
-
+Record Count(s):10 record(s)
 ```
 ***
 

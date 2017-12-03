@@ -203,12 +203,12 @@ namespace Eyedia.Aarbac.Framework
             if (ConditionAppliedOn.Where(c => c == table.Name).SingleOrDefault() != null)
                 return;
 
-            string selfName = string.Empty;
-            if (!table.ReferencedOnly)
-                selfName = this.GetTableNameOrAlias(table.Name);
-            else
-                selfName = table.TempAlias;
-           
+            string selfName = this.GetTableNameOrAlias(table.Name);
+            //if (!table.ReferencedOnly)
+            //    selfName = this.GetTableNameOrAlias(table.Name);
+            //else
+            //    selfName = table.TempAlias;
+
 
             foreach (RbacCondition condition in table.Conditions)
             {
