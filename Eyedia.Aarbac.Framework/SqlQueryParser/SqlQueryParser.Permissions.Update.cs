@@ -44,7 +44,7 @@ namespace Eyedia.Aarbac.Framework
 
         public void ApplyPermissionUpdate()
         {
-            var tables = Columns.List.GroupBy(c => c.Table.Name).Select(grp => grp.ToList()).ToList();
+            var tables = Columns.GroupBy(c => c.Table.Name).Select(grp => grp.ToList()).ToList();
             foreach (var allColumnnsInATable in tables)
             {
                 if (allColumnnsInATable.Count > 0)

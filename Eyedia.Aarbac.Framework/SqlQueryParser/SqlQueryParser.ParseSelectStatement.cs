@@ -45,6 +45,7 @@ namespace Eyedia.Aarbac.Framework
         private void ParseSelect(string query)
         {
             TSqlScript sqlScript = InitiateTSql110Parser(query) as TSqlScript;
+
             foreach (TSqlBatch sqlBatch in sqlScript.Batches)
             {
                 foreach (TSqlStatement sqlStatement in sqlBatch.Statements)
@@ -54,12 +55,8 @@ namespace Eyedia.Aarbac.Framework
             }
             if (IsNotSupported)
                 return;
-            if (ParsedMethod == RbacSelectQueryParsedMethods.ScriptDom)
-            {
-                GetReferredTables();
-                IsParsed = true;
-            }
-            // IsParsed = true;
+
+            IsParsed = true;
         }
 
         private void ParseSqlSelectStatement(TSqlStatement sqlStatement)
@@ -72,17 +69,20 @@ namespace Eyedia.Aarbac.Framework
                 {
                     QuerySpecification aQuerySpecification = (QuerySpecification)aQueryExpression;
 
-
+                    
                     //tables
                     NamedTableReferenceVisitor ntVisitor = new NamedTableReferenceVisitor(Context);
-                    aQueryExpression.AcceptChildren(ntVisitor);
+                    aQuerySpecification.FromClause.Accept(ntVisitor);
                     TablesReferred = ntVisitor.Tables;
 
                     //columns
-                    ScalarExpressionVisitor seVisitor = new ScalarExpressionVisitor();
-                    aQueryExpression.AcceptChildren(seVisitor);
+                    
+                    ScalarExpressionVisitor seVisitor = new ScalarExpressionVisitor(Context);
+                    aQuerySpecification.SelectElements[0].Accept(seVisitor);
                     Columns = seVisitor.Columns;
                     UpdateReferredTables(Columns);
+                    if (!string.IsNullOrEmpty(seVisitor.ParsedQuery))
+                        ParsedQuery = seVisitor.ParsedQuery;
 
                     //ensure unique tables
                     TablesReferred = new List<RbacTable>(TablesReferred.DistinctBy(t => t.Name));
@@ -90,16 +90,19 @@ namespace Eyedia.Aarbac.Framework
                     //joins
                     JoinClauseVisitor jcVisitor = new JoinClauseVisitor(Context);
                     aQueryExpression.AcceptChildren(jcVisitor);
-                    JoinClauses = jcVisitor.JoinClauses;                  
+                    JoinClauses = jcVisitor.JoinClauses;
 
                     //where clause
-                    EqualVisitor cidv = new EqualVisitor(ParsedQuery);
-                    InPredicateVisitor inpv = new InPredicateVisitor(ParsedQuery);
-                    aQuerySpecification.WhereClause.AcceptChildren(cidv);
-                    aQuerySpecification.WhereClause.AcceptChildren(inpv);
-                    WhereClauses.AddRange(cidv.WhereClauses);
-                    WhereClauses.AddRange(inpv.WhereClauses);
-                    WhereClauses.ParseReferenceTableNames(JoinClauses);
+                    if (aQuerySpecification.WhereClause != null)
+                    {
+                        EqualVisitor cidv = new EqualVisitor(ParsedQuery);
+                        InPredicateVisitor inpv = new InPredicateVisitor(ParsedQuery);
+                        aQuerySpecification.WhereClause.AcceptChildren(cidv);
+                        aQuerySpecification.WhereClause.AcceptChildren(inpv);
+                        WhereClauses.AddRange(cidv.WhereClauses);
+                        WhereClauses.AddRange(inpv.WhereClauses);
+                        WhereClauses.ParseReferenceTableNames(JoinClauses);
+                    }
                 }
                 
             }
@@ -108,6 +111,7 @@ namespace Eyedia.Aarbac.Framework
                 Errors.Add("Not a select statement!");
             }
         }
+       
     }
 }
 

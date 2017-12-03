@@ -69,8 +69,7 @@ namespace Eyedia.Aarbac.Framework
                     break;
             }
             this.Name = name;
-            this.DataType = (RbacDataTypes)Enum.Parse(typeof(RbacDataTypes), dataType, true);
-            //this.IsFilterColumn = bool.Parse(isFilterColumn);
+            this.DataType = (RbacDataTypes)Enum.Parse(typeof(RbacDataTypes), dataType, true);            
             this.AllowedOperations = Rbac.ParseOperations(create, read, update, "False");
         }
 

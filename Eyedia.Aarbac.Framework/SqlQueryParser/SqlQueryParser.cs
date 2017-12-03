@@ -46,6 +46,7 @@ namespace Eyedia.Aarbac.Framework
         {
             Context = context;
             IsParsingSkipped = skipParsing;
+            Columns = new List<RbacSelectColumn>();
             JoinClauses = new List<RbacJoin>();
             WhereClauses = new List<RbacWhereClause>();
             ExecutionTime = new ExecutionTime();
@@ -59,7 +60,7 @@ namespace Eyedia.Aarbac.Framework
         public RbacQueryTypes QueryType { get; private set; }
         public List<string> Warnings { get; private set; }
         public List<string> Errors { get; private set; }
-        public RbacSelectColumns Columns { get; private set; }
+        public List<RbacSelectColumn> Columns { get; private set; }
         public IList<ParseError> ParseErrors { get; private set; }
         public Rbac Context { get; private set; }        
         public bool IsParsed { get; private set; }
@@ -448,19 +449,19 @@ namespace Eyedia.Aarbac.Framework
 
         #region Helpers
 
-        private void GetReferredTables()
-        {
-            TablesReferred = new List<RbacTable>();
-            foreach (RbacSelectColumn cInfo in Columns.List)
-            {
-                RbacTable table = Context.User.Role.CrudPermissions.Find(cInfo.Table.Name);
-                if (table != null)
-                    TablesReferred.Add(table);
-                else
-                    throw new Exception(string.Format("The referred table {0} was not found in meta data!", cInfo.Table.Name));
-            }
-            TablesReferred = new List<RbacTable>(TablesReferred.DistinctBy(t => t.Name));
-        }
+        //private void GetReferredTables()
+        //{
+        //    TablesReferred = new List<RbacTable>();
+        //    foreach (RbacSelectColumn cInfo in Columns.List)
+        //    {
+        //        RbacTable table = Context.User.Role.CrudPermissions.Find(cInfo.Table.Name);
+        //        if (table != null)
+        //            TablesReferred.Add(table);
+        //        else
+        //            throw new Exception(string.Format("The referred table {0} was not found in meta data!", cInfo.Table.Name));
+        //    }
+        //    TablesReferred = new List<RbacTable>(TablesReferred.DistinctBy(t => t.Name));
+        //}
 
         private void PrintErrors()
         {

@@ -44,6 +44,11 @@ namespace Eyedia.Aarbac.Framework
     {
         public static RbacTable Find(this List<RbacTable> tables, string tableName)
         {
+            bool isAlias = false;
+            return Find(tables, tableName, ref isAlias);
+        }
+        public static RbacTable Find(this List<RbacTable> tables, string tableName, ref bool isAlias)
+        {
             if (tables == null)
                 return null;
 
@@ -53,7 +58,10 @@ namespace Eyedia.Aarbac.Framework
 
             filteredTables = tables.Where(t => (t.Alias != null) && (t.Alias.Equals(tableName, StringComparison.OrdinalIgnoreCase))).ToList();
             if (filteredTables.Count > 0)
+            {
+                isAlias = true;
                 return filteredTables[0];
+            }
 
             return null;
         }
@@ -71,7 +79,7 @@ namespace Eyedia.Aarbac.Framework
 
         public static string GetTableNameOrAlias(this SqlQueryParser sqlQueryParser, string tableName)
         {
-            List<RbacSelectColumn> filtered = sqlQueryParser.Columns.List.Where(c => c.Table.Name.ToLower() == tableName.ToLower()).ToList();
+            List<RbacSelectColumn> filtered = sqlQueryParser.Columns.Where(c => c.Table.Name.ToLower() == tableName.ToLower()).ToList();
             if ((filtered.Count > 0) && (string.IsNullOrEmpty(filtered[0].Table.Alias) == false))
                 return filtered[0].Table.Alias;
 
@@ -144,6 +152,9 @@ namespace Eyedia.Aarbac.Framework
 
         public static void ParseReferenceTableNames(this List<RbacWhereClause> whereClauses, List<RbacJoin> joinClauses)
         {
+            if (joinClauses.Count == 0)
+                return;
+
             foreach(RbacWhereClause wClause in whereClauses)
             {
                 var r = joinClauses.Where(jc => jc.FromTableAlias.Equals(wClause.OnTableAlias)).SingleOrDefault();
@@ -162,6 +173,43 @@ namespace Eyedia.Aarbac.Framework
                 }
             }
         }
+
+        public static string ToCommaSeparatedString(this List<RbacSelectColumn> columns)
+        {
+            if (columns == null)
+                return string.Empty;
+
+            string strColumns = string.Empty;
+            foreach (var i in columns)
+            {
+                if (string.IsNullOrEmpty(i.Table.Alias))
+                    strColumns += i.Table.Name + "." + i.Name + ",";
+                else
+                    strColumns += i.Table.Alias + "." + i.Name + ",";
+            }
+            return strColumns.Length > 0 ? strColumns.Substring(0, strColumns.Length - 1) : strColumns;
+        }
+
+        public static string ToCommaSeparatedString(this List<RbacColumn> columns, string tableAlias = null)
+        {
+            if (columns == null)
+                return string.Empty;
+
+            if (tableAlias == null)
+            {
+                return columns.Select(i => i.Name).Aggregate((i, j) => i + ", " + j);
+            }
+            else
+            {
+                string strColumns = string.Empty;
+                foreach (var i in columns)
+                {
+                    strColumns += tableAlias + "." + i.Name + ",";
+                }
+                return strColumns.Length > 0 ? strColumns.Substring(0, strColumns.Length - 1) : strColumns;
+            }
+        }
+
         //public static RbacWhereClause Find(this List<RbacWhereClause> whereClauses, RbacTable table)
         //{
         //    foreach (RbacColumn column in table.Columns)

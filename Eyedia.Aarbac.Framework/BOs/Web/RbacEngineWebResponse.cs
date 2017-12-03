@@ -52,7 +52,7 @@ namespace Eyedia.Aarbac.Framework
         //parser specific
         public string QueryType { get; private set; }
         public string Log { get; private set; }
-        public RbacSelectColumns Columns { get; private set; }              
+        public List<RbacSelectColumn> Columns { get; private set; }              
         public bool IsParsed { get; private set; }
         public bool IsNotSupported { get; private set; }
         public bool IsZeroSelectColumn { get; private set; }
@@ -70,8 +70,8 @@ namespace Eyedia.Aarbac.Framework
         public DataTable Table { get; set; }
 
         public RbacEngineWebResponse()
-        {            
-            
+        {
+            Columns = new List<RbacSelectColumn>();
         }
 
         public RbacEngineWebResponse(RbacSqlQueryEngine engine)

@@ -44,7 +44,7 @@ namespace Eyedia.Aarbac.Framework
     {       
         public void ApplyPermissionSelect()
         {
-            var tables = Columns.List.GroupBy(c => c.Table.Name).Select(grp => grp.ToList()).ToList();
+            var tables = Columns.GroupBy(c => c.Table.Name).Select(grp => grp.ToList()).ToList();
             foreach (var allColumnnsInATable in tables)
             {
                 if (allColumnnsInATable.Count > 0)
@@ -99,6 +99,8 @@ namespace Eyedia.Aarbac.Framework
                     colName = string.Format("{0}.{1}", column.Table.Name, column.Name);
 
                 int pos = selectStatement.IndexOf(colName);
+                if (pos == -1)
+                    return; //column was referred more than once, was removed in last go.
                 int nextommaPos = selectStatement.IndexOf(",", pos);
                 if (nextommaPos == -1) //we hit the last column
                     nextommaPos = selectStatement.Length;

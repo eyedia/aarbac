@@ -44,7 +44,7 @@ namespace Eyedia.Aarbac.Framework
     {
         private TSqlFragment InitiateTSql110Parser(string query)
         {
-            Columns = new RbacSelectColumns();
+            Columns = new List<RbacSelectColumn>();
             TablesReferred = new List<RbacTable>();
             IList<ParseError> parseErrors;
             TSql110Parser parser = new TSql110Parser(true);
@@ -117,8 +117,7 @@ namespace Eyedia.Aarbac.Framework
                         AddSelectColumn(tableName, columnName);
 
                     }
-                }
-                Columns.FillEmptyAlias();
+                }                
             }
             else
             {

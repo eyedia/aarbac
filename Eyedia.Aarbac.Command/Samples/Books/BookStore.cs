@@ -233,20 +233,22 @@ namespace Eyedia.Aarbac.Command
 
                 oneRecord += "```sql" + Environment.NewLine + FormatQuery(row["Query"]) + Environment.NewLine + "```" + Environment.NewLine;
 
-                oneRecord += "```" + Environment.NewLine;
-                oneRecord += "Parsed Query:" + Environment.NewLine;
-                oneRecord += "```" + Environment.NewLine;
-                oneRecord += "```sql" + Environment.NewLine + FormatQuery(row["ParsedQuery"]) + Environment.NewLine + "```" + Environment.NewLine;
-
+                if (!string.IsNullOrEmpty(row["ParsedQuery"].ToString()))
+                {
+                    oneRecord += "```" + Environment.NewLine;
+                    oneRecord += "Parsed Query:" + Environment.NewLine;
+                    oneRecord += "```" + Environment.NewLine;
+                    oneRecord += "```sql" + Environment.NewLine + FormatQuery(row["ParsedQuery"]) + Environment.NewLine + "```" + Environment.NewLine;
+                }
                 
-                if (string.IsNullOrEmpty(row["Records"].ToString()))
-                    oneRecord += "```" + Environment.NewLine + "Record Count(s):" + Environment.NewLine + "```" + Environment.NewLine;
-                else
+                if (!string.IsNullOrEmpty(row["Records"].ToString()))
+                //    oneRecord += "```" + Environment.NewLine + "Record Count(s):" + Environment.NewLine + "```" + Environment.NewLine;
+                //else
                     oneRecord += "```" + Environment.NewLine + "Record Count(s):" + row["Records"] + Environment.NewLine + "```" + Environment.NewLine;
 
-                if (string.IsNullOrEmpty(row["Errors"].ToString()))
-                    oneRecord += "```" + Environment.NewLine + "Errors(s):" + Environment.NewLine + "```" + Environment.NewLine;
-                else
+                if (!string.IsNullOrEmpty(row["Errors"].ToString()))
+                //    oneRecord += "```" + Environment.NewLine + "Errors(s):" + Environment.NewLine + "```" + Environment.NewLine;
+                //else
                     oneRecord += "```diff" + Environment.NewLine + "- " + row["Errors"] + Environment.NewLine + "```" + Environment.NewLine;
 
                 

@@ -15,7 +15,7 @@ namespace Eyedia.Aarbac.Framework
         }
         public string TableName { get; }
 
-        public RbacSelectColumns Columns = new RbacSelectColumns();
+        public List<RbacSelectColumn> Columns = new List<RbacSelectColumn>();
 
         public override void ExplicitVisit(AssignmentSetClause assignSetClause)
         {

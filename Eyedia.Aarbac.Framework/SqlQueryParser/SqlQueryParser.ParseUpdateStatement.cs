@@ -113,8 +113,7 @@ namespace Eyedia.Aarbac.Framework
                 SetClauseVisitor scVisitor = new SetClauseVisitor(targetTable.Name);
                 aUpdateStatement.UpdateSpecification.AcceptChildren(scVisitor);                
                 Columns = scVisitor.Columns;
-                UpdateReferredTables(Columns);
-                Columns.FillEmptyAlias();
+                UpdateReferredTables(Columns);                
 
                 #endregion Handle Columns
             }

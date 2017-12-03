@@ -52,7 +52,7 @@ namespace Eyedia.Aarbac.Framework
         }
 
     }
-
+    /*
     public class RbacSelectColumns
     {
         private List<RbacSelectColumn> _List = new List<RbacSelectColumn>();
@@ -167,6 +167,6 @@ namespace Eyedia.Aarbac.Framework
             //column.ReferencedTableSchema = schema.SchemaIdentifier != null ? schema.SchemaIdentifier.Value : string.Empty;
             //column.ReferencedTableName = schema.BaseIdentifier != null ? schema.BaseIdentifier.Value : string.Empty;
         }
-    }
+    }*/
 }
 

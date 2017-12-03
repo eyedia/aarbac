@@ -18,14 +18,16 @@ Parsed Query:
 SELECT a.AuthorId , a.Name as [AuthorName] , a.ZipCodeId , c.Name as City  FROM Author a 
 inner join Zipcode zc on zc.ZipCodeId = a.ZipCodeId 
 inner join City c on c.CityId = zc.CityId   
-WHERE c.Name
+WHERE City.Name
  in ('New York','Charlotte')  
 ```
 ```
-Record Count(s):10 record(s)
+Record Count(s):Errored
 ```
-```
-Errors(s):
+```diff
+- The multi-part identifier "City.Name" could not be bound.
+The multi-part identifier "City.Name" could not be bound.
+
 ```
 ***
 
@@ -47,9 +49,6 @@ select book.BookId,book.Title,book.Subject,book.Price,book.Isbn13,book.Isbn10,bo
 ```
 ```
 Record Count(s):10 record(s)
-```
-```
-Errors(s):
 ```
 ***
 
@@ -91,9 +90,6 @@ WHERE ShortName
 ```
 Record Count(s):10 record(s)
 ```
-```
-Errors(s):
-```
 ***
 
 4. 
@@ -120,9 +116,6 @@ WHERE (zc.ZipCodeId = 12) AND (t8.Name
 ```
 ```
 Record Count(s):0 record(s)
-```
-```
-Errors(s):
 ```
 ***
 
@@ -206,15 +199,6 @@ Query:
 ```sql
 abc
 ```
-```
-Parsed Query:
-```
-```sql
-
-```
-```
-Record Count(s):
-```
 ```diff
 - RBAC.Core - Invalid query type!
 ```
@@ -230,19 +214,8 @@ Query:
 ```sql
 select * 
 ```
-```
-Parsed Query:
-```
-```sql
-select * 
-```
-```
-Record Count(s):0 record(s)
-```
 ```diff
-- Must specify table to select from.
-Currently only SelectScalarExpressions are supported!
-
+- Object reference not set to an instance of an object.
 ```
 ***
 
@@ -310,19 +283,8 @@ Query:
 ```sql
 select * from abc
 ```
-```
-Parsed Query:
-```
-```sql
-select * from abc
-```
-```
-Record Count(s):0 record(s)
-```
 ```diff
-- Invalid object name 'abc'.
-Currently only SelectScalarExpressions are supported!
-
+- RBAC.PRS - The referred table abc was not found in meta data!
 ```
 ***
 
@@ -335,15 +297,6 @@ Query:
 ```
 ```sql
 insert into Author values ('','',1)
-```
-```
-Parsed Query:
-```
-```sql
-
-```
-```
-Record Count(s):
 ```
 ```diff
 - RBAC.PRS - User 'Lashawn' does not have permission to insert record into the table 'Author'!
@@ -359,15 +312,6 @@ Query:
 ```
 ```sql
 insert into Author(Name,SSN,ZipCodeId) values ('','',1)
-```
-```
-Parsed Query:
-```
-```sql
-
-```
-```
-Record Count(s):
 ```
 ```diff
 - RBAC.PRS - User 'Lashawn' does not have permission to insert record into the table 'Author'!
@@ -385,19 +329,8 @@ Query:
 update Author set Name='abc' 
 where AuthorId = 1
 ```
-```
-Parsed Query:
-```
-```sql
-update Author set Name='abc' 
-where AuthorId = 1
-```
-```
-Record Count(s):Errored
-```
 ```diff
-- Incorrect syntax near '10'.
-
+- Could not find table name in referred tables!
 ```
 ***
 
@@ -412,17 +345,177 @@ Query:
 update Author set SSN='abc' 
 where AuthorId = 1
 ```
+```diff
+- Could not find table name in referred tables!
+```
+***
+
+16. Update with Join Clause
+```
+Rbac:books
+User:Lashawn
+Role:role_city_mgr
+Query:
+```
+```sql
+UPDATE a 
+SET a.Name = 'abc' 
+FROM dbo.Author AS a
+INNER JOIN dbo.ZipCode AS zc 
+       ON a.ZipCodeId = a.ZipCodeId
+
+WHERE zc.ZipCode = '00000' 
+```
 ```
 Parsed Query:
 ```
 ```sql
+UPDATE a 
+SET a.Name = 'abc' 
+FROM dbo.Author AS a
+INNER JOIN dbo.ZipCode AS zc 
+       ON a.ZipCodeId = a.ZipCodeId
 
+WHERE zc.ZipCode = '00000' 
 ```
 ```
-Record Count(s):
+Record Count(s):Errored
 ```
 ```diff
-- RBAC.PRS - User 'Lashawn' has permission to update table 'Author', however has no permission to update column 'SSN'!
+- Incorrect syntax near '10'.
+
+```
+***
+
+17. Select wildcard
+```
+Rbac:books
+User:Lashawn
+Role:role_city_mgr
+Query:
+```
+```sql
+select * from Author
+```
+```
+Parsed Query:
+```
+```sql
+SELECT Author.AuthorId , Author.Name , Author.ZipCodeId FROM Author   
+inner join [ZipCode] [t15] on [t15].ZipCodeId = [Author].ZipCodeId   
+inner join [City] [t16] on [t16].CityId = [t15].CityId 
+WHERE t16.Name
+ in ('New York','Charlotte')  
+```
+```
+Record Count(s):10 record(s)
+```
+***
+
+18. Select wildcard
+```
+Rbac:books
+User:Lashawn
+Role:role_city_mgr
+Query:
+```
+```sql
+select a.* from Author a
+```
+```
+Parsed Query:
+```
+```sql
+SELECT a.AuthorId , a.Name , a.ZipCodeId FROM Author a   
+inner join [ZipCode] [t19] on [t19].ZipCodeId = [a].ZipCodeId   
+inner join [City] [t20] on [t20].CityId = [t19].CityId 
+WHERE t20.Name
+ in ('New York','Charlotte')  
+```
+```
+Record Count(s):10 record(s)
+```
+***
+
+19. Select wildcard
+```
+Rbac:books
+User:Lashawn
+Role:role_city_mgr
+Query:
+```
+```sql
+select * from Author a
+```
+```
+Parsed Query:
+```
+```sql
+SELECT Author.AuthorId , Author.Name , Author.ZipCodeId FROM Author a   
+inner join [ZipCode] [t23] on [t23].ZipCodeId = [Author].ZipCodeId   
+inner join [City] [t24] on [t24].CityId = [t23].CityId 
+WHERE t24.Name
+ in ('New York','Charlotte')  
+```
+```
+Record Count(s):Errored
+```
+```diff
+- The multi-part identifier "Author.ZipCodeId" could not be bound.
+The multi-part identifier "Author.AuthorId" could not be bound.
+The multi-part identifier "Author.Name" could not be bound.
+The multi-part identifier "Author.ZipCodeId" could not be bound.
+
+```
+***
+
+20. Select wildcard
+```
+Rbac:books
+User:Lashawn
+Role:role_city_mgr
+Query:
+```
+```sql
+select a.*, a.* from Author a
+```
+```
+Parsed Query:
+```
+```sql
+SELECT a.AuthorId , a.Name , a.ZipCodeId , a.AuthorId , a.Name , a.ZipCodeId FROM Author a   
+inner join [ZipCode] [t27] on [t27].ZipCodeId = [a].ZipCodeId   
+inner join [City] [t28] on [t28].CityId = [t27].CityId 
+WHERE t28.Name
+ in ('New York','Charlotte')  
+```
+```
+Record Count(s):10 record(s)
+```
+***
+
+21. Select wildcard
+```
+Rbac:books
+User:Lashawn
+Role:role_city_mgr
+Query:
+```
+```sql
+select a.*, a.* from Author a
+```
+```
+Parsed Query:
+```
+```sql
+SELECT a.AuthorId , a.Name , a.ZipCodeId , a.AuthorId , a.Name , a.ZipCodeId FROM Author a   
+inner join [ZipCode] [t31] on [t31].ZipCodeId = [a].ZipCodeId   
+inner join [City] [t32] on [t32].CityId = [t31].CityId 
+WHERE t32.Name
+ in ('New York','Charlotte')  
+```
+```
+Record Count(s):10 record(s)
 ```
 ***
 

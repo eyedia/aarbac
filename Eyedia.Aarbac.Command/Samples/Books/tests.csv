@@ -16,10 +16,15 @@ where c.Name = 'Charlotte'",Lashawn,role_city_mgr
 12,Simple Insert,"insert into Author values ('','',1)",Lashawn,role_city_mgr
 13,Simple insert with specific column names,"insert into Author(Name,SSN,ZipCodeId) values ('','',1)",Lashawn,role_city_mgr
 14,"Simple update, Lashawn has permission to update Name",update Author set Name='abc' where AuthorId = 1,Lashawn,role_city_mgr
-14,"Simple update, Lashawn does not have permission to update SSN",update Author set SSN='abc' where AuthorId = 1,Lashawn,role_city_mgr
-15,Update with Join Clause,"UPDATE a 
+15,"Simple update, Lashawn does not have permission to update SSN",update Author set SSN='abc' where AuthorId = 1,Lashawn,role_city_mgr
+16,Update with Join Clause,"UPDATE a 
 SET a.Name = 'abc' 
 FROM dbo.Author AS a
 INNER JOIN dbo.ZipCode AS zc 
        ON a.ZipCodeId = a.ZipCodeId
 WHERE zc.ZipCode = '00000' ",Lashawn,role_city_mgr
+17,Select wildcard,select * from Author,Lashawn,role_city_mgr
+18,Select wildcard,select a.* from Author a,Lashawn,role_city_mgr
+19,Select wildcard,select * from Author a,Lashawn,role_city_mgr
+20,Select wildcard,"select a.*, a.* from Author a",Lashawn,role_city_mgr
+21,Select wildcard,"select a.*, a.* from Author a",Lashawn,role_city_mgr

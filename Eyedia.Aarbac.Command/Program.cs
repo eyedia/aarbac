@@ -58,7 +58,7 @@ namespace Eyedia.Aarbac.Command
             //new BookStore().Setup();
             try
             {
-                new BookStore().TestOne();
+                new BookStore().TestBatch();
             }
             catch(RbacException e)
             {

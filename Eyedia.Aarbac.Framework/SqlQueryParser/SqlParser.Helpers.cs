@@ -9,9 +9,9 @@ namespace Eyedia.Aarbac.Framework
     public partial class SqlQueryParser
     {
 
-        private void UpdateReferredTables(RbacSelectColumns columns)
+        private void UpdateReferredTables(List<RbacSelectColumn> columns)
         {
-            foreach (RbacSelectColumn column in columns.List)
+            foreach (RbacSelectColumn column in columns)
             {
                 if (string.IsNullOrEmpty(column.Table.Name))
                 {

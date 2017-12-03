@@ -1,4 +1,1 @@
-﻿select a.AuthorId, a.Name as [AuthorName], a.ZipCodeId, c.Name as City from Author a
-inner join Zipcode zc on zc.ZipCodeId = a.ZipCodeId
-inner join City c on c.CityId = zc.CityId
-where c.Name = 'Charlotte'
+﻿select * from Author where Author.ZipCodeId in (select zc.ZipCodeId from ZipCode zc where zc.CityId in (select c.CityId from City c where c.StateId in (select StateId from State where ShortName in ('NY', 'NC'))))

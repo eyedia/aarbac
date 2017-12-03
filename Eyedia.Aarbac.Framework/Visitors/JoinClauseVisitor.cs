@@ -20,27 +20,27 @@ namespace Eyedia.Aarbac.Framework
 
         public override void ExplicitVisit(QualifiedJoin aQualifiedJoin)
         {
-            ScalarExpressionVisitor seVisitor = new ScalarExpressionVisitor();
+            ScalarExpressionVisitor seVisitor = new ScalarExpressionVisitor(Context);
             aQualifiedJoin.AcceptChildren(seVisitor);
             AddJoin(aQualifiedJoin.QualifiedJoinType, seVisitor.Columns);
 
         }
 
-        private void AddJoin(QualifiedJoinType joinType, RbacSelectColumns columns)
+        private void AddJoin(QualifiedJoinType joinType, List<RbacSelectColumn> columns)
         {
 
-            for (int c = 0; c < columns.List.Count; c += 2)
+            for (int c = 0; c < columns.Count; c += 2)
             {
                 RbacJoin ajoin = new RbacJoin();
                 ajoin.JoinType = (RbacJoinTypes)Enum.Parse(typeof(RbacJoinTypes), joinType.ToString(), true);
 
-                ajoin.FromTableName = columns.List[c].Table.Name;
-                ajoin.FromTableAlias = columns.List[c].Table.Alias;
-                ajoin.FromTableColumn = columns.List[c].Name;
+                ajoin.FromTableName = columns[c].Table.Name;
+                ajoin.FromTableAlias = columns[c].Table.Alias;
+                ajoin.FromTableColumn = columns[c].Name;
 
-                ajoin.WithTableName = columns.List[c + 1].Table.Name;
-                ajoin.WithTableAlias = columns.List[c + 1].Table.Alias;
-                ajoin.WithTableColumn = columns.List[c + 1].Name;
+                ajoin.WithTableName = columns[c + 1].Table.Name;
+                ajoin.WithTableAlias = columns[c + 1].Table.Alias;
+                ajoin.WithTableColumn = columns[c + 1].Name;
 
                 if (string.IsNullOrEmpty(ajoin.FromTableName))
                 {

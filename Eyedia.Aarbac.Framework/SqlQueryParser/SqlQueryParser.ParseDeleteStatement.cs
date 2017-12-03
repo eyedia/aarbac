@@ -43,14 +43,7 @@ namespace Eyedia.Aarbac.Framework
     public partial class SqlQueryParser
     {
         private void ParseDelete(string query)
-        {
-            //Columns = new RbacSelectColumns();
-            //TablesReferred = new List<RbacTable>();
-            //IList<ParseError> parseErrors;
-            //TSql110Parser parser = new TSql110Parser(true);
-            //TSqlFragment tree = parser.Parse(new StringReader(query), out parseErrors);
-            //ParseErrors = parseErrors;
-            //PrintErrors();
+        {            
             TSqlFragment tree = InitiateTSql110Parser(query);
             if (SyntaxError)
                 return;
@@ -79,22 +72,23 @@ namespace Eyedia.Aarbac.Framework
             if (sqlStatement.GetType() == typeof(DeleteStatement))
             {
                 DeleteStatement aDeleteStatement = (DeleteStatement)sqlStatement;
-                string tableName = string.Empty;
-                string tableAlias = string.Empty;
 
-                if (aDeleteStatement.DeleteSpecification.Target is NamedTableReference)
-                {
-                    NamedTableReference tableRef = aDeleteStatement.DeleteSpecification.Target as NamedTableReference;
-                    tableName = ((SchemaObjectName)tableRef.SchemaObject).Identifiers[0].Value;
-                    tableAlias = tableRef.Alias != null ? tableRef.Alias.ToString() : string.Empty;
+                #region Handle Target Table
 
-                    RbacTable table = Context.User.Role.CrudPermissions.Find(tableName);
-                    if (table != null)
-                        TablesReferred.Add(table);
-                    else
-                        RbacException.Raise(string.Format("The referred table {0} was not found in meta data!", tableName), RbacExceptionCategories.Parser);
+                RbacTable targetTable = new RbacTable();
+                NamedTableReferenceVisitor ntVisitor = new NamedTableReferenceVisitor(Context);
+                aDeleteStatement.DeleteSpecification.Target.Accept(ntVisitor);
 
-                }                
+                if (ntVisitor.Tables.Count == 0)
+                    RbacException.Raise("No target table found in the delete query!");
+                else if (ntVisitor.Tables.Count == 1)
+                    targetTable = ntVisitor.Tables[0];
+                else
+                    RbacException.Raise("More than 1 target tables found in the delete query! Currently not supported.");
+
+                #endregion Handle Target Table
+
+                UpdateReferredTables(targetTable.Name, targetTable.Alias);                          
                 
             }
             else
