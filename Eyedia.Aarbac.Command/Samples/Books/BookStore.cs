@@ -40,6 +40,7 @@ using System.Data;
 using System.IO;
 using GenericParsing;
 using System.Diagnostics;
+using System.Data.SqlClient;
 
 namespace Eyedia.Aarbac.Command
 {
@@ -144,6 +145,8 @@ namespace Eyedia.Aarbac.Command
         }
         public RbacSqlQueryEngine TestOne(string query = null)
         {
+            File.WriteAllText(Path.Combine(_rootDir, "Books", "test_parsed_query.txt"), string.Empty);
+
             RbacSqlQueryEngine engine = null;
             using (Rbac rbac = new Rbac("Lashawn"))
             {
@@ -166,6 +169,7 @@ namespace Eyedia.Aarbac.Command
         }
         public void TestBatch()
         {
+            
             GenericParserAdapter genParser = new GenericParserAdapter(Path.Combine(_rootDir, "Books", "tests.csv"));
             genParser.FirstRowHasHeader = true;
             DataTable table = genParser.GetDataTable();
@@ -175,15 +179,22 @@ namespace Eyedia.Aarbac.Command
                 table.Columns.Add("ParsedQuery");
                 table.Columns.Add("Records");
                 table.Columns.Add("Errors");
+                table.Columns.Add("TestResult");
             }
-
+            bool cleaned = false;
             foreach (DataRow row in table.Rows)
             {
-                //if (row["Id"].ToString() == "6")
+                //if (row["Id"].ToString() == "11")
                 //    Debugger.Break();
 
                 Rbac rbac = new Rbac(row["User"].ToString());
                 RbacRole role = Rbac.GetRole(row["Role"].ToString());
+
+                if(!cleaned)
+                {
+                    CleanDataFromDb(rbac.ConnectionString);
+                    cleaned = true;
+                }
                 SqlQueryParser parser = new SqlQueryParser(rbac);
                 try
                 {
@@ -192,6 +203,10 @@ namespace Eyedia.Aarbac.Command
                 catch (Exception ex)
                 {
                     row["Errors"] = ex.Message;
+                    if (row["Expected"].ToString().Equals(row["Errors"].ToString()))
+                        row["TestResult"] = "Passed";
+                    else
+                        row["TestResult"] = "Failed";
                     continue;
                 }
                 row["ParsedQueryStage1"] = parser.ParsedQueryStage1;
@@ -215,9 +230,33 @@ namespace Eyedia.Aarbac.Command
                     if (!string.IsNullOrEmpty(engine.AllErrors))
                         row["Errors"] += engine.AllErrors + Environment.NewLine;
                 }
+
+                if (row["Expected"].ToString().Equals(row["Errors"].ToString()))
+                    row["TestResult"] = "Passed";
+                else
+                    row["TestResult"] = "Failed";
+
             }
             table.ToCsv(Path.Combine(_rootDir, "Books", "tests_result.csv"));
             ToCsvMarkdownFormat(table, Path.Combine(_rootDir, "Books", "tests_result.md"));
+        }
+
+        private void CleanDataFromDb(string connectionString)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("drop table Author2", connection);
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+            catch
+            {
+               
+            }
         }
 
         public void ToCsvMarkdownFormat(DataTable table, string fileName)

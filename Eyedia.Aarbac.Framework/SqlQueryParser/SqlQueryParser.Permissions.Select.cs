@@ -49,14 +49,14 @@ namespace Eyedia.Aarbac.Framework
             {
                 if (allColumnnsInATable.Count > 0)
                 {
-                    RbacTable rbacTable = TablesReferred.Find(allColumnnsInATable[0].Table.Name);
-                    if (rbacTable == null)
-                        throw new Exception("Could not find table name in referred tables!");
-                    if (rbacTable.AllowedOperations.HasFlag(RbacDBOperations.Read))
+                    //RbacTable rbacTable = TablesReferred.Find(allColumnnsInATable[0].Table.Name);
+                    //if (rbacTable == null)
+                    //    throw new Exception("Could not find table name in referred tables!");
+                    if (allColumnnsInATable[0].Table.AllowedOperations.HasFlag(RbacDBOperations.Read))
                     {
                         foreach (RbacSelectColumn column in allColumnnsInATable)
                         {
-                            RbacColumn rbacColumn = rbacTable.FindColumn(column.Name);
+                            RbacColumn rbacColumn = allColumnnsInATable[0].Table.FindColumn(column.Name);
 
                             if (rbacColumn == null)
                                 RbacException.Raise(
@@ -82,8 +82,13 @@ namespace Eyedia.Aarbac.Framework
             //if (column.TableColumnName == "SSN")
             //    Debugger.Break();
 
-            int fromIndex = ParsedQuery.IndexOf(" from", StringComparison.OrdinalIgnoreCase);
-            string selectStatement = ParsedQuery.Substring(0, fromIndex);
+            int fromIndex = ParsedQuery.IndexOf(" into", StringComparison.OrdinalIgnoreCase);
+            if(fromIndex == -1)
+                fromIndex = ParsedQuery.IndexOf(" from", StringComparison.OrdinalIgnoreCase);
+            if (fromIndex == -1)
+                RbacException.Raise("Something went wrong while applying permission on select columns, no 'into' or 'from' statement found in the query");
+
+                string selectStatement = ParsedQuery.Substring(0, fromIndex);
             string otherStatement = ParsedQuery.Substring(fromIndex, ParsedQuery.Length - fromIndex);
             if (!selectStatement.Contains(",")) //we hit the single/last column
             {
@@ -93,14 +98,32 @@ namespace Eyedia.Aarbac.Framework
             else
             {
                 string colName = column.Name;
-                if (!string.IsNullOrEmpty(column.Table.Alias))
-                    colName = string.Format("{0}.{1}", column.Table.Alias, column.Name);
-                else if (!string.IsNullOrEmpty(column.Table.Name))
-                    colName = string.Format("{0}.{1}", column.Table.Name, column.Name);
+                int pos = -1;
 
-                int pos = selectStatement.IndexOf(colName);
+                //try 1
+                if (!string.IsNullOrEmpty(column.Table.Alias))
+                {
+                    colName = string.Format("{0}.{1}", column.Table.Alias, column.Name);
+                    pos = selectStatement.IndexOf(colName);
+                }
+
+                //try 2
+                if ((pos == -1) && (!string.IsNullOrEmpty(column.Table.Name)))
+                {
+                    colName = string.Format("{0}.{1}", column.Table.Name, column.Name);
+                    pos = selectStatement.IndexOf(colName);
+                }
+
+                //try 3
                 if (pos == -1)
-                    return; //column was referred more than once, was removed in last go.
+                {
+                    pos = selectStatement.IndexOf(column.Name);
+                }
+
+                //if still not found, possibly the column was referred more than once, was removed in last go.
+                if (pos == -1)
+                    return;
+
                 int nextommaPos = selectStatement.IndexOf(",", pos);
                 if (nextommaPos == -1) //we hit the last column
                     nextommaPos = selectStatement.Length;

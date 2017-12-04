@@ -74,16 +74,23 @@ namespace Eyedia.Aarbac.Framework
                     //tables
                     NamedTableReferenceVisitor ntVisitor = new NamedTableReferenceVisitor(Context);
                     aQuerySpecification.FromClause.Accept(ntVisitor);
-                    TablesReferred = ntVisitor.Tables;
+                    TablesReferred = ntVisitor.Tables;                   
 
                     //columns
-                    
-                    ScalarExpressionVisitor seVisitor = new ScalarExpressionVisitor(Context);
-                    aQuerySpecification.SelectElements[0].Accept(seVisitor);
-                    Columns = seVisitor.Columns;
-                    UpdateReferredTables(Columns);
+                    ScalarExpressionVisitor seVisitor = null;
+                    foreach (SelectElement selectStatement in aQuerySpecification.SelectElements)
+                    {
+                        seVisitor = new ScalarExpressionVisitor(Context, TablesReferred[0]);
+                        selectStatement.Accept(seVisitor);
+                        Columns.AddRange(seVisitor.Columns);                       
+                    }
+
                     if (!string.IsNullOrEmpty(seVisitor.ParsedQuery))
-                        ParsedQuery = seVisitor.ParsedQuery;
+                        ParsedQuery = seVisitor.ParsedQuery;    //todo
+                    //else
+                    //    ParsedQuery = Columns.GetParsedQuery(ParsedQuery);
+
+                    UpdateReferredTables(Columns);                    
 
                     //ensure unique tables
                     TablesReferred = new List<RbacTable>(TablesReferred.DistinctBy(t => t.Name));

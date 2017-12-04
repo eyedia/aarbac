@@ -44,6 +44,8 @@ namespace Eyedia.Aarbac.Framework
     {       
         public string Alias { get; set; }
         public string Name { get; set; }
+        //public string NodeText { get; set; }
+        //public string NodeTextUpdated { get; set; }
         public RbacTable Table { get; set; }
 
         public RbacSelectColumn()

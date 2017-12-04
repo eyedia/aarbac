@@ -9,17 +9,19 @@ namespace Eyedia.Aarbac.Framework
 {
     public class ScalarExpressionVisitor : TSqlFragmentVisitor
     {        
-        public ScalarExpressionVisitor(Rbac context)
+        public ScalarExpressionVisitor(Rbac context, RbacTable table = null)
         {
-            this.Context = context;            
+            this.Context = context;
+            this.Table = table;
         }
         public Rbac Context { get; private set; }
         public string ParsedQuery { get; private set; }
+        public RbacTable Table { get; private set; }       
 
         public List<RbacSelectColumn> Columns = new List<RbacSelectColumn>();
 
         public override void ExplicitVisit(SelectStarExpression node)
-        {
+        {            
             string query = String.Join(string.Empty, node.ScriptTokenStream.Select(sts => sts.Text).ToArray());
             
             string tableNameOrAlias = string.Empty;
@@ -81,17 +83,17 @@ namespace Eyedia.Aarbac.Framework
 
         public override void ExplicitVisit(ColumnReferenceExpression node)
         {
-            RbacSelectColumn column = new RbacSelectColumn();           
+            RbacSelectColumn column = new RbacSelectColumn();
 
             if (node.MultiPartIdentifier.Identifiers.Count == 1)
             {
                 column.Name = node.MultiPartIdentifier.Identifiers[0].Value;
-
+                column.Table = Table;              
             }
             else if (node.MultiPartIdentifier.Identifiers.Count == 2)
             {
                 column.Table.Alias = node.MultiPartIdentifier.Identifiers[0].Value;
-                column.Name = node.MultiPartIdentifier.Identifiers[1].Value;
+                column.Name = node.MultiPartIdentifier.Identifiers[1].Value;                
             }
 
             Columns.Add(column);

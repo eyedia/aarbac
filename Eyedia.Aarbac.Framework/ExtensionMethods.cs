@@ -68,10 +68,25 @@ namespace Eyedia.Aarbac.Framework
 
         public static RbacColumn FindColumn(this RbacTable table, string columnName)
         {
-            return table.Columns.Where(c => c.Name.Equals(columnName)).SingleOrDefault();
+            return table.Columns.Where(c => c.Name.Equals(columnName, StringComparison.OrdinalIgnoreCase)).SingleOrDefault();
         }
 
-        public static IEnumerable<TSource> DistinctBy<TSource, TKey>( this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
+        //public static string GetParsedQuery(this List<RbacSelectColumn> selectColumns, string parsedQuery)
+        //{
+        //    int fromIndex = parsedQuery.IndexOf(" from", StringComparison.OrdinalIgnoreCase);
+        //    //string selectStatement = parsedQuery.Substring(0, fromIndex);
+        //    string otherStatement = parsedQuery.Substring(fromIndex, parsedQuery.Length - fromIndex);
+
+        //    string updatedSelectColumns = string.Empty;
+        //    foreach (RbacSelectColumn selectColumn in selectColumns)
+        //    {
+        //        updatedSelectColumns += string.IsNullOrEmpty(selectColumn.NodeTextUpdated) ? selectColumn.NodeText : selectColumn.NodeTextUpdated + ", ";
+        //    }
+        //    updatedSelectColumns = updatedSelectColumns.Length > 1 ? updatedSelectColumns.Substring(0, updatedSelectColumns.Length - 2) : updatedSelectColumns;
+        //    return string.Format("select {0} {1}", updatedSelectColumns, otherStatement);
+        //}
+
+         public static IEnumerable<TSource> DistinctBy<TSource, TKey>( this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {
             var knownKeys = new HashSet<TKey>();
             return source.Where(element => knownKeys.Add(keySelector(element)));
@@ -83,7 +98,7 @@ namespace Eyedia.Aarbac.Framework
             //if ((filtered.Count > 0) && (string.IsNullOrEmpty(filtered[0].Table.Alias) == false))
             //    return filtered[0].Table.Alias;
 
-            RbacTable table = sqlQueryParser.TablesReferred.Where(t => t.Name == tableName).SingleOrDefault();
+            RbacTable table = sqlQueryParser.TablesReferred.Where(t => t.Name.Equals(tableName, StringComparison.OrdinalIgnoreCase)).SingleOrDefault();
             if (table != null)
             {
                 if (table.ReferencedOnly)

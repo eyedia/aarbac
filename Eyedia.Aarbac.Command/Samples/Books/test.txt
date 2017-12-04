@@ -1,1 +1,1 @@
-﻿delete from author where name = 'abc'
+﻿select zc.ZipCode, a.Name from ZipCode zc inner join Author a on a.ZipCodeId = zc.ZipCodeId where zc.ZipCodeId = 12

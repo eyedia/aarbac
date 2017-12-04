@@ -88,7 +88,7 @@ namespace Eyedia.Aarbac.Framework
 
                 #endregion Handle Target Table
 
-                UpdateReferredTables(targetTable.Name, targetTable.Alias);                          
+                //UpdateReferredTables(targetTable.Name, targetTable.Alias);                          
                 
             }
             else
