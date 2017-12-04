@@ -28,3 +28,4 @@ WHERE zc.ZipCode = '00000' ",Lashawn,role_city_mgr
 19,Select wildcard,select * from Author a,Lashawn,role_city_mgr
 20,Select wildcard,"select a.*, a.* from Author a",Lashawn,role_city_mgr
 21,Select wildcard,"select a.*, a.* from Author a",Lashawn,role_city_mgr
+22,simple delete,delete from author where name = 'abc',Lashawn,role_city_mgr

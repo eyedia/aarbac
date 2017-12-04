@@ -179,7 +179,7 @@ namespace Eyedia.Aarbac.Command
 
             foreach (DataRow row in table.Rows)
             {
-                //if (row["Id"].ToString() == "14")
+                //if (row["Id"].ToString() == "6")
                 //    Debugger.Break();
 
                 Rbac rbac = new Rbac(row["User"].ToString());
@@ -194,24 +194,27 @@ namespace Eyedia.Aarbac.Command
                     row["Errors"] = ex.Message;
                     continue;
                 }
-                RbacSqlQueryEngine engine = new RbacSqlQueryEngine(parser, true);
-                engine.Execute();
                 row["ParsedQueryStage1"] = parser.ParsedQueryStage1;
                 row["ParsedQuery"] = parser.ParsedQuery;
-                if (engine.IsErrored)
-                    row["Records"] = "Errored";
-                else if ((parser.QueryType == RbacQueryTypes.Select) && (engine.Table == null))
-                    row["Records"] = "Errored";
-                else if ((parser.QueryType == RbacQueryTypes.Select) && (engine.Table != null))
-                    row["Records"] = engine.Table.Rows.Count + " record(s)";
-                else
-                    row["Records"] = "Not Applicable";
+                row["Errors"] += parser.AllErrors;
 
-                if (!string.IsNullOrEmpty(parser.AllErrors))
-                    row["Errors"] += parser.AllErrors + Environment.NewLine;
+                if (string.IsNullOrEmpty(parser.AllErrors))
+                {
+                    RbacSqlQueryEngine engine = new RbacSqlQueryEngine(parser, true);
+                    engine.Execute();                    
+                    if (engine.IsErrored)
+                        row["Records"] = "Errored";
+                    else if ((parser.QueryType == RbacQueryTypes.Select) && (engine.Table == null))
+                        row["Records"] = "Errored";
+                    else if ((parser.QueryType == RbacQueryTypes.Select) && (engine.Table != null))
+                        row["Records"] = engine.Table.Rows.Count + " record(s)";
 
-                if (!string.IsNullOrEmpty(engine.AllErrors))
-                    row["Errors"] += engine.AllErrors + Environment.NewLine;
+                    if (!string.IsNullOrEmpty(parser.AllErrors))
+                        row["Errors"] += parser.AllErrors + Environment.NewLine;
+
+                    if (!string.IsNullOrEmpty(engine.AllErrors))
+                        row["Errors"] += engine.AllErrors + Environment.NewLine;
+                }
             }
             table.ToCsv(Path.Combine(_rootDir, "Books", "tests_result.csv"));
             ToCsvMarkdownFormat(table, Path.Combine(_rootDir, "Books", "tests_result.md"));
@@ -226,13 +229,12 @@ namespace Eyedia.Aarbac.Command
             int counter = 1;
             foreach (DataRow row in table.Rows)
             {
-                string oneRecord = counter + ". " + row["Comment"] + Environment.NewLine;
-                oneRecord += "```" + Environment.NewLine;
-                oneRecord += "Rbac:" + rbac + Environment.NewLine;
-                oneRecord += "User:" + row["User"] + Environment.NewLine;
-                oneRecord += "Role:" + row["Role"] + Environment.NewLine;
-                oneRecord += "Query:" + Environment.NewLine;
-                oneRecord += "```" + Environment.NewLine;
+                string oneRecord = string.Format("{0}. **{1}**  {2}", counter, row["Comment"], Environment.NewLine);                
+                oneRecord += String.Format("Rbac: {0}  {1}", rbac, Environment.NewLine);
+                oneRecord += String.Format("User: {0}  {1}", row["User"], Environment.NewLine);
+                oneRecord += String.Format("Role: [{0}](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/{0}.xml)  {1}",
+                    row["Role"], Environment.NewLine);
+                oneRecord += String.Format("Query:  {0}", Environment.NewLine);               
 
 
                 oneRecord += "```sql" + Environment.NewLine + FormatQuery(row["Query"]) + Environment.NewLine + "```" + Environment.NewLine;
@@ -245,14 +247,11 @@ namespace Eyedia.Aarbac.Command
                     oneRecord += "```sql" + Environment.NewLine + FormatQuery(row["ParsedQuery"]) + Environment.NewLine + "```" + Environment.NewLine;
                 }
                 
-                if (!string.IsNullOrEmpty(row["Records"].ToString()))
-                //    oneRecord += "```" + Environment.NewLine + "Record Count(s):" + Environment.NewLine + "```" + Environment.NewLine;
-                //else
-                    oneRecord += "```" + Environment.NewLine + "Record Count(s):" + row["Records"] + Environment.NewLine + "```" + Environment.NewLine;
+                //if ((!string.IsNullOrEmpty(row["Recor'ds"].ToString()))
+                //    && (row["Records"].ToString() != "Errored"))              
+                //    oneRecord += "```" + Environment.NewLine + "Record Count(s):" + row["Records"] + Environment.NewLine + "```" + Environment.NewLine;
 
-                if (!string.IsNullOrEmpty(row["Errors"].ToString()))
-                //    oneRecord += "```" + Environment.NewLine + "Errors(s):" + Environment.NewLine + "```" + Environment.NewLine;
-                //else
+                if (!string.IsNullOrEmpty(row["Errors"].ToString()))           
                     oneRecord += "```diff" + Environment.NewLine + "- " + row["Errors"] + Environment.NewLine + "```" + Environment.NewLine;
 
                 
