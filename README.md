@@ -32,6 +32,9 @@ During initial few releases, everything looks good, but messed up soon when comp
 
 
 
+
+
+
 ## 1. Automated Data Filters & Permissions (Schema Based)
 Apply row & column level permissions on your SELECT,INSERT,UPDATE & DELETE queries. For example, a read (or select) operation like the following …
 
