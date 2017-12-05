@@ -127,6 +127,11 @@ namespace Eyedia.Aarbac.Framework
             return new DataManager.Manager().GetUser(userName);
         }
 
+        public static List<DataManager.RbacLog> GetLogs(bool erroredOnly = true)
+        {
+            return new DataManager.Manager().GetLogs(erroredOnly);
+        }
+
         public static RbacUser CreateUser(string userName, string fullName, string email, string password, RbacRole role)
         {
             RbacUser user = new RbacUser(userName, fullName, email, role);

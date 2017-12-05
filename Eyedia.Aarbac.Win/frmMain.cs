@@ -337,5 +337,11 @@ namespace Eyedia.Aarbac.Win
             if (inlineParsingToolStripMenuItem.Checked)
                 btnExecute_Click(null, null);
         }
+       
+        private void logsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            frmLog logWindow = new frmLog();
+            logWindow.Show(this);
+        }
     }
 }

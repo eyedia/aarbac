@@ -286,6 +286,7 @@ namespace Eyedia.Aarbac.Framework.DataManager
                     cs.ConnectionString);
             return entConnection;
         }
+
     }
 }
 

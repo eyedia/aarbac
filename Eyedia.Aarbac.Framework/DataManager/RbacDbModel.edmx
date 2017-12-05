@@ -31,6 +31,10 @@
           <Property Name="RoleId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="Source" Type="varchar" MaxLength="2000" />
+          <Property Name="ElapsedTimeParseQuery" Type="bigint" />
+          <Property Name="ElapsedTimeConditionsNRelations" Type="bigint" />
+          <Property Name="ElapsedTimeApplyPermission" Type="bigint" />
+          <Property Name="ElapsedTimeApplyParameters" Type="bigint" />
         </EntityType>
         <EntityType Name="RbacRole">
           <Key>
@@ -286,6 +290,10 @@
           <Property Name="Source" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="RbacRole" Relationship="Eyedia.Aarbac.Framework.DataManager.RbacModel.FK_RbacLog_RbacRole" FromRole="RbacLog" ToRole="RbacRole" />
           <NavigationProperty Name="RbacUser" Relationship="Eyedia.Aarbac.Framework.DataManager.RbacModel.FK_RbacLog_RbacUser" FromRole="RbacLog" ToRole="RbacUser" />
+          <Property Name="ElapsedTimeParseQuery" Type="Int64" />
+          <Property Name="ElapsedTimeConditionsNRelations" Type="Int64" />
+          <Property Name="ElapsedTimeApplyPermission" Type="Int64" />
+          <Property Name="ElapsedTimeApplyParameters" Type="Int64" />
         </EntityType>
         <Association Name="FK_RbacLog_RbacRole">
           <End Type="Eyedia.Aarbac.Framework.DataManager.RbacModel.RbacRole" Role="RbacRole" Multiplicity="1" />
@@ -369,6 +377,10 @@
           <EntitySetMapping Name="RbacLogs">
             <EntityTypeMapping TypeName="Eyedia.Aarbac.Framework.DataManager.RbacModel.RbacLog">
               <MappingFragment StoreEntitySet="RbacLog">
+                <ScalarProperty Name="ElapsedTimeApplyParameters" ColumnName="ElapsedTimeApplyParameters" />
+                <ScalarProperty Name="ElapsedTimeApplyPermission" ColumnName="ElapsedTimeApplyPermission" />
+                <ScalarProperty Name="ElapsedTimeConditionsNRelations" ColumnName="ElapsedTimeConditionsNRelations" />
+                <ScalarProperty Name="ElapsedTimeParseQuery" ColumnName="ElapsedTimeParseQuery" />
                 <ScalarProperty Name="Source" ColumnName="Source" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />

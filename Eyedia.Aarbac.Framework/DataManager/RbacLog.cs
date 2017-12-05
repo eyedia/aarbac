@@ -23,6 +23,10 @@ namespace Eyedia.Aarbac.Framework.DataManager
         public int RoleId { get; set; }
         public int UserId { get; set; }
         public string Source { get; set; }
+        public Nullable<long> ElapsedTimeParseQuery { get; set; }
+        public Nullable<long> ElapsedTimeConditionsNRelations { get; set; }
+        public Nullable<long> ElapsedTimeApplyPermission { get; set; }
+        public Nullable<long> ElapsedTimeApplyParameters { get; set; }
     
         public virtual RbacRole RbacRole { get; set; }
         public virtual RbacUser RbacUser { get; set; }
