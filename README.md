@@ -16,9 +16,9 @@ Security layer generally just performs authentication & authorization, and to fa
 During initial few releases, everything looks good, but messed up soon when complex business scenarios, exceptions are introduced, more ```ifs, switches``` are introduced in those layers, code quality decreases and code volume increases and makes production support & enhancements difficult. Nightmare for new team members!
 
 # What is aarbac?
+<img align="left" src="https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Framework/Graphics/with_aarbac_x.png">
 
 **aarbac** is **An Automated Role Based Access Control** .NET framework which can override all CRUD(Create, Read Update, Delete) operations automatically based on the logged in user role. It separates out permission related code into a complete new layer and let these layers (2, 3 & 4) do their regular job & not worried about the permission at all.  Additionally it also maintains user entitlements.
-![aarbac](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Framework/Graphics/with_aarbac_x.png)
 1. Automated - Data Filter & Permissions are abstracted into a separate layer and all automated.
 2. Schema based - Data filters and permissions are based on your database schema.
 3. Clean Code - Clean code, less error, less testing, less maintenance. 
