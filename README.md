@@ -2,13 +2,14 @@
 
 # Background & Thoughts
 Technology solution is vast these days, and there is always at least one solution for every technical problem. A typical application has following layers:
+
+<img align="right" src="https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Framework/Graphics/without_aarbac_x.png">
+
 1. Security Layer (Authentication & Authorization)
 2. User Interface Layer
 3. Business Logic Layer
 4. Data Access Layer
 5. And a RDBMS database
-
-![Without aarbac](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Framework/Graphics/without_aarbac_x.png)
 
 Security layer generally just performs authentication & authorization, and to facilitate roles (permissions & entitlements), developers implement various ```HasPermission(), IsInGroup(), etc.``` type methods with many ```ifs elses & switches, ``` various sql queries and inject code into these layers(2, 3 & 4). Basically to enure that **users with appropriate rights are performing appropriate operations.** Users should **see** what they should see on the screens, users able to **do** what they are allowed to do with data.
 
