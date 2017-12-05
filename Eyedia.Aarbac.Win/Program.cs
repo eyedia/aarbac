@@ -19,8 +19,8 @@ namespace Eyedia.Aarbac.Win
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //try
-            //{                
-                if(SetDataDirectory())
+            //{                          
+            if (SetDataDirectory())
                     Application.Run(new frmMain());
             //}
             //catch(Exception e)
@@ -42,6 +42,12 @@ namespace Eyedia.Aarbac.Win
 
             if (!Directory.Exists(path))         
                 path = Path.Combine(Directory.GetParent(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).FullName).FullName, "App_Data");
+
+            //download zip folder
+            if (!Directory.Exists(path))
+                path = Path.Combine(Directory.GetParent(Directory.GetParent(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).FullName).FullName).FullName,
+                    "content","Samples","Databases");
+           
 
             if (!Directory.Exists(path))
             {

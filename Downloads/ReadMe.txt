@@ -1,1 +1,1 @@
-demo read me - todo
+The zip file is nuget package, check out .\lib\net452 folder

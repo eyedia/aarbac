@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>aarbac.NET</id>
-    <version>1.0.9</version>
+    <version>1.0.10</version>
     <title>An Automated Role Based Access Control .NET framework</title>
     <authors>Deb'jyoti Das</authors>
     <owners>Deb'jyoti Das</owners>
@@ -31,7 +31,7 @@
     </contentFiles>
   </metadata>
   <files>
-    <file src="..\..\TempReleases\aarbac\**" target="lib\net452" />
+    <file src="..\..\TempReleases\**" target="lib\net452" />
     <file src="..\..\Eyedia.Aarbac.Command\Samples\Databases\**" target="content\Samples\Databases" />
     <file src="Content\AarbacSamples.cs.pp" target="content\AarbacSamples.cs.pp" />
     <file src="Content\app.config.transform" target="content\aarbac.config" />

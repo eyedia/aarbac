@@ -22,6 +22,7 @@ namespace Eyedia.Aarbac.Win
         {
             InitializeComponent();
             Bind();
+            SetDefault();
         }
 
         RbacEngineWebRequest _Request;
@@ -38,6 +39,22 @@ namespace Eyedia.Aarbac.Win
 
             _Request = new RbacEngineWebRequest();
             engineInput.SelectedObject = _Request;
+        }
+
+        private void SetDefault()
+        {
+            try
+            {
+                if (cbInstances.Items.Count > 0)
+                    cbInstances.SelectedIndex = 0;
+                if (cbUsers.Items.Count > 0)
+                    cbUsers.Text = "Lashawn";
+                if (cbRoles.Items.Count > 0)
+                    cbRoles.Text = "role_city_mgr";
+
+                txtQuery.Text = "select * from Author";
+            }
+            catch { }
         }
 
         private void btnExecute_Click(object sender, EventArgs e)

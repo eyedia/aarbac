@@ -390,6 +390,7 @@
             this.txtQuery.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtQuery.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtQuery.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtQuery.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtQuery.IsReplaceMode = false;
             this.txtQuery.Language = FastColoredTextBoxNS.Language.SQL;
             this.txtQuery.LeftBracket = '(';
@@ -428,6 +429,7 @@
             this.txtParsedQuerys1.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtParsedQuerys1.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtParsedQuerys1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtParsedQuerys1.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtParsedQuerys1.IsReplaceMode = false;
             this.txtParsedQuerys1.Language = FastColoredTextBoxNS.Language.SQL;
             this.txtParsedQuerys1.LeftBracket = '(';
@@ -465,6 +467,7 @@
             this.txtParsedQuery.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtParsedQuery.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtParsedQuery.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtParsedQuery.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtParsedQuery.IsReplaceMode = false;
             this.txtParsedQuery.Language = FastColoredTextBoxNS.Language.SQL;
             this.txtParsedQuery.LeftBracket = '(';
@@ -606,7 +609,7 @@
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage2.Size = new System.Drawing.Size(690, 553);
+            this.tabPage2.Size = new System.Drawing.Size(690, 555);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Instance";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -618,14 +621,14 @@
             this.propInstance.Location = new System.Drawing.Point(4, 4);
             this.propInstance.Margin = new System.Windows.Forms.Padding(4);
             this.propInstance.Name = "propInstance";
-            this.propInstance.Size = new System.Drawing.Size(682, 491);
+            this.propInstance.Size = new System.Drawing.Size(682, 493);
             this.propInstance.TabIndex = 2;
             // 
             // panel2
             // 
             this.panel2.Controls.Add(this.btnSaveInstance);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(4, 495);
+            this.panel2.Location = new System.Drawing.Point(4, 497);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(682, 54);
@@ -650,7 +653,7 @@
             this.tabPage3.Location = new System.Drawing.Point(8, 39);
             this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(690, 553);
+            this.tabPage3.Size = new System.Drawing.Size(690, 555);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "User";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -664,7 +667,7 @@
             this.tabControl2.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(690, 499);
+            this.tabControl2.Size = new System.Drawing.Size(690, 501);
             this.tabControl2.TabIndex = 3;
             // 
             // usertabPage1
@@ -674,7 +677,7 @@
             this.usertabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.usertabPage1.Name = "usertabPage1";
             this.usertabPage1.Padding = new System.Windows.Forms.Padding(4);
-            this.usertabPage1.Size = new System.Drawing.Size(674, 452);
+            this.usertabPage1.Size = new System.Drawing.Size(674, 454);
             this.usertabPage1.TabIndex = 0;
             this.usertabPage1.Text = "Basic Properties";
             this.usertabPage1.UseVisualStyleBackColor = true;
@@ -686,7 +689,7 @@
             this.propUser.Location = new System.Drawing.Point(4, 4);
             this.propUser.Margin = new System.Windows.Forms.Padding(4);
             this.propUser.Name = "propUser";
-            this.propUser.Size = new System.Drawing.Size(666, 444);
+            this.propUser.Size = new System.Drawing.Size(666, 446);
             this.propUser.TabIndex = 0;
             // 
             // usertabPage2
@@ -730,7 +733,7 @@
             // 
             this.panel4.Controls.Add(this.btnSaveUser);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(0, 499);
+            this.panel4.Location = new System.Drawing.Point(0, 501);
             this.panel4.Margin = new System.Windows.Forms.Padding(4);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(690, 54);
@@ -760,7 +763,7 @@
             this.tabPage4.Location = new System.Drawing.Point(8, 39);
             this.tabPage4.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(690, 553);
+            this.tabPage4.Size = new System.Drawing.Size(690, 555);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Role";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -787,6 +790,7 @@
             this.txtRole.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtRole.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtRole.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtRole.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtRole.IsReplaceMode = false;
             this.txtRole.Language = FastColoredTextBoxNS.Language.XML;
             this.txtRole.LeftBracket = '<';
@@ -800,7 +804,7 @@
             this.txtRole.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.txtRole.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("txtRole.ServiceColors")));
             this.txtRole.ShowLineNumbers = false;
-            this.txtRole.Size = new System.Drawing.Size(690, 151);
+            this.txtRole.Size = new System.Drawing.Size(690, 153);
             this.txtRole.TabIndex = 6;
             this.txtRole.Zoom = 100;
             // 
@@ -808,7 +812,7 @@
             // 
             this.label10.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.label10.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label10.Location = new System.Drawing.Point(0, 350);
+            this.label10.Location = new System.Drawing.Point(0, 352);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(690, 25);
@@ -837,11 +841,12 @@
             this.txtEntitlements.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtEntitlements.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtEntitlements.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.txtEntitlements.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtEntitlements.IsReplaceMode = false;
             this.txtEntitlements.Language = FastColoredTextBoxNS.Language.XML;
             this.txtEntitlements.LeftBracket = '<';
             this.txtEntitlements.LeftBracket2 = '(';
-            this.txtEntitlements.Location = new System.Drawing.Point(0, 375);
+            this.txtEntitlements.Location = new System.Drawing.Point(0, 377);
             this.txtEntitlements.Margin = new System.Windows.Forms.Padding(4);
             this.txtEntitlements.Name = "txtEntitlements";
             this.txtEntitlements.Paddings = new System.Windows.Forms.Padding(0);
@@ -858,7 +863,7 @@
             // 
             this.panel5.Controls.Add(this.btnSaveRole);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel5.Location = new System.Drawing.Point(0, 499);
+            this.panel5.Location = new System.Drawing.Point(0, 501);
             this.panel5.Margin = new System.Windows.Forms.Padding(4);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(690, 54);
@@ -960,13 +965,13 @@
             // 
             this.inlineParsingToolStripMenuItem.CheckOnClick = true;
             this.inlineParsingToolStripMenuItem.Name = "inlineParsingToolStripMenuItem";
-            this.inlineParsingToolStripMenuItem.Size = new System.Drawing.Size(268, 38);
+            this.inlineParsingToolStripMenuItem.Size = new System.Drawing.Size(256, 38);
             this.inlineParsingToolStripMenuItem.Text = "Inline Parsing";
             // 
             // logsToolStripMenuItem1
             // 
             this.logsToolStripMenuItem1.Name = "logsToolStripMenuItem1";
-            this.logsToolStripMenuItem1.Size = new System.Drawing.Size(268, 38);
+            this.logsToolStripMenuItem1.Size = new System.Drawing.Size(256, 38);
             this.logsToolStripMenuItem1.Text = "Logs";
             this.logsToolStripMenuItem1.Click += new System.EventHandler(this.logsToolStripMenuItem1_Click);
             // 

@@ -258,6 +258,7 @@
     <None Include="Nuget\Content\AarbacSamples.cs.pp" />
     <None Include="Nuget\Content\app.config.transform" />
     <None Include="Nuget\Eyedia.Aarbac.Framework.nuspec" />
+    <None Include="Nuget\pack.bat" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -279,7 +280,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Release (
-copy /Y "$(TargetDir)Eyedia.Aarbac.Framework.dll" $(SolutionDir)TempReleases\aarbac\
+copy /Y "$(TargetDir)Eyedia.Aarbac.Framework.dll" $(SolutionDir)TempReleases\
 )</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

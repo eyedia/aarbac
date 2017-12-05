@@ -47,6 +47,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>commandprompt.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommandLine, Version=1.9.71.2, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
       <HintPath>..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
@@ -111,6 +114,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="commandprompt.ico" />
     <Content Include="Samples\Books\role_city_mgr.txt" />
     <Content Include="Samples\Books\role_country_mgr.txt" />
     <Content Include="Samples\Books\role_country_mgr.xml" />
@@ -145,9 +149,8 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Release (
-copy /Y "$(TargetDir)$(TargetName).exe" $(SolutionDir)TempReleases\aarbac\
-copy /Y "$(TargetDir)$(TargetName).exe.config" $(SolutionDir)TempReleases\aarbac\
-copy /Y "$(ProjectDir)Samples\Databases\" $(SolutionDir)TempReleases\aarbac\Databases\
+copy /Y "$(TargetDir)$(TargetName).exe" $(SolutionDir)TempReleases\
+copy /Y "$(TargetDir)$(TargetName).exe.config" $(SolutionDir)TempReleases\
 )</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

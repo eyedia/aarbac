@@ -127,8 +127,8 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Release (
-copy /Y "$(TargetDir)$(TargetName).exe" $(SolutionDir)TempReleases\aarbac\
-copy /Y "$(TargetDir)$(TargetName).exe.config" $(SolutionDir)TempReleases\aarbac\
+copy /Y "$(TargetDir)$(TargetName).exe" $(SolutionDir)TempReleases\
+copy /Y "$(TargetDir)$(TargetName).exe.config" $(SolutionDir)TempReleases\
 )</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
