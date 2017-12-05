@@ -1,4 +1,4 @@
-![Aarbac logo](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Framework/Graphics/rbac_128.png)
+![Aarbac logo](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Framework/Graphics/aarbac.gif)
 
 # Background & Thoughts
 Technology solution is vast these days, and there is always at least one solution for every technical problem. A typical application has following layers:
