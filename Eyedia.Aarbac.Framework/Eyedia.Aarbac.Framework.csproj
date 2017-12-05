@@ -95,6 +95,7 @@
     <Compile Include="BOs\RbacRegisterUser.cs" />
     <Compile Include="BOs\Web\RbacRoleWeb.cs" />
     <Compile Include="DataManager\Manager.cs" />
+    <Compile Include="DataManager\Manager.Log.cs" />
     <Compile Include="DataManager\Manager.Rbac.cs" />
     <Compile Include="DataManager\Manager.RbacParameter.cs" />
     <Compile Include="DataManager\Manager.RbacUser.cs" />
@@ -118,6 +119,9 @@
       <DependentUpon>RbacDbModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="DataManager\RbacEntities.cs" />
+    <Compile Include="DataManager\RbacLog.cs">
+      <DependentUpon>RbacDbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataManager\RbacRole.cs">
       <DependentUpon>RbacDbModel.tt</DependentUpon>
     </Compile>

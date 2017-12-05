@@ -268,5 +268,13 @@ namespace Eyedia.Aarbac.Framework
         Cross,
     }
 
+    public enum ExecutionTimeTrackers
+    {
+        ParseQuery,
+        ConditionsNRelations,
+        ApplyPermissions,
+        ApplyParameters
+    }
+
 }
 

@@ -12,6 +12,9 @@
         <AssociationConnector Association="Eyedia.Aarbac.Framework.DataManager.RbacModel.FK_RbacRole_Rbac" ManuallyRouted="false" />
         <AssociationConnector Association="Eyedia.Aarbac.Framework.DataManager.RbacModel.FK_RbacUser_RbacRole" ManuallyRouted="false" />
         <AssociationConnector Association="Eyedia.Aarbac.Framework.DataManager.RbacModel.FK_RbacUserParameter_RbacUser" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Eyedia.Aarbac.Framework.DataManager.RbacModel.RbacLog" Width="1.5" PointX="10.5" PointY="0.875" />
+        <AssociationConnector Association="Eyedia.Aarbac.Framework.DataManager.RbacModel.FK_RbacLog_RbacRole" />
+        <AssociationConnector Association="Eyedia.Aarbac.Framework.DataManager.RbacModel.FK_RbacLog_RbacUser" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

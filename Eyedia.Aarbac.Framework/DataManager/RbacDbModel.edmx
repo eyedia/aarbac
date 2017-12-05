@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Eyedia.Aarbac.Framework.DataManager.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Eyedia.Aarbac.Framework.DataManager.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Rbac">
           <Key>
             <PropertyRef Name="RbacId" />
@@ -17,6 +17,20 @@
           <Property Name="MetaDataRbac" Type="image" Nullable="false" />
           <Property Name="MetaDataEntitlements" Type="image" />
           <Property Name="Version" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RbacLog">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateTime" Type="datetime" Nullable="false" />
+          <Property Name="Query" Type="varchar(max)" Nullable="false" />
+          <Property Name="ParsedQuery" Type="varchar(max)" />
+          <Property Name="Parsed" Type="bit" Nullable="false" />
+          <Property Name="Errors" Type="varchar(max)" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Source" Type="varchar" MaxLength="2000" />
         </EntityType>
         <EntityType Name="RbacRole">
           <Key>
@@ -50,6 +64,30 @@
           <Property Name="Value" Type="image" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_RbacLog_RbacRole">
+          <End Role="RbacRole" Type="Self.RbacRole" Multiplicity="1" />
+          <End Role="RbacLog" Type="Self.RbacLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RbacRole">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="RbacLog">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RbacLog_RbacUser">
+          <End Role="RbacUser" Type="Self.RbacUser" Multiplicity="1" />
+          <End Role="RbacLog" Type="Self.RbacLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RbacUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="RbacLog">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RbacRole_Rbac">
           <End Role="Rbac" Type="Self.Rbac" Multiplicity="1" />
           <End Role="RbacRole" Type="Self.RbacRole" Multiplicity="*" />
@@ -88,9 +126,18 @@
         </Association>
         <EntityContainer Name="EyediaAarbacFrameworkDataManagerStoreContainer">
           <EntitySet Name="Rbac" EntityType="Self.Rbac" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RbacLog" EntityType="Self.RbacLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RbacRole" EntityType="Self.RbacRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RbacUser" EntityType="Self.RbacUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RbacUserParameter" EntityType="Self.RbacUserParameter" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_RbacLog_RbacRole" Association="Self.FK_RbacLog_RbacRole">
+            <End Role="RbacRole" EntitySet="RbacRole" />
+            <End Role="RbacLog" EntitySet="RbacLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RbacLog_RbacUser" Association="Self.FK_RbacLog_RbacUser">
+            <End Role="RbacUser" EntitySet="RbacUser" />
+            <End Role="RbacLog" EntitySet="RbacLog" />
+          </AssociationSet>
           <AssociationSet Name="FK_RbacRole_Rbac" Association="Self.FK_RbacRole_Rbac">
             <End Role="Rbac" EntitySet="Rbac" />
             <End Role="RbacRole" EntitySet="RbacRole" />
@@ -104,8 +151,7 @@
             <End Role="RbacUserParameter" EntitySet="RbacUserParameter" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Eyedia.Aarbac.Framework.DataManager.RbacModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -136,6 +182,7 @@
           <Property Name="Version" Type="Int32" />
           <NavigationProperty Name="Rbac" Relationship="Self.FK_RbacRole_Rbac" FromRole="RbacRole" ToRole="Rbac" />
           <NavigationProperty Name="RbacUsers" Relationship="Self.FK_RbacUser_RbacRole" FromRole="RbacRole" ToRole="RbacUser" />
+          <NavigationProperty Name="RbacLogs" Relationship="Eyedia.Aarbac.Framework.DataManager.RbacModel.FK_RbacLog_RbacRole" FromRole="RbacRole" ToRole="RbacLog" />
         </EntityType>
         <EntityType Name="RbacUser">
           <Key>
@@ -149,6 +196,7 @@
           <Property Name="RoleId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="RbacRole" Relationship="Self.FK_RbacUser_RbacRole" FromRole="RbacUser" ToRole="RbacRole" />
           <NavigationProperty Name="RbacUserParameters" Relationship="Self.FK_RbacUserParameter_RbacUser" FromRole="RbacUser" ToRole="RbacUserParameter" />
+          <NavigationProperty Name="RbacLogs" Relationship="Eyedia.Aarbac.Framework.DataManager.RbacModel.FK_RbacLog_RbacUser" FromRole="RbacUser" ToRole="RbacLog" />
         </EntityType>
         <EntityType Name="RbacUserParameter">
           <Key>
@@ -213,7 +261,56 @@
             <End Role="RbacUser" EntitySet="RbacUsers" />
             <End Role="RbacUserParameter" EntitySet="RbacUserParameters" />
           </AssociationSet>
+          <EntitySet Name="RbacLogs" EntityType="Eyedia.Aarbac.Framework.DataManager.RbacModel.RbacLog" />
+          <AssociationSet Name="FK_RbacLog_RbacRole" Association="Eyedia.Aarbac.Framework.DataManager.RbacModel.FK_RbacLog_RbacRole">
+            <End Role="RbacRole" EntitySet="RbacRoles" />
+            <End Role="RbacLog" EntitySet="RbacLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RbacLog_RbacUser" Association="Eyedia.Aarbac.Framework.DataManager.RbacModel.FK_RbacLog_RbacUser">
+            <End Role="RbacUser" EntitySet="RbacUsers" />
+            <End Role="RbacLog" EntitySet="RbacLogs" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="RbacLog">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Name="LogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Query" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ParsedQuery" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Parsed" Type="Boolean" Nullable="false" />
+          <Property Name="Errors" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Source" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RbacRole" Relationship="Eyedia.Aarbac.Framework.DataManager.RbacModel.FK_RbacLog_RbacRole" FromRole="RbacLog" ToRole="RbacRole" />
+          <NavigationProperty Name="RbacUser" Relationship="Eyedia.Aarbac.Framework.DataManager.RbacModel.FK_RbacLog_RbacUser" FromRole="RbacLog" ToRole="RbacUser" />
+        </EntityType>
+        <Association Name="FK_RbacLog_RbacRole">
+          <End Type="Eyedia.Aarbac.Framework.DataManager.RbacModel.RbacRole" Role="RbacRole" Multiplicity="1" />
+          <End Type="Eyedia.Aarbac.Framework.DataManager.RbacModel.RbacLog" Role="RbacLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RbacRole">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="RbacLog">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RbacLog_RbacUser">
+          <End Type="Eyedia.Aarbac.Framework.DataManager.RbacModel.RbacUser" Role="RbacUser" Multiplicity="1" />
+          <End Type="Eyedia.Aarbac.Framework.DataManager.RbacModel.RbacLog" Role="RbacLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RbacUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="RbacLog">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -266,6 +363,21 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RbacLogs">
+            <EntityTypeMapping TypeName="Eyedia.Aarbac.Framework.DataManager.RbacModel.RbacLog">
+              <MappingFragment StoreEntitySet="RbacLog">
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Errors" ColumnName="Errors" />
+                <ScalarProperty Name="Parsed" ColumnName="Parsed" />
+                <ScalarProperty Name="ParsedQuery" ColumnName="ParsedQuery" />
+                <ScalarProperty Name="Query" ColumnName="Query" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="LogId" ColumnName="LogId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

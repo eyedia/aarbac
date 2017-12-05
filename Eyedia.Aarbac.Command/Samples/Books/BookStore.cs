@@ -80,7 +80,7 @@ namespace Eyedia.Aarbac.Command
                
             }
         }
-
+  
         public void Setup()
         {
             Rbac rbac = new Rbac();
@@ -89,25 +89,20 @@ namespace Eyedia.Aarbac.Command
                 File.ReadAllText(Path.Combine(_rootDir,"Books","entitlement.xml")));
                        
             InsertRoles(rbac);
-            GenericParserAdapter parser = new GenericParserAdapter(Path.Combine(_rootDir, "Users.csv"));
+            GenericParserAdapter parser = new GenericParserAdapter(Path.Combine(_rootDir, "Books", "BooksUsers.csv"));
             parser.FirstRowHasHeader = true;
             DataTable table = parser.GetDataTable();
 
             
             if (table.Rows.Count > 0)
-            {
-                int counter = 0;
-                foreach (DataRow r in table.Rows)
+            {                
+                foreach (DataRow dataRow in table.Rows)
                 {
-                    int whichrole = 1;
-                    if (counter > 3)
-                        whichrole = RandomNumber(0, 2);
-                    else
-                        counter++;
+                    RbacRole role = roles.Where(r => r.Name == dataRow["Role"].ToString()).SingleOrDefault();
+                    if (role == null)
+                        throw new Exception(dataRow["Role"].ToString() + " is not defined!");
 
-                    RbacRole role = roles[whichrole];
-
-                    RbacUser user = Rbac.CreateUser(r[0].ToString(), r[1].ToString(), r[2].ToString(), "password", role);
+                    RbacUser user = Rbac.CreateUser(dataRow[0].ToString(), dataRow[1].ToString(), dataRow[2].ToString(), "password", role);
                     if (role.Name == "role_city_mgr")
                     {
                         user.AddParameter("{CityNames}", "('New York','Charlotte')");                        
@@ -132,15 +127,13 @@ namespace Eyedia.Aarbac.Command
             string[] roleFiles = Directory.GetFiles(path, "role_*.xml");
             foreach (string roleFile in roleFiles)
             {
-                string fileContent = File.ReadAllText(roleFile);
-                string[] info = fileContent.Split('°');
+                string strRle = File.ReadAllText(roleFile);
+                string strDescription = File.ReadAllText(Path.Combine(Path.GetFileNameWithoutExtension(roleFile), ".txt"));
 
-                if (info.Length > 0)
-                {                   
-                    RbacRole role = rbac.CreateRole(Path.GetFileNameWithoutExtension(roleFile)
-                        , info[0].Trim(), info[1].Trim(), entitlements);
-                    roles.Add(role);
-                }
+                RbacRole role = rbac.CreateRole(Path.GetFileNameWithoutExtension(roleFile)
+                    , strDescription, strRle, entitlements);
+                roles.Add(role);
+
             }
         }
         public RbacSqlQueryEngine TestOne(string query = null)

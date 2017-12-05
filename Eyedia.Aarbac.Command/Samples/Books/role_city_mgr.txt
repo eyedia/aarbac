@@ -1,0 +1,2 @@
+﻿This role allows user to see all data for few particular cities, the City table will have a condition with city names
+The role requires user to have parameters {CityNames} with comma separated country codes like this ('New York','Charlotte')

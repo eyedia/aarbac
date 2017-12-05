@@ -1,7 +1,4 @@
-﻿This role allows user to see all data of one more states, State table will have a condition with state ShortName
-The role requires user to have parameters {ShortNames} with comma separated country codes like this ('NY','NC')
-°
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <Rbac>
   <Summary GeneratedOn="11/13/2017 6:13:32 PM" GeneratedBy="TODO" />
   <Tables>

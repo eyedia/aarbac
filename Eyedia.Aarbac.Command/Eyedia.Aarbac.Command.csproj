@@ -111,7 +111,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Samples\Books\role_city_mgr.txt" />
+    <Content Include="Samples\Books\role_country_mgr.txt" />
     <Content Include="Samples\Books\role_country_mgr.xml" />
+    <Content Include="Samples\Books\role_state_mgr.txt" />
     <Content Include="Samples\Books\role_state_mgr.xml" />
     <Content Include="Samples\Books\test.txt" />
     <Content Include="Samples\Books\test_parsed_query.txt" />

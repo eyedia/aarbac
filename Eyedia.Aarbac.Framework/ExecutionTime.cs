@@ -42,13 +42,13 @@ namespace Eyedia.Aarbac.Framework
 {
     public class ExecutionTime : IDisposable
     {       
-        public Dictionary<string, Stopwatch> Items { get; private set; }
+        public Dictionary<ExecutionTimeTrackers, Stopwatch> Items { get; private set; }
         public ExecutionTime()
         {
-            Items = new Dictionary<string, Stopwatch>();
+            Items = new Dictionary<ExecutionTimeTrackers, Stopwatch>();
         }
 
-        public bool Start(string itemName)
+        public bool Start(ExecutionTimeTrackers itemName)
         {
             if (!Items.ContainsKey(itemName))
             {
@@ -65,7 +65,7 @@ namespace Eyedia.Aarbac.Framework
 
         }
 
-        public void Stop(string itemName)
+        public void Stop(ExecutionTimeTrackers itemName)
         {
             if (Items.ContainsKey(itemName))
             {                
@@ -84,16 +84,16 @@ namespace Eyedia.Aarbac.Framework
             if (Items.Count > 0)
             {
                 sb.AppendLine(__breakline);
-                var maxKey = Items.Aggregate((l, r) => l.Key.Length > r.Key.Length ? l : r).Key;
+                var maxKey = Items.Aggregate((l, r) => l.Key.ToString().Length > r.Key.ToString().Length ? l : r).Key;
                 var totalTime = Items.Sum(i => i.Value.ElapsedMilliseconds);
 
-                foreach (KeyValuePair<string, Stopwatch> item in Items)
+                foreach (KeyValuePair<ExecutionTimeTrackers, Stopwatch> item in Items)
                 {
-                    sb.AppendLine(string.Format("{0}:{1}", item.Key.PadRight(maxKey.Length, ' '),
+                    sb.AppendLine(string.Format("{0}:{1}", item.Key.ToString().PadRight(maxKey.ToString().Length, ' '),
                         FormatMiliseconds(item.Value.ElapsedMilliseconds)));
                 }
                 sb.AppendLine(__breakline);
-                sb.AppendLine(string.Format("{0}:{1}", "Total Time".PadRight(maxKey.Length, ' '),
+                sb.AppendLine(string.Format("{0}:{1}", "Total Time".PadRight(maxKey.ToString().Length, ' '),
                         FormatMiliseconds(totalTime)));
                 sb.AppendLine(__breakline);
             }

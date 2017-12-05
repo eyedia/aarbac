@@ -1,0 +1,2 @@
+﻿This role allows user to see all data of one more states, State table will have a condition with state ShortName
+The role requires user to have parameters {ShortNames} with comma separated country codes like this ('NY','NC')

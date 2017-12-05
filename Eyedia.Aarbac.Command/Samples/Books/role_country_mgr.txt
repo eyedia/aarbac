@@ -1,0 +1,2 @@
+﻿This role allows user to see all data for that country, country table will have a condition with country codes
+The role requires user to have parameters {CountryCodes} with comma separated country codes like this ('IN','US')

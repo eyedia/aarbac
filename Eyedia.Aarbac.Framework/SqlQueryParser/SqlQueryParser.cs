@@ -101,6 +101,7 @@ namespace Eyedia.Aarbac.Framework
                 try
                 {
                     ParseQuery(query);
+                    LogError();
                 }
                 catch(Exception ex)
                 {
@@ -108,13 +109,16 @@ namespace Eyedia.Aarbac.Framework
                     ParsedQueryStage1 = string.Empty;
                     IsParsed = false;
                     Errors.Add(ex.Message);
+                    LogError();
                 }
             }
             else
             {
                 ParseQuery(query);
+                LogError();
             }
         }
+
 
         private void ParseQuery(string query)
         {
@@ -125,20 +129,20 @@ namespace Eyedia.Aarbac.Framework
             ParsedQuery = query;
             if (!IsParsingSkipped)
             {
-                ExecutionTime.Start("Parse Query");               
+                ExecutionTime.Start(ExecutionTimeTrackers.ParseQuery);               
                 ParseQueryType();                
                 ParseInternal(query);
-                ExecutionTime.Stop("Parse Query");
+                ExecutionTime.Stop(ExecutionTimeTrackers.ParseQuery);
                 if (!IsParsed)
                     return;
 
                 if (QueryType == RbacQueryTypes.Select)
                 {
-                    ExecutionTime.Start("Conditions & Relations");
+                    ExecutionTime.Start(ExecutionTimeTrackers.ConditionsNRelations);
                     ApplyConditions();
                     ApplyConditionsRelational();
                     ParsedQuery = JoinClauses.ParseQuery(ParsedQuery);
-                    ExecutionTime.Stop("Conditions & Relations");
+                    ExecutionTime.Stop(ExecutionTimeTrackers.ConditionsNRelations);
                 }           
             }
             else
@@ -146,16 +150,16 @@ namespace Eyedia.Aarbac.Framework
                 Errors.Add("Parsing skipped!");
             }
 
-            ExecutionTime.Start("Apply Permission");
+            ExecutionTime.Start(ExecutionTimeTrackers.ApplyPermissions);
             ApplyPermission();
-            ExecutionTime.Stop("Apply Permission");
+            ExecutionTime.Stop(ExecutionTimeTrackers.ApplyPermissions);
 
             if ((QueryType != RbacQueryTypes.Insert) && (QueryType != RbacQueryTypes.Delete))
             {
-                ExecutionTime.Start("Apply Parameters");
+                ExecutionTime.Start(ExecutionTimeTrackers.ApplyParameters);
                 if (!ApplyParameters())
                     RbacException.Raise(ParamErrors.ToLine());
-                ExecutionTime.Stop("Apply Parameters");
+                ExecutionTime.Stop(ExecutionTimeTrackers.ApplyParameters);
             }
             WriteLogParseDetails();
             
@@ -490,7 +494,12 @@ namespace Eyedia.Aarbac.Framework
 
         #endregion Helpers
 
-        
+
+        private void LogError()
+        {
+            new DataManager.Manager().Save(OriginalQuery, ParsedQuery, IsParsed, AllErrors, Context.User.Role.RoleId, Context.User.UserId, ExecutionTime);
+        }
+
         public void Dispose()
         {            
             GC.SuppressFinalize(this);
