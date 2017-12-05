@@ -26,7 +26,11 @@ During initial few releases, everything looks good, but messed up soon when comp
 5. Disable overriding for specific queries - As we do understand there will be few queries where aarbac may not able to produce automated result as desired, in those cases, just switch off aarbac. 
 6. Comes with REST API, Utility, WinApp testbed, Sample Code.
 7. Pluggable.
-8. ![nuget](https://www.nuget.org/packages/aarbac.NET/) deployed</li>  
+8. ![nuget](https://www.nuget.org/packages/aarbac.NET/) deployed
+
+
+
+
 
 ## 1. Automated Data Filters & Permissions (Schema Based)
 Apply row & column level permissions on your SELECT,INSERT,UPDATE & DELETE queries. For example, a read (or select) operation like the following …
