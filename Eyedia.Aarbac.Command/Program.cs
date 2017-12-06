@@ -52,8 +52,12 @@ namespace Eyedia.Aarbac.Command
     {
         static void Main(string[] args)
         {
-            
-
+            SetDataDirectory();
+            Rbac rbac = new Rbac("Lashawn");
+            string cs = "Data Source=LPT-03084856325\\SQLEXPRESS;Initial Catalog=books;Integrated Security=True";
+            rbac.Refresh();
+            File.WriteAllText("c:\\temp\\city_mgr_out.xml", RbacMetaData.Merge(cs, rbac.User.Role.CrudPermissions));
+            return;
             //string query = File.ReadAllText(Path.Combine(@"..\..\..\Eyedia.Aarbac.Command\Samples", "Books", "Query.txt"));
             //string sub = query.Substring(186, 21);
             //new BookStore().Setup();
@@ -72,51 +76,31 @@ namespace Eyedia.Aarbac.Command
             
         }
 
-        private static void TestSamples()
+        private static bool SetDataDirectory()
         {
-            AarbacSamples samples = new AarbacSamples();
-            Console.WriteLine("Testing book store's one select query");
-            samples.BookStoreTestOne();
+            string codingdir = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
 
-            Console.WriteLine("Testing book store's sample queries");
-            samples.BookStoreTestBatch();
+            var path = codingdir.Substring(0, codingdir.LastIndexOf("\\")) + @"\Eyedia.Aarbac.Command\Samples\Databases";
+            if (!Directory.Exists(path))
+                path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Databases", "Samples");
 
-            Console.WriteLine("Testing real world's select query");
-            samples.RealWorldSelect();
+            if (!Directory.Exists(path))
+                path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Databases");
 
-            Console.WriteLine("Testing real world's insert query");
-            samples.RealWorldInsertOrUpdateOrDelete();
-        }      
+            if (!Directory.Exists(path))
+                path = Path.Combine(Directory.GetParent(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).FullName).FullName, "App_Data");
 
-        #region GetCityId
-        private static void GetCityId(string connStr)
-        {
-            DataTable t = new GenericParserAdapter("c:\\temp\\sc.csv").GetDataTable();
+            //download zip folder
+            if (!Directory.Exists(path))
+                path = Path.Combine(Directory.GetParent(Directory.GetParent(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).FullName).FullName).FullName,
+                    "content", "Samples", "Databases");
 
-            DataTable newT = new DataTable();        
-            newT.Columns.Add("ZipCode");
-            newT.Columns.Add("CityId");
 
-            using (SqlConnection connection = new SqlConnection(connStr))
-            {
-                connection.Open();
-                foreach (DataRow r in t.Rows)
-                {
-                    DataRow newr = newT.NewRow();                    
-                    SqlCommand tCommand = new SqlCommand(string.Format("select CityId from City where Name = '{0}' and StateId = 41", r["City"]), connection);
-                    SqlDataReader tReader = tCommand.ExecuteReader();
-                    tReader.Read();
-                    newr[0] = r[0];
-                    newr[1] = tReader[0];
-                    tReader.Close();
-                    newT.Rows.Add(newr);
-                }
-                connection.Close();
-            }
-
-            //newT.ToCsv("c:\\temp\\zipcode.csv");
+          
+            var fullPath = Path.GetFullPath(path);
+            AppDomain.CurrentDomain.SetData("DataDirectory", fullPath);
+            return true;
         }
-        #endregion GetCityId
 
     }
 }

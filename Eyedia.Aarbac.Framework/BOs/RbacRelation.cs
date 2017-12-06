@@ -36,6 +36,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Eyedia.Aarbac.Framework
 {
@@ -74,7 +75,23 @@ namespace Eyedia.Aarbac.Framework
                 return string.Format(" inner join {0} on {1}.{2} = {0}.{3}", WithTable, SelfName, SelfColumnName, WithColumn);
             }
         }
-        
+
+        public XmlNode ToXml(XmlDocument doc)
+        {            
+            XmlNode relationNode = doc.CreateElement("Relation");
+            XmlAttribute type = doc.CreateAttribute("Type");
+            type.Value = "Auto";
+            relationNode.Attributes.Append(type);
+
+            XmlAttribute my = doc.CreateAttribute("My");
+            my.Value = SelfColumnName;
+            relationNode.Attributes.Append(my);
+            XmlAttribute with = doc.CreateAttribute("With");
+            with.Value = string.Format("{0}.{1}", WithTable, WithColumn);
+            relationNode.Attributes.Append(with);
+            return relationNode;
+        }
+
     }
 }
 

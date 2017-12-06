@@ -36,6 +36,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Eyedia.Aarbac.Framework
 {
@@ -76,10 +77,23 @@ namespace Eyedia.Aarbac.Framework
         [DataMember]
         public List<string> Columns { get; set; }
 
-        public override string ToString()
+        public XmlNode ToXml(XmlDocument doc)
         {
-            return string.Format("<Condition Name=\"{0}\" WhereClause=\"{1}\" />",
-                Name, WhereClause);
+            XmlNode condnNode = doc.CreateElement("Condition");
+            XmlAttribute nameA = doc.CreateAttribute("Name");
+            nameA.Value = Name;
+            condnNode.Attributes.Append(nameA);
+
+
+            XmlAttribute columnsA = doc.CreateAttribute("Columns");
+            columnsA.Value = string.Join(",", Columns.ToArray());
+            condnNode.Attributes.Append(columnsA);
+
+            XmlAttribute whereClauseA = doc.CreateAttribute("WhereClause");
+            whereClauseA.Value = WhereClause;
+            condnNode.Attributes.Append(whereClauseA);
+
+            return condnNode;
         }
 
     }

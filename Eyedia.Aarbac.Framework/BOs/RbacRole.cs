@@ -113,12 +113,7 @@ namespace Eyedia.Aarbac.Framework
         public List<RbacTable> CrudPermissions { get; internal set; }
         public List<RbacParameter> Parameters { get; private set; }
         public int Version { get; internal set; }
-
-        public int Save(string connectionString)
-        {            
-            return 0;
-        }
-
+       
         public void ParseMetaData()
         {
             this.CrudPermissions = RbacMetaData.ReadPermissions(MetaDataRbac);
@@ -126,7 +121,6 @@ namespace Eyedia.Aarbac.Framework
 
             this.Entitlement = new RbacEntitlement(this);
         }
-
 
         public static RbacRole GetSample(Rbac rbac)
         {

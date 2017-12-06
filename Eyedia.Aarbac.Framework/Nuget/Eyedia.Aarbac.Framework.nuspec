@@ -10,10 +10,10 @@
     <projectUrl>https://github.com/eyedia/aarbac</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Framework/Graphics/rbac_128.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>An automated role based access control .NET framework for Microsoft SQL Server to manage your row and column level security as well as user interface entitlements like menu, submenu, screen and screen elements.</description>
+    <description>An Automated Role Based Access Control .NET framework with T-SQL Query Parser which automatically parse select, insert, update, delete queries (row and column level security) based on the logged in user role. It also maintains user interface entitlements like menu, submenu, screen and screen elements.</description>
     <releaseNotes>First Release</releaseNotes>
     <copyright>Copyright 2017 (c) Debjyoti Das. All rights reserved.</copyright>
-    <tags>automated role based access control microsoft sql server row column level permission authorization entitlement menu screen elements data filter crud select insert update delete .NET SQL Parser Engine</tags>
+    <tags>an automated role based access control microsoft sql server row column level permission authorization entitlement menu screen elements data filter crud select insert update delete .NET SQL Parser Engine</tags>
     <dependencies>      
         <dependency id="EntityFramework" version="6.2.0" />
         <dependency id="Microsoft.SqlServer.TransactSql.ScriptDom" version="14.0.3660.1" />

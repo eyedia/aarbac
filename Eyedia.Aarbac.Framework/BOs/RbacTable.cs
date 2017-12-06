@@ -36,6 +36,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Eyedia.Aarbac.Framework
 {
@@ -89,9 +90,9 @@ namespace Eyedia.Aarbac.Framework
             this.ObjectId = objectId;
             this.Name = name;
             this.Columns = new List<RbacColumn>();
-            this.Conditions = new List<RbacCondition>();            
+            this.Conditions = new List<RbacCondition>();
             this.Relations = new List<RbacRelation>();
-            this.Parameters = new List<RbacParameter>();            
+            this.Parameters = new List<RbacParameter>();
             this.AllowedOperations = Rbac.ParseOperations(create, read, update, delete);
         }
 
@@ -101,24 +102,72 @@ namespace Eyedia.Aarbac.Framework
             this.ObjectId = objectId;
             this.Name = name;
             this.Columns = new List<RbacColumn>();
-            this.Conditions = new List<RbacCondition>();            
+            this.Conditions = new List<RbacCondition>();
             this.Relations = new List<RbacRelation>();
             this.Parameters = new List<RbacParameter>();
             this.AllowedOperations = Rbac.ParseOperations(create, read, update, delete);
         }
-
         
-        //public string WhereClause
-        //{
-        //    get
-        //    {
-        //        if (Conditions.Count == 0)
-        //            return string.Empty;
-        //        else
-        //            return Conditions.Select(i => i.WhereClause).Aggregate((i, j) => i + " and " + j);
 
-        //    }
-        //}
+        public XmlNode ToXml(XmlDocument doc)
+        {
+           
+            XmlNode tableNode = doc.CreateElement("Table");
+            XmlAttribute Id = doc.CreateAttribute("Id");
+            Id.Value = ObjectId;
+            tableNode.Attributes.Append(Id);
+            XmlAttribute aName = doc.CreateAttribute("Name");
+            aName.Value = Name;
+            tableNode.Attributes.Append(aName);
+
+            XmlAttribute create = doc.CreateAttribute("Create");
+            create.Value = AllowedOperations.CanCreate().ToString();
+            tableNode.Attributes.Append(create);
+
+            XmlAttribute read = doc.CreateAttribute("Read");
+            read.Value = AllowedOperations.CanRead().ToString();
+            tableNode.Attributes.Append(read);
+
+            XmlAttribute update = doc.CreateAttribute("Update");
+            update.Value = AllowedOperations.CanUpdate().ToString();
+            tableNode.Attributes.Append(update);
+
+           
+                XmlAttribute delete = doc.CreateAttribute("Delete");
+                delete.Value = AllowedOperations.CanDelete().ToString();
+            tableNode.Attributes.Append(delete);
+           
+
+            XmlNode columnsNode = doc.CreateElement("Columns");            
+            foreach (RbacColumn column in Columns)
+            {
+                columnsNode.AppendChild(column.ToXml(doc));
+            }
+            tableNode.AppendChild(columnsNode);
+
+            XmlElement relationsNode = doc.CreateElement("Relations");
+            foreach (RbacRelation relation in Relations)
+            {
+                relationsNode.AppendChild(relation.ToXml(doc));
+            }
+            tableNode.AppendChild(relationsNode);
+
+            XmlNode condnsNode = doc.CreateElement("Conditions");
+            foreach (RbacCondition condition in Conditions)
+            {
+                condnsNode.AppendChild(condition.ToXml(doc));
+            }
+            tableNode.AppendChild(condnsNode);
+
+            XmlNode paramsNode = doc.CreateElement("Parameters");
+            foreach (RbacParameter parameter in Parameters)
+            {
+                paramsNode.AppendChild(parameter.ToXml(doc));
+            }
+            tableNode.AppendChild(paramsNode);
+            
+            return tableNode;
+        }
     }
 
 }

@@ -36,6 +36,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Eyedia.Aarbac.Framework
 {
@@ -73,6 +74,31 @@ namespace Eyedia.Aarbac.Framework
             this.AllowedOperations = Rbac.ParseOperations(create, read, update, "False");
         }
 
+        public XmlNode ToXml(XmlDocument doc)
+        {           
+            XmlNode columnNode = doc.CreateElement("Column");
+            XmlAttribute cName = doc.CreateAttribute("Name");
+            cName.Value = Name;
+            columnNode.Attributes.Append(cName);
+
+            XmlAttribute type = doc.CreateAttribute("Type");
+            type.Value = DataType.ToString();
+            columnNode.Attributes.Append(type);
+
+            XmlAttribute create = doc.CreateAttribute("Create");
+            create.Value = AllowedOperations.CanCreate().ToString();
+            columnNode.Attributes.Append(create);
+
+            XmlAttribute read = doc.CreateAttribute("Read");
+            read.Value = AllowedOperations.CanRead().ToString();
+            columnNode.Attributes.Append(read);
+
+            XmlAttribute update = doc.CreateAttribute("Update");
+            update.Value = AllowedOperations.CanUpdate().ToString();
+            columnNode.Attributes.Append(update);
+
+            return columnNode;
+        }
 
     }
 }

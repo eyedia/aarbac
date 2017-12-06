@@ -36,6 +36,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Eyedia.Aarbac.Framework
 {
@@ -47,16 +48,34 @@ namespace Eyedia.Aarbac.Framework
 
         }
 
-        public RbacParameter(string name, string value = null)
+        public RbacParameter(string name, string description, string value = null)
         {
             Name = name;
+            Description = description;
             Value = value;
         }
 
         [DataMember]
         public string Name { get; set; }
+
+        [DataMember]
+        public string Description { get; set; }
+
         [DataMember]
         public string Value { get; set; }
+
+        public XmlNode ToXml(XmlDocument doc)
+        {            
+            XmlNode paramNode = doc.CreateElement("Parameter");
+            XmlAttribute nameA = doc.CreateAttribute("Name");
+            nameA.Value = Name;
+            paramNode.Attributes.Append(nameA);
+
+            XmlAttribute nameD = doc.CreateAttribute("Description");
+            nameD.Value = Description;
+            paramNode.Attributes.Append(nameD);
+            return paramNode;
+        }
     }
 }
 

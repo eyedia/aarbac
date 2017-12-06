@@ -135,6 +135,9 @@
     <Compile Include="Encryption\CryptographyEncryption.cs" />
     <Compile Include="Encryption\Encryption.cs" />
     <Compile Include="Encryption\RbacPassKey.cs" />
+    <Compile Include="MetaData\RbacMetaData.ToXml.cs" />
+    <Compile Include="MetaData\RbacMetaData.Merge.cs" />
+    <Compile Include="MetaData\RbacMetaData.Read.cs" />
     <Compile Include="ObservableDictionary.cs" />
     <Compile Include="ExecutionTime.cs" />
     <Compile Include="ExtensionMethods.cs" />

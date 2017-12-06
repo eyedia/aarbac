@@ -113,7 +113,24 @@ namespace Eyedia.Aarbac.Api.Controllers
         {            
             return Rbac.Save(rbacEngineWeb);
         }
-        
+
+        [HttpPut]
+        [Route("Refresh")]
+        public IHttpActionResult Refresh(int id)
+        {
+            Rbac rbac = Rbac.GetRbac(id);
+            if (rbac != null)
+            {
+                rbac.Refresh();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(id + " is not defined!");
+            }
+
+        }
+    
         [HttpDelete]
         [Route("{id}")]
         public IHttpActionResult Delete(int id)

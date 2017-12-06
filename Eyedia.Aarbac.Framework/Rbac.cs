@@ -132,7 +132,21 @@ namespace Eyedia.Aarbac.Framework
             return rbac;            
         }
 
-   
+
+        /// <summary>
+        /// This will refresh the rule from the meta data, byt merging latest changes from the database
+        /// </summary>
+        public void Refresh()
+        {
+            if ((User != null)
+                && (User.Role != null)
+                && (User.Role.CrudPermissions != null))
+            {
+                RbacRole dbRole = User.Role;
+                dbRole.MetaDataRbac = RbacMetaData.Merge(ConnectionString, User.Role.CrudPermissions);
+                new DataManager.Manager().AddOrUpdate(dbRole);
+            }
+        }
 
         //private void Assign(Rbac rbac, string userName)
         //{

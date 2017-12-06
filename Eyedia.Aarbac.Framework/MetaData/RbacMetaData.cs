@@ -43,7 +43,7 @@ using System.Xml;
 
 namespace Eyedia.Aarbac.Framework
 {
-    public class RbacMetaData
+    public partial class RbacMetaData
     {
 
         public static string Generate(string connectionString, string fileName = null)
@@ -114,10 +114,6 @@ namespace Eyedia.Aarbac.Framework
                             XmlAttribute type = doc.CreateAttribute("Type");
                             type.Value = cReader[1].ToString();
                             columnNode.Attributes.Append(type);
-
-                            //XmlAttribute filterCol = doc.CreateAttribute("FilterColumn");
-                            //filterCol.Value = cName.Value.IndexOf("Id", StringComparison.OrdinalIgnoreCase) >= 0 ? "True" : "False";
-                            //columnNode.Attributes.Append(filterCol);
                             AddCRUDDefaults(doc, columnNode, false);
 
                             columnsNode.AppendChild(columnNode);
@@ -157,13 +153,15 @@ namespace Eyedia.Aarbac.Framework
             return xml;
         }
 
-        static bool dummyConditionsAdded;
-        //static bool dummyRelationWhereClauseAdded;
+        static bool dummyConditionsAdded;    
         static bool dummyParameterAdded;
 
         private static XmlNode AddConditions(XmlDocument doc, string oneColumnName)
         {
             XmlNode condnsNode = doc.CreateElement("Conditions");
+            return condnsNode;
+            //below code was written for sample, as this creates confusion, samples will not be added into meta data
+
             XmlNode condnNode = doc.CreateElement("Condition");
             condnsNode.AppendChild(condnNode);
 
@@ -194,6 +192,10 @@ namespace Eyedia.Aarbac.Framework
         private static XmlNode AddParameters(XmlDocument doc, string oneColumnName)
         {
             XmlNode paramsNode = doc.CreateElement("Parameters");
+            return paramsNode;
+            //below code was written for sample, as this creates confusion, samples will not be added into meta data
+
+
             XmlNode paramNode = doc.CreateElement("Parameter");
             paramsNode.AppendChild(paramNode);
 
@@ -246,91 +248,7 @@ namespace Eyedia.Aarbac.Framework
             DataTable table = new DataTable();
             table.Load(command.ExecuteReader());
             return table;
-        }
-
-        public static List<RbacTable> ReadPermissions(string metaDataxml)
-        {           
-            List<RbacTable> tables = new List<RbacTable>();
-            if (string.IsNullOrEmpty(metaDataxml))
-                return tables;
-
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(metaDataxml);
-
-            foreach (XmlNode tableNode in doc.DocumentElement.ChildNodes[1])
-            {
-                if (tableNode.NodeType == XmlNodeType.Comment)
-                    continue;
-
-                RbacTable table = new RbacTable(tableNode.Attributes["Id"].Value, tableNode.Attributes["Name"].Value,
-                    tableNode.Attributes["Create"].Value, tableNode.Attributes["Read"].Value,
-                        tableNode.Attributes["Update"].Value, tableNode.Attributes["Delete"].Value);
-                foreach (XmlNode node in tableNode)
-                {
-                    if (node.NodeType == XmlNodeType.Comment)
-                        continue;
-
-                    if (node.Name == "Columns")
-                    {
-                        foreach (XmlNode columnNode in node.ChildNodes)
-                        {
-                            if (columnNode.NodeType == XmlNodeType.Comment)
-                                continue;
-                            //if ((table.Name == "Author") && (columnNode.Attributes["Name"].Value == "AuthorId"))
-                            //    Debugger.Break();
-
-                            table.Columns.Add(new RbacColumn(columnNode.Attributes["Name"].Value, columnNode.Attributes["Type"].Value,
-                            columnNode.Attributes["Create"].Value, columnNode.Attributes["Read"].Value,
-                            columnNode.Attributes["Update"].Value));
-                        }
-                    }
-                    else if (node.Name == "Conditions")
-                    {
-                        //if (tableNode.Attributes["Name"].Value == "City")
-                        //    Debugger.Break();
-
-                        foreach (XmlNode condnNode in node.ChildNodes)
-                        {
-                            if (condnNode.NodeType == XmlNodeType.Comment)
-                                continue;
-
-                            if (condnNode.Attributes.Count == 3)
-                                table.Conditions.Add(new RbacCondition(table.Name, condnNode.Attributes["Name"].Value, condnNode.Attributes["Columns"].Value, condnNode.Attributes["WhereClause"].Value));
-                        }
-                    }
-                    else if (node.Name == "Relations")
-                    {
-                        //if (tableNode.Attributes["Name"].Value == "Author")
-                        //    Debugger.Break();
-
-                        foreach (XmlNode relationNode in node.ChildNodes)
-                        {
-                            if (relationNode.NodeType == XmlNodeType.Comment)
-                                continue;
-                            if (relationNode.Attributes.Count >= 2)
-                                table.Relations.Add(new RbacRelation(table.Name, relationNode.Attributes["My"].Value, relationNode.Attributes["With"].Value));
-                        }
-                    }
-                    else if (node.Name == "Parameters")
-                    {
-                        //if (tableNode.Attributes["Name"].Value == "City")
-                        //    Debugger.Break();
-
-                        foreach (XmlNode paramNode in node.ChildNodes)
-                        {
-                            if (paramNode.NodeType == XmlNodeType.Comment)
-                                continue;
-
-                            if (paramNode.Attributes.Count >= 1)
-                                table.Parameters.Add(new RbacParameter(paramNode.Attributes["Name"].Value));
-                        }
-                    }
-                }
-                tables.Add(table);
-            }
-
-            return tables;
-        }
+        }        
 
         private static void AddCRUDDefaults(XmlDocument doc, XmlNode node, bool isTableNode)
         {

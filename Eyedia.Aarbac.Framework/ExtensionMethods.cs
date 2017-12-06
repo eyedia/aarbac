@@ -342,7 +342,25 @@ namespace Eyedia.Aarbac.Framework
             File.WriteAllText(fileName, sb.ToString());
         }
 
-       
+        public static bool CanCreate(this RbacDBOperations allowedOperations)
+        {
+            return allowedOperations.HasFlag(RbacDBOperations.Create);
+        }
+
+        public static bool CanRead(this RbacDBOperations allowedOperations)
+        {
+            return allowedOperations.HasFlag(RbacDBOperations.Read);
+        }
+
+        public static bool CanUpdate(this RbacDBOperations allowedOperations)
+        {
+            return allowedOperations.HasFlag(RbacDBOperations.Update);
+        }
+
+        public static bool CanDelete(this RbacDBOperations allowedOperations)
+        {
+            return allowedOperations.HasFlag(RbacDBOperations.Delete);
+        }
     }
 }
 
