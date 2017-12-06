@@ -138,23 +138,15 @@ namespace Eyedia.Aarbac.Framework
         /// </summary>
         public void Refresh()
         {
-            if ((User != null)
-                && (User.Role != null)
-                && (User.Role.CrudPermissions != null))
+            DataManager.Manager manager = new DataManager.Manager(false);
+            List<RbacRole> roles = manager.GetRoles(this.RbacId);
+            foreach (RbacRole role in roles)
             {
-                RbacRole dbRole = User.Role;
-                dbRole.MetaDataRbac = RbacMetaData.Merge(ConnectionString, User.Role.CrudPermissions);
-                new DataManager.Manager().AddOrUpdate(dbRole);
+                role.MetaDataRbac = RbacMetaData.Merge(ConnectionString, role.MetaDataRbac);
+                manager.AddOrUpdate(role);
             }
         }
-
-        //private void Assign(Rbac rbac, string userName)
-        //{
-        //    rbac.User = Rbac.GetUser(userName);
-        //    Assign(rbac);
-        //    RbacCache.Instance.Contexts.Add(userName, this);
-        //}
-
+       
         private void Assign(Rbac rbac)
         {
             this.User = rbac.User;

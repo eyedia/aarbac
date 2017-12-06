@@ -42,12 +42,17 @@ namespace Eyedia.Aarbac.Framework.DataManager
 {
     internal partial class Manager
     {
-        public List<Framework.RbacRole> GetRoles()
+        public List<Framework.RbacRole> GetRoles(int rbacId = 0)
         {
             List<Framework.RbacRole> roles = new List<Framework.RbacRole>();
             using (var ctx = new Entities(ConnectionString))
             {
-                List<RbacRole> dbRoles = ctx.RbacRoles.ToList();
+                List<RbacRole> dbRoles = new List<RbacRole>();
+                if (rbacId == 0)
+                    dbRoles = ctx.RbacRoles.ToList();
+                else
+                    dbRoles = ctx.RbacRoles.Where(r => r.RbacId == rbacId).ToList();
+
                 foreach (RbacRole dbRole in dbRoles)
                 {
                     roles.Add(Assign(dbRole));
