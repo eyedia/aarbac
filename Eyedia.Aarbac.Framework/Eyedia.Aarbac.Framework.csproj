@@ -232,6 +232,7 @@
     <EmbeddedResource Include="Scripts\04_CreateTables.sql" />
     <EmbeddedResource Include="Scripts\05_CreateIndexes.sql" />
     <EmbeddedResource Include="Scripts\01_DatabaseExist.sql" />
+    <Content Include="ToDo.txt" />
     <Content Include="UnitTests\BookAuthor.txt" />
     <Content Include="UnitTests\Conditions.txt" />
   </ItemGroup>

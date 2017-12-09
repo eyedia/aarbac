@@ -10,7 +10,7 @@ select * from Author
 Parsed Query:
 ```
 ```sql
-SELECT Author.AuthorId , Author.Name , Author.SSN , Author.ZipCodeId  FROM Author   
+SELECT Author.AuthorId , Author.Name , Author.ZipCodeId FROM Author   
 inner join [ZipCode] [t1] on [t1].ZipCodeId = [Author].ZipCodeId   
 inner join [City] [t2] on [t2].CityId = [t1].CityId 
 WHERE t2.Name
@@ -30,7 +30,7 @@ select * from Author
 Parsed Query:
 ```
 ```sql
-SELECT Author.AuthorId , Author.Name , Author.SSN , Author.ZipCodeId  FROM Author   
+SELECT Author.AuthorId , Author.Name , Author.ZipCodeId FROM Author   
 inner join [ZipCode] [t5] on [t5].ZipCodeId = [Author].ZipCodeId   
 inner join [City] [t6] on [t6].CityId = [t5].CityId 
 WHERE t6.Name
@@ -50,7 +50,7 @@ select * from Author a
 Parsed Query:
 ```
 ```sql
-SELECT a.AuthorId , a.Name , a.SSN , a.ZipCodeId  FROM Author a   
+SELECT a.AuthorId , a.Name , a.ZipCodeId FROM Author a   
 inner join [ZipCode] [t9] on [t9].ZipCodeId = [a].ZipCodeId   
 inner join [City] [t10] on [t10].CityId = [t9].CityId 
 WHERE t10.Name
@@ -106,7 +106,7 @@ select a.* from Author a
 Parsed Query:
 ```
 ```sql
-SELECT a.AuthorId , a.Name , a.SSN , a.ZipCodeId  FROM Author a   
+SELECT a.AuthorId , a.Name , a.ZipCodeId FROM Author a   
 inner join [ZipCode] [t18] on [t18].ZipCodeId = [a].ZipCodeId   
 inner join [City] [t19] on [t19].CityId = [t18].CityId 
 WHERE t19.Name
@@ -126,7 +126,7 @@ select * from Author a
 Parsed Query:
 ```
 ```sql
-SELECT a.AuthorId , a.Name , a.SSN , a.ZipCodeId  FROM Author a   
+SELECT a.AuthorId , a.Name , a.ZipCodeId FROM Author a   
 inner join [ZipCode] [t22] on [t22].ZipCodeId = [a].ZipCodeId   
 inner join [City] [t23] on [t23].CityId = [t22].CityId 
 WHERE t23.Name
@@ -146,7 +146,7 @@ select a.*, a.* from Author a
 Parsed Query:
 ```
 ```sql
-SELECT a.AuthorId , a.Name , a.SSN , a.ZipCodeId , a.AuthorId , a.Name , a.SSN , a.ZipCodeId  FROM Author a   
+SELECT a.AuthorId , a.Name , a.ZipCodeId , a.AuthorId , a.Name , a.ZipCodeId FROM Author a   
 inner join [ZipCode] [t26] on [t26].ZipCodeId = [a].ZipCodeId   
 inner join [City] [t27] on [t27].CityId = [t26].CityId 
 WHERE t27.Name
@@ -174,7 +174,7 @@ where ShortName
 Parsed Query:
 ```
 ```sql
-SELECT Author.AuthorId , Author.Name , Author.SSN , Author.ZipCodeId  FROM Author   
+SELECT Author.AuthorId , Author.Name , Author.ZipCodeId FROM Author   
 inner join [ZipCode] [t30] on [t30].ZipCodeId = [Author].ZipCodeId   
 inner join [City] [t31] on [t31].CityId = [t30].CityId 
 WHERE (Author.ZipCodeId
@@ -201,7 +201,7 @@ select * into Author2 from Author
 Parsed Query:
 ```
 ```sql
-SELECT Author.AuthorId , Author.Name , Author.SSN , Author.ZipCodeId into Author2  FROM Author   
+SELECT Author.AuthorId , Author.Name , Author.ZipCodeId into Author2  FROM Author   
 inner join [ZipCode] [t34] on [t34].ZipCodeId = [Author].ZipCodeId   
 inner join [City] [t35] on [t35].CityId = [t34].CityId 
 WHERE t35.Name
@@ -322,7 +322,7 @@ where ShortName
 Parsed Query:
 ```
 ```sql
-SELECT Author.AuthorId , Author.Name , Author.SSN , Author.ZipCodeId  FROM Author   
+SELECT Author.AuthorId , Author.Name , Author.ZipCodeId FROM Author   
 inner join [ZipCode] [t51] on [t51].ZipCodeId = [Author].ZipCodeId   
 inner join [City] [t52] on [t52].CityId = [t51].CityId 
 WHERE (ZipCodeId
@@ -361,7 +361,7 @@ where ShortName
 Parsed Query:
 ```
 ```sql
-SELECT Author.AuthorId , Author.Name , Author.SSN , Author.ZipCodeId  FROM Author   
+SELECT Author.AuthorId , Author.Name , Author.ZipCodeId FROM Author   
 inner join [ZipCode] [t55] on [t55].ZipCodeId = [Author].ZipCodeId   
 inner join [City] [t56] on [t56].CityId = [t55].CityId 
 WHERE (Author.ZipCodeId
@@ -516,12 +516,8 @@ Query:
 update Author set Name='abc' 
 where AuthorId = 1
 ```
-```
-Parsed Query:
-```
-```sql
-update Author set Name='abc' 
-where AuthorId = 1
+```diff
+- RBAC.PRS - User 'Lashawn' does not have permission to update table 'Author'!
 ```
 ***
 
@@ -535,7 +531,7 @@ update Author set SSN='abc'
 where AuthorId = 1
 ```
 ```diff
-- RBAC.PRS - User 'Lashawn' has permission to update table 'Author', however has no permission to update column 'SSN'!
+- RBAC.PRS - User 'Lashawn' does not have permission to update table 'Author'!
 ```
 ***
 
@@ -553,17 +549,8 @@ INNER JOIN dbo.ZipCode AS zc
 
 WHERE zc.ZipCode = '00000' 
 ```
-```
-Parsed Query:
-```
-```sql
-UPDATE a 
-SET a.Name = 'abc' 
-FROM dbo.Author AS a
-INNER JOIN dbo.ZipCode AS zc 
-       ON a.ZipCodeId = a.ZipCodeId
-
-WHERE zc.ZipCode = '00000' 
+```diff
+- RBAC.PRS - User 'Lashawn' does not have permission to update table 'Author'!
 ```
 ***
 

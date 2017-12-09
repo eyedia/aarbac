@@ -51,7 +51,7 @@ namespace Eyedia.Aarbac.Framework
             if (table != null)
             {
                 foreach (RbacColumn col in table.Columns)
-                {
+                {                    
                     RbacSelectColumn column = new RbacSelectColumn();
                     if (isAlias)
                     {
@@ -63,6 +63,7 @@ namespace Eyedia.Aarbac.Framework
                         column.Table.Name = tableNameOrAlias;                       
                     }
 
+                    column.Table = table;
                     column.Name = col.Name;
                     Columns.Add(column);
                 }

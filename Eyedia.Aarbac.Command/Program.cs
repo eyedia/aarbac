@@ -53,11 +53,7 @@ namespace Eyedia.Aarbac.Command
         static void Main(string[] args)
         {
             SetDataDirectory();
-            Rbac rbac = new Rbac("Lashawn");
-            string cs = "Data Source=LPT-03084856325\\SQLEXPRESS;Initial Catalog=books;Integrated Security=True";
-            rbac.Refresh();
-            File.WriteAllText("c:\\temp\\city_mgr_out.xml", RbacMetaData.Merge(cs, rbac.User.Role.CrudPermissions));
-            return;
+         
             //string query = File.ReadAllText(Path.Combine(@"..\..\..\Eyedia.Aarbac.Command\Samples", "Books", "Query.txt"));
             //string sub = query.Substring(186, 21);
             //new BookStore().Setup();
