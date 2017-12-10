@@ -48,4 +48,4 @@ FROM dbo.Author AS a
 INNER JOIN dbo.ZipCode AS zc 
        ON a.ZipCodeId = a.ZipCodeId
 WHERE zc.ZipCode = '00000' ",Lashawn,role_city_mgr,
-32,simple delete,delete from author where name = 'abc',Lashawn,role_city_mgr,
+32,simple delete,delete from author where name = 'abc',Lashawn,role_city_mgr,RBAC.PRS - User 'Lashawn' does not have permission to delete record from table 'Author'!

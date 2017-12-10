@@ -64,7 +64,9 @@ namespace Eyedia.Aarbac.Command {
         ///   Looks up a localized string similar to These are formatted test results of [Books](https://github.com/eyedia/aarbac/wiki/Samples-Overview) application. You can test these queries by executing samples included with aarbac [nuget](https://www.nuget.org/packages/aarbac.NET/) package.
         ///
         ///See [csv](https://github.com/eyedia/aarbac/blob/master/Eyedia.Aarbac.Command/Samples/Books/tests_result.csv) format
-        ///---.
+        ///---
+        ///
+        ///.
         /// </summary>
         internal static string MD_Sample_Query_TopText {
             get {

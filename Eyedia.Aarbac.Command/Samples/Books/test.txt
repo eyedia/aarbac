@@ -1,1 +1,1 @@
-﻿insert into Author values ('','',1)
+﻿delete from author where name = 'abc'

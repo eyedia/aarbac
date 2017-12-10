@@ -1,7 +1,9 @@
 These are formatted test results of [Books](https://github.com/eyedia/aarbac/wiki/Samples-Overview) application. You can test these queries by executing samples included with aarbac [nuget](https://www.nuget.org/packages/aarbac.NET/) package.
 
 See [csv](https://github.com/eyedia/aarbac/blob/master/Eyedia.Aarbac.Command/Samples/Books/tests_result.csv) format
----1. **Wildcard select, the user can read Author table, cannot read SSN column and can see authors from New York and Charlotte**  
+---
+
+1. **Wildcard select, the user can read Author table, cannot read SSN column and can see authors from New York and Charlotte**  
 Rbac: books  
 User: Lashawn  
 Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
@@ -647,12 +649,8 @@ Query:
 delete from author 
 where name = 'abc'
 ```
-```
-Parsed Query:
-```
-```sql
-delete from author 
-where name = 'abc'
+```diff
+- RBAC.PRS - User 'Lashawn' does not have permission to delete record from table 'Author'!
 ```
 ***
 

@@ -74,16 +74,13 @@ namespace Eyedia.Aarbac.Framework
                 DeleteStatement aDeleteStatement = (DeleteStatement)sqlStatement;
 
                 #region Handle Target Table
-
-                RbacTable targetTable = new RbacTable();
                 NamedTableReferenceVisitor ntVisitor = new NamedTableReferenceVisitor(Context);
                 aDeleteStatement.DeleteSpecification.Target.Accept(ntVisitor);
+                TablesReferred = ntVisitor.Tables;
 
-                if (ntVisitor.Tables.Count == 0)
+                if (TablesReferred.Count == 0)
                     RbacException.Raise("No target table found in the delete query!");
-                else if (ntVisitor.Tables.Count == 1)
-                    targetTable = ntVisitor.Tables[0];
-                else
+                else if (TablesReferred.Count != 1)                   
                     RbacException.Raise("More than 1 target tables found in the delete query! Currently not supported.");
 
                 #endregion Handle Target Table

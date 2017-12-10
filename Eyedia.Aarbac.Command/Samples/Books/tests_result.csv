@@ -74,4 +74,4 @@ FROM dbo.Author AS a
 INNER JOIN dbo.ZipCode AS zc 
        ON a.ZipCodeId = a.ZipCodeId
 WHERE zc.ZipCode = '00000' ","","","Passed"
-"32","simple delete","delete from author where name = 'abc'","Lashawn","role_city_mgr","","delete from author where name = 'abc'","delete from author where name = 'abc'","","","Passed"
+"32","simple delete","delete from author where name = 'abc'","Lashawn","role_city_mgr","RBAC.PRS - User 'Lashawn' does not have permission to delete record from table 'Author'!","","","","RBAC.PRS - User 'Lashawn' does not have permission to delete record from table 'Author'!","Passed"
