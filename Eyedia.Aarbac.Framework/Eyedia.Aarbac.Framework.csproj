@@ -264,6 +264,7 @@
     <None Include="Nuget\Content\app.config.transform" />
     <None Include="Nuget\Eyedia.Aarbac.Framework.nuspec" />
     <None Include="Nuget\pack.bat" />
+    <None Include="Nuget\run.bat" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

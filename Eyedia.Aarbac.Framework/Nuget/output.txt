@@ -1,0 +1,67 @@
+
+C:\Workspace\GitHub\aarbac\aarbac\Eyedia.Aarbac.Framework\Nuget>set v=1.0.11 
+
+C:\Workspace\GitHub\aarbac\aarbac\Eyedia.Aarbac.Framework\Nuget>nuget pack Eyedia.Aarbac.Framework.nuspec 
+WARNING: Could not load file or assembly 'HolographicExtensions.dll' or one of its dependencies. The module was expected to contain an assembly manifest.
+WARNING: Could not load file or assembly 'HoloSHExtensions.dll' or one of its dependencies. The module was expected to contain an assembly manifest.
+WARNING: Could not load file or assembly 'PerceptionSimulationExtensions.dll' or one of its dependencies. The module was expected to contain an assembly manifest.
+WARNING: Could not load file or assembly 'Windows.Devices.Printers.Extensions.dll' or one of its dependencies. The module was expected to contain an assembly manifest.
+Attempting to build package from 'Eyedia.Aarbac.Framework.nuspec'.
+Successfully created package 'C:\Workspace\GitHub\aarbac\aarbac\Eyedia.Aarbac.Framework\Nuget\aarbac.NET.1.0.11.nupkg'.
+WARNING: Issue found with package 'aarbac.NET'.
+
+WARNING: Issue: Consider providing Summary text.
+WARNING: Description: The Description text is long but the Summary text is empty. This means the Description text will be truncated in the 'Manage NuGet Packages' dialog.
+WARNING: Solution: Provide a brief summary of the package in the Summary field.
+
+C:\Workspace\GitHub\aarbac\aarbac\Eyedia.Aarbac.Framework\Nuget>del ..\..\Downloads\*.zip /q 
+
+C:\Workspace\GitHub\aarbac\aarbac\Eyedia.Aarbac.Framework\Nuget>copy aarbac.NET.1.0.11.nupkg ..\..\Downloads\aarbac.NET.1.0.11.zip /y 
+        1 file(s) copied.
+
+C:\Workspace\GitHub\aarbac\aarbac\Eyedia.Aarbac.Framework\Nuget>rmdir .\temp /s /q 
+
+C:\Workspace\GitHub\aarbac\aarbac\Eyedia.Aarbac.Framework\Nuget>"C:\Program Files\WinRAR"\winrar x ..\..\Downloads\aarbac.NET.1.0.11.zip .\temp\aarbac.NET.1.0.11\ 
+
+C:\Workspace\GitHub\aarbac\aarbac\Eyedia.Aarbac.Framework\Nuget>del .\temp\aarbac.NET.1.0.11\*.* /q 
+
+C:\Workspace\GitHub\aarbac\aarbac\Eyedia.Aarbac.Framework\Nuget>rmdir .\temp\aarbac.NET.1.0.11\package /s /q 
+
+C:\Workspace\GitHub\aarbac\aarbac\Eyedia.Aarbac.Framework\Nuget>rmdir .\temp\aarbac.NET.1.0.11\_rels /s /q 
+
+C:\Workspace\GitHub\aarbac\aarbac\Eyedia.Aarbac.Framework\Nuget>rmdir .\temp\aarbac.NET.1.0.11\content\aarbac.config /s /q 
+
+C:\Workspace\GitHub\aarbac\aarbac\Eyedia.Aarbac.Framework\Nuget>ren .\temp\aarbac.NET.1.0.11\content\*.pp *.cs 
+
+C:\Workspace\GitHub\aarbac\aarbac\Eyedia.Aarbac.Framework\Nuget>copy ..\..\..\aarbac\packages\EntityFramework.6.2.0\lib\net45\*.dll .\temp\aarbac.NET.1.0.11\lib\net452\ 
+..\..\..\aarbac\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll
+..\..\..\aarbac\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll
+        2 file(s) copied.
+
+C:\Workspace\GitHub\aarbac\aarbac\Eyedia.Aarbac.Framework\Nuget>copy ..\..\..\aarbac\packages\Microsoft.SqlServer.TransactSql.ScriptDom.14.0.3660.1\lib\net40\*.dll .\temp\aarbac.NET.1.0.11\lib\net452\ 
+..\..\..\aarbac\packages\Microsoft.SqlServer.TransactSql.ScriptDom.14.0.3660.1\lib\net40\Microsoft.SqlServer.TransactSql.ScriptDom.dll
+        1 file(s) copied.
+
+C:\Workspace\GitHub\aarbac\aarbac\Eyedia.Aarbac.Framework\Nuget>copy ..\..\..\aarbac\packages\CommandLineParser.1.1.5\lib\net20\*.dll .\temp\aarbac.NET.1.0.11\lib\net452\ 
+The system cannot find the path specified.
+
+C:\Workspace\GitHub\aarbac\aarbac\Eyedia.Aarbac.Framework\Nuget>copy ..\..\..\aarbac\packages\GenericParser.1.1.5\lib\net20\*.dll .\temp\aarbac.NET.1.0.11\lib\net452\ 
+..\..\..\aarbac\packages\GenericParser.1.1.5\lib\net20\GenericParsing.dll
+        1 file(s) copied.
+
+C:\Workspace\GitHub\aarbac\aarbac\Eyedia.Aarbac.Framework\Nuget>copy ..\..\..\aarbac\packages\Newtonsoft.Json.10.0.3\lib\net45\*.dll .\temp\aarbac.NET.1.0.11\lib\net452\ 
+..\..\..\aarbac\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll
+        1 file(s) copied.
+
+C:\Workspace\GitHub\aarbac\aarbac\Eyedia.Aarbac.Framework\Nuget>copy ..\..\..\aarbac\packages\FCTB.2.16.21.0\lib\*.dll .\temp\aarbac.NET.1.0.11\lib\net452\ 
+..\..\..\aarbac\packages\FCTB.2.16.21.0\lib\FastColoredTextBox.dll
+        1 file(s) copied.
+
+C:\Workspace\GitHub\aarbac\aarbac\Eyedia.Aarbac.Framework\Nuget>"C:\Program Files\WinRAR"\winrar a -ep1 aarbac.NET.1.0.11.zip .\temp\aarbac.NET.1.0.11 
+
+C:\Workspace\GitHub\aarbac\aarbac\Eyedia.Aarbac.Framework\Nuget>copy aarbac.NET.1.0.11.zip ..\..\Downloads\ /y 
+        1 file(s) copied.
+
+C:\Workspace\GitHub\aarbac\aarbac\Eyedia.Aarbac.Framework\Nuget>del aarbac.NET.1.0.11.zip /q 
+
+C:\Workspace\GitHub\aarbac\aarbac\Eyedia.Aarbac.Framework\Nuget>rmdir .\temp /s /q 
