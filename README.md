@@ -96,5 +96,5 @@ When user logs in, i.e. authenticated and authorized based on your authenticatio
 1. Microsoft SQL Server.
 2. .NET 4.5.2+
 ---
-# Release Frequence
+# Release Frequency
 *Every EST Sunday night *
