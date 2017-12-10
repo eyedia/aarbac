@@ -96,5 +96,5 @@ When user logs in, i.e. authenticated and authorized based on your authenticatio
 1. Microsoft SQL Server.
 2. .NET 4.5.2+
 ---
-# Disclaimer
-*11/28/2017 - I am new to github and nuget, currently working on nuget release & other basic documentation on github. This document may get updated frequently. aarbac release 1.0.9 is stable, but future release may have some minor changes. PLease execuse me for that. I will remove this disclaimer once everything is stable.*
+# Release Frequence
+*Every EST Sunday night *
