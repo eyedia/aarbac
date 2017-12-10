@@ -81,43 +81,42 @@ namespace Eyedia.Aarbac.Framework
             if (sqlStatement.GetType() == typeof(InsertStatement))
             {
                 InsertStatement aInsertStatement = (InsertStatement)sqlStatement;
-                string tableName = string.Empty;
-                string tableAlias = string.Empty;
-                RbacTable table = null;
+
                 if (aInsertStatement.InsertSpecification.Target is NamedTableReference)
                 {
-                    NamedTableReference tableRef = aInsertStatement.InsertSpecification.Target as NamedTableReference;
-                    tableName = ((SchemaObjectName)tableRef.SchemaObject).Identifiers[0].Value;
-                    tableAlias = tableRef.Alias != null ? tableRef.Alias.ToString() : string.Empty;
-
-                    table = Context.User.Role.CrudPermissions.Find(tableName);
-                    if (table != null)
-                        TablesReferred.Add(table);
-                    else
-                        RbacException.Raise(string.Format("The referred table {0} was not found in meta data!", tableName), RbacExceptionCategories.Parser);
+                    //tables
+                    NamedTableReferenceVisitor ntVisitor = new NamedTableReferenceVisitor(Context);
+                    aInsertStatement.InsertSpecification.Accept(ntVisitor);
+                    TablesReferred = ntVisitor.Tables;
                 }
 
-                if (aInsertStatement.InsertSpecification.Columns.Count == 0)
+                if ((TablesReferred.Count == 1) 
+                    && (aInsertStatement.InsertSpecification.Columns.Count == 0))
                 {
                     //insert query does not specific columns                    
                     int howManyColumnValues = ((ValuesInsertSource)aInsertStatement.InsertSpecification.InsertSource).RowValues[0].ColumnValues.Count;
                     //add table column sequentially
                     for (int i = 0; i < howManyColumnValues; i++)
                     {
-                        AddSelectColumn(tableName, table.Columns[i].Name);
+                        AddSelectColumn(TablesReferred[0].Name, TablesReferred[0].Columns[i].Name);
                     }
 
                 }
-                else
+                else if ((TablesReferred.Count == 1)
+                    && (aInsertStatement.InsertSpecification.Columns.Count > 0))
                 {
                     //insert query has specific columns
                     foreach (ColumnReferenceExpression columnExp in aInsertStatement.InsertSpecification.Columns)
                     {
                         var columnName = columnExp.MultiPartIdentifier.Identifiers[0].Value;
-                        AddSelectColumn(tableName, columnName);
+                        AddSelectColumn(TablesReferred[0].Name, columnName);
 
                     }
-                }                
+                } 
+                else
+                {
+                    throw new NotImplementedException("This kind of insert statement not supported yet!");
+                }
             }
             else
             {

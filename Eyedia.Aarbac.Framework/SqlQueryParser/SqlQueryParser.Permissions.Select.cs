@@ -70,6 +70,7 @@ namespace Eyedia.Aarbac.Framework
                     else
                     {
                         //user do not have access to this table
+                        RemoveColumnFromSelect(allColumnnsInATable);
                     }
                 }
             }
@@ -77,73 +78,24 @@ namespace Eyedia.Aarbac.Framework
             IsPermissionApplied = true;
         }
 
+        private void RemoveColumnFromSelect(List<RbacSelectColumn> columns)
+        {
+            foreach(RbacSelectColumn column in columns)
+            {
+                RemoveColumnFromSelect(column);
+            }
+        }
         private void RemoveColumnFromSelect(RbacSelectColumn column)
         {
             //if (column.TableColumnName == "SSN")
             //    Debugger.Break();
+            SelectColumnRemover selectColumnRemover = new SelectColumnRemover(ParsedQuery, column);
+            ParsedQuery = selectColumnRemover.Remove();
 
-            int fromIndex = ParsedQuery.IndexOf(" into", StringComparison.OrdinalIgnoreCase);
-            if(fromIndex == -1)
-                fromIndex = ParsedQuery.IndexOf(" from", StringComparison.OrdinalIgnoreCase);
-            if (fromIndex == -1)
-                RbacException.Raise("Something went wrong while applying permission on select columns, no 'into' or 'from' statement found in the query");
+            if ((IsSilent == false)
+            && selectColumnRemover.IsZeroSelectColumn)
+                RbacException.Raise("The query returned 0(zero) column!");
 
-                string selectStatement = ParsedQuery.Substring(0, fromIndex);
-            string otherStatement = ParsedQuery.Substring(fromIndex, ParsedQuery.Length - fromIndex);
-            if (!selectStatement.Contains(",")) //we hit the single/last column
-            {
-                ParsedQuery = "SELECT 'null' " + otherStatement;
-                IsZeroSelectColumn = true;
-            }
-            else
-            {
-                string colName = column.Name;
-                int pos = -1;
-
-                //try 1
-                if (!string.IsNullOrEmpty(column.Table.Alias))
-                {
-                    colName = string.Format("{0}.{1}", column.Table.Alias, column.Name);
-                    pos = selectStatement.IndexOf(colName);
-                }
-
-                //try 2
-                if ((pos == -1) && (!string.IsNullOrEmpty(column.Table.Name)))
-                {
-                    colName = string.Format("{0}.{1}", column.Table.Name, column.Name);
-                    pos = selectStatement.IndexOf(colName);
-                }
-
-                //try 3
-                if (pos == -1)
-                {
-                    pos = selectStatement.IndexOf(column.Name);
-                }
-
-                //if still not found, possibly the column was referred more than once, was removed in last go.
-                if (pos == -1)
-                    return;
-
-                int nextommaPos = selectStatement.IndexOf(",", pos);
-                if (nextommaPos == -1) //we hit the last column
-                    nextommaPos = selectStatement.Length;
-
-                colName = selectStatement.Substring(pos, (nextommaPos - pos));
-                selectStatement = selectStatement.Replace(colName, string.Empty);
-                selectStatement = selectStatement.Replace(",  ,", ",").Replace(", ,", ",").Replace(",,", ",");
-                selectStatement = selectStatement.Trim();
-                if ((selectStatement.Length > 0) && (selectStatement.Substring(selectStatement.Length -1, 1) == ","))
-                    selectStatement = selectStatement.Substring(0, selectStatement.Length - 1) + " ";
-
-                if(selectStatement.Trim().Equals("SELECT", StringComparison.OrdinalIgnoreCase))
-                {
-                    selectStatement = "SELECT 'null' ";
-                    IsZeroSelectColumn = true;
-                }
-
-                ParsedQuery = selectStatement + otherStatement;
-                ParsedQuery = ParsedQuery.Replace("SELECT ,", "SELECT");
-            }
         }
     }
 }

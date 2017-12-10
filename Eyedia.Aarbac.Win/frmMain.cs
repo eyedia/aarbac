@@ -360,5 +360,11 @@ namespace Eyedia.Aarbac.Win
             frmLog logWindow = new frmLog();
             logWindow.Show(this);
         }
+
+        private void frmMain_Resize(object sender, EventArgs e)
+        {
+            scRole1.SplitterDistance = 20;
+            scRole2.SplitterDistance = 150;
+        }
     }
 }

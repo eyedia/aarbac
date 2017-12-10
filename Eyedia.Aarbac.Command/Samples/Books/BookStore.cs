@@ -255,7 +255,7 @@ namespace Eyedia.Aarbac.Command
         public void ToCsvMarkdownFormat(DataTable table, string fileName)
         {
             StringBuilder sb = new StringBuilder();
-
+            sb.Append(Resources.MD_Sample_Query_TopText);
             string rbac = "books";
 
             int counter = 1;

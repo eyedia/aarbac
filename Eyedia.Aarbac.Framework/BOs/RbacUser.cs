@@ -95,7 +95,7 @@ namespace Eyedia.Aarbac.Framework
         private void Assign(RbacUser user)
         {
             this.UserId = user.UserId;
-            this.UserName = user.UserName;            
+            this.UserName = user.UserName;
             this.FullName = user.FullName;
             this.Email = user.Email;
             this.Role = user.Role;

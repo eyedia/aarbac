@@ -2,10 +2,10 @@
 <Rbac>
   <Summary GeneratedOn="11/13/2017 6:13:32 PM" GeneratedBy="TODO" />
   <Tables>
-    <Table Id="1605580758" Name="Author" Create="False" Read="True" Update="False" Delete="False">
+    <Table Id="1605580758" Name="Author" Create="False" Read="True" Update="True" Delete="False">
       <Columns>
         <Column Name="AuthorId" Type="int" Create="False" Read="True" Update="False" />
-        <Column Name="Name" Type="varchar" Create="False" Read="True" Update="False" />
+        <Column Name="Name" Type="varchar" Create="False" Read="True" Update="True" />
         <Column Name="SSN" Type="image" Create="False" Read="False" Update="False" />
         <Column Name="ZipCodeId" Type="int" Create="False" Read="True" Update="False" />
       </Columns>
@@ -19,15 +19,15 @@
         <Parameter />
       </Parameters>    
     </Table>
-    <Table Id="1333579789" Name="Book" Create="False" Read="True" Update="False" Delete="False">
+    <Table Id="1333579789" Name="Book" Create="True" Read="True" Update="False" Delete="False">
       <Columns>
-        <Column Name="BookId" Type="int" Create="False" Read="True" Update="False" />
-        <Column Name="Title" Type="varchar" Create="False" Read="True" Update="False" />
-        <Column Name="Subject" Type="varchar" Create="False" Read="True" Update="False" />
-        <Column Name="Price" Type="numeric" Create="False" Read="True" Update="False" />
+        <Column Name="BookId" Type="int" Create="True" Read="True" Update="False" />
+        <Column Name="Title" Type="varchar" Create="True" Read="True" Update="False" />
+        <Column Name="Subject" Type="varchar" Create="True" Read="True" Update="False" />
+        <Column Name="Price" Type="numeric" Create="True" Read="True" Update="False" />
         <Column Name="Isbn13" Type="varchar" Create="False" Read="True" Update="False" />
         <Column Name="Isbn10" Type="varchar" Create="False" Read="True" Update="False" />
-        <Column Name="PublisherId" Type="int" Create="False" Read="True" Update="False" />
+        <Column Name="PublisherId" Type="int" Create="True" Read="True" Update="False" />
       </Columns>
       <Relations>
         <Relation Type="Auto" My="PublisherId" With="Publisher.PublisherId" />
@@ -107,7 +107,7 @@
         <Parameter Name="{CityNames}" Description="{CityNames} with comma separated country codes like this ('New York','Charlotte')" />      
       </Parameters>
     </Table>
-    <Table Id="1557580587" Name="Country" Create="False" Read="True" Update="False" Delete="False">
+    <Table Id="1557580587" Name="Country" Create="False" Read="False" Update="False" Delete="False">
       <Columns>
         <Column Name="CountryId" Type="int" Create="False" Read="True" Update="False" />
         <Column Name="Code" Type="varchar" Create="False" Read="True" Update="False" />

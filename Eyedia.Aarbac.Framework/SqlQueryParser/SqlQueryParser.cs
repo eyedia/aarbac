@@ -68,7 +68,7 @@ namespace Eyedia.Aarbac.Framework
         public bool IsZeroSelectColumn { get; private set; }
         public bool IsPermissionApplied { get; private set; }
         public bool IsParsingSkipped { get; private set; } 
-        public bool SyntaxError { get; private set; }       
+        public bool SyntaxError { get; private set; }
         public bool IsSilent { get; set; }
         public string OriginalQuery { get; private set; }
         public string ParsedQuery { get; private set; }
@@ -78,7 +78,7 @@ namespace Eyedia.Aarbac.Framework
         public List<RbacJoin> JoinClauses { get; private set; }
         public List<RbacWhereClause> WhereClauses { get; private set; }
         public ExecutionTime ExecutionTime { get; private set;}
-
+         
         List<string> ParamErrors;
         public string AllErrors
         {

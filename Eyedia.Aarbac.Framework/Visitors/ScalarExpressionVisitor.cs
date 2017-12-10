@@ -85,7 +85,7 @@ namespace Eyedia.Aarbac.Framework
         public override void ExplicitVisit(ColumnReferenceExpression node)
         {
             RbacSelectColumn column = new RbacSelectColumn();
-
+            
             if (node.MultiPartIdentifier.Identifiers.Count == 1)
             {
                 column.Name = node.MultiPartIdentifier.Identifiers[0].Value;
@@ -96,7 +96,18 @@ namespace Eyedia.Aarbac.Framework
                 column.Table.Alias = node.MultiPartIdentifier.Identifiers[0].Value;
                 column.Name = node.MultiPartIdentifier.Identifiers[1].Value;                
             }
+            else if (node.MultiPartIdentifier.Identifiers.Count == 3)
+            {
+                column.Table.Schema = node.MultiPartIdentifier.Identifiers[0].Value;
+                column.Table.Alias = node.MultiPartIdentifier.Identifiers[1].Value;
+                column.Name = node.MultiPartIdentifier.Identifiers[2].Value;
+            }
+            else
+            {
+                throw new NotImplementedException("unknown number of identifiers found in select statement, please report this issue!");
+            }
 
+            column.SetToken(node);
             Columns.Add(column);
 
         }

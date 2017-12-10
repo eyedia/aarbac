@@ -95,6 +95,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AarbacSamples.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Books\BookStore.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +138,10 @@
     <EmbeddedResource Include="Disclaimer\Disclaimer.txt" />
     <Content Include="Samples\Books\entitlement.xml" />
     <Content Include="Samples\Books\role_city_mgr.xml" />
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

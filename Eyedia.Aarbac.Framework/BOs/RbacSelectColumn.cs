@@ -43,9 +43,7 @@ namespace Eyedia.Aarbac.Framework
     public class RbacSelectColumn
     {       
         public string Alias { get; set; }
-        public string Name { get; set; }
-        //public string NodeText { get; set; }
-        //public string NodeTextUpdated { get; set; }
+        public string Name { get; set; }       
         public RbacTable Table { get; set; }
 
         public RbacSelectColumn()
@@ -53,122 +51,18 @@ namespace Eyedia.Aarbac.Framework
             Table = new RbacTable();
         }
 
+        public string Token { get; private set; }
+
+        public void SetToken(ColumnReferenceExpression node)
+        {
+            Token = string.Empty;
+            for (int i = node.FirstTokenIndex; i <= node.LastTokenIndex; i++)
+            {
+                Token += node.ScriptTokenStream[i].Text;
+            }
+        }
+
     }
-    /*
-    public class RbacSelectColumns
-    {
-        private List<RbacSelectColumn> _List = new List<RbacSelectColumn>();
-
-        public List<RbacSelectColumn> List
-        {
-            get { return _List; }
-            set { _List = value; }
-        }
-
-        public void Add(RbacSelectColumn column)
-        {
-            this._List.Add(column);
-        }
-
-        public void FillEmptyAlias()
-        {
-            //foreach (RbacSelectColumn aColumnInfo in List)
-            //{
-            //    if (string.IsNullOrWhiteSpace(aColumnInfo.Alias))
-            //    {
-            //        aColumnInfo.Alias = aColumnInfo.TableColumnName;
-            //    }
-            //}
-        }
-
-        public void AddIfNeeded(int aSelectElementID, string aIdentifier)
-        {
-            //if (List.Count > aSelectElementID)
-            //{
-            //}
-            //else
-            //{
-            //    List.Add(new RbacSelectColumn { Alias = aIdentifier });
-            //}
-        }
-
-        public void AddRefereceIdentifier(int aSelectElementID, MultiPartIdentifier aMultiPartIdentifier)
-        {
-            //if (List.Count > aSelectElementID)
-            //{
-            //    if (aMultiPartIdentifier.Identifiers.Count == 1)
-            //    {
-            //        List[aSelectElementID].TableAlias = aMultiPartIdentifier.Identifiers[0].Value;
-            //    }
-            //    else if (aMultiPartIdentifier.Identifiers.Count == 2)
-            //    {
-            //        List[aSelectElementID].TableAlias = aMultiPartIdentifier.Identifiers[0].Value;
-            //        List[aSelectElementID].TableColumnName = aMultiPartIdentifier.Identifiers[1].Value;
-            //    }
-            //    else if (aMultiPartIdentifier.Identifiers.Count == 3)
-            //    {
-            //        List[aSelectElementID].ReferencedTableSchema = aMultiPartIdentifier.Identifiers[0].Value;
-            //        List[aSelectElementID].ReferencedTableName = aMultiPartIdentifier.Identifiers[1].Value;
-            //        List[aSelectElementID].TableColumnName = aMultiPartIdentifier.Identifiers[1].Value;
-            //    }
-
-            //}
-
-            
-        }
-
-        public override string ToString()
-        {
-            StringBuilder sb = new StringBuilder();
-            foreach (RbacSelectColumn col in List)
-            {
-                sb.AppendLine(string.Format("\t\t{0} [as {1}].{2}", col.Table.Name, col.Table.Alias, col.Name));
-            }
-            return sb.ToString();
-        }
-
-        public string ToCommaSeparatedString()
-        {           
-            string columns = string.Empty;
-            foreach (var i in List)
-            {
-                if (string.IsNullOrEmpty(i.Table.Alias))
-                    columns += i.Table.Name + "." + i.Name + ",";
-                else
-                    columns += i.Table.Alias + "." + i.Name + ",";
-            }
-            return columns.Length > 0 ? columns.Substring(0, columns.Length - 1) : columns;
-        }
-
-        public void AddTableReference(SchemaObjectName schema, Identifier alias)
-        {
-
-            //if (List.Count > 0)
-            //{
-            //    foreach (RbacSelectColumn column in List)
-            //    {
-            //        if (alias != null &&
-            //            column.TableAlias.ToLower() == alias.Value.ToLower())
-            //        {
-            //            AssignSchemaDetailsToColumn(column, schema);                  
-            //        }
-            //        else if ((alias == null) &&
-            //                 (schema.BaseIdentifier != null) &&
-            //                 (schema.BaseIdentifier.Value.ToLower() == column.TableAlias.ToLower()))
-            //        {
-            //            AssignSchemaDetailsToColumn(column, schema);
-            //        }
-            //    }
-            //}
-        }
-
-        private void AssignSchemaDetailsToColumn(RbacSelectColumn column, SchemaObjectName schema)
-        {
-            //column.ReferencedTableServer = schema.ServerIdentifier != null ? schema.ServerIdentifier.Value : string.Empty;
-            //column.ReferencedTableDatabase = schema.DatabaseIdentifier != null ? schema.DatabaseIdentifier.Value : string.Empty;
-            //column.ReferencedTableSchema = schema.SchemaIdentifier != null ? schema.SchemaIdentifier.Value : string.Empty;
-            //column.ReferencedTableName = schema.BaseIdentifier != null ? schema.BaseIdentifier.Value : string.Empty;
-        }
-    }*/
+    
 }
 

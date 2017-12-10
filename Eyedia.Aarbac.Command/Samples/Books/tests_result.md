@@ -1,4 +1,7 @@
-1. **Wildcard select, the user can see authors from NY and Charlotte**  
+These are formatted test results of [Books](https://github.com/eyedia/aarbac/wiki/Samples-Overview) application. You can test these queries by executing samples included with aarbac [nuget](https://www.nuget.org/packages/aarbac.NET/) package.
+
+See [csv](https://github.com/eyedia/aarbac/blob/master/Eyedia.Aarbac.Command/Samples/Books/tests_result.csv) format
+---1. **Wildcard select, the user can read Author table, cannot read SSN column and can see authors from New York and Charlotte**  
 Rbac: books  
 User: Lashawn  
 Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
@@ -18,27 +21,31 @@ WHERE t2.Name
 ```
 ***
 
-2. **Specific columns select, the user can see authors from NY and Charlotte**  
+2. **Specific columns the user can read Author table, cannot read SSN column and can see authors from New York and Charlotte**  
 Rbac: books  
 User: Lashawn  
 Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
 Query:  
 ```sql
-select * from Author
+select name,ssn from Author
 ```
 ```
 Parsed Query:
 ```
 ```sql
-SELECT Author.AuthorId , Author.Name , Author.ZipCodeId FROM Author   
+SELECT name   FROM Author   
 inner join [ZipCode] [t5] on [t5].ZipCodeId = [Author].ZipCodeId   
 inner join [City] [t6] on [t6].CityId = [t5].CityId 
 WHERE t6.Name
  in ('New York','Charlotte')  
 ```
+```diff
+- Ambiguous column name 'name'.
+
+```
 ***
 
-3. **Specific columns select, the user can see authors from NY and Charlotte**  
+3. **Specific columns select, the user cannot read SSN column & can see authors from NY and Charlotte**  
 Rbac: books  
 User: Lashawn  
 Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
@@ -58,7 +65,7 @@ WHERE t10.Name
 ```
 ***
 
-4. **One specific column select, the user does not have permission to see the column**  
+4. **One specific column select, the user does not have permission to see the SSN column**  
 Rbac: books  
 User: Lashawn  
 Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
@@ -66,15 +73,8 @@ Query:
 ```sql
 select SSN from Author
 ```
-```
-Parsed Query:
-```
-```sql
-SELECT 'null'  FROM Author   
-inner join [ZipCode] [t13] on [t13].ZipCodeId = [Author].ZipCodeId   
-inner join [City] [t14] on [t14].CityId = [t13].CityId 
-WHERE t14.Name
- in ('New York','Charlotte')  
+```diff
+- RBAC.Core - The query returned 0(zero) column!
 ```
 ***
 
@@ -189,7 +189,54 @@ WHERE ShortName
 ```
 ***
 
-10. **Select into wildcard**  
+10. **select non-permitted table with wildcard, user does not have permission to read from Country table**  
+Rbac: books  
+User: Lashawn  
+Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
+Query:  
+```sql
+select * from Country
+```
+```diff
+- RBAC.Core - The query returned 0(zero) column!
+```
+***
+
+11. **select non-permitted table with specific columns, user does not have permission to read from Country table**  
+Rbac: books  
+User: Lashawn  
+Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
+Query:  
+```sql
+select countryId,Name from Country
+```
+```diff
+- RBAC.Core - The query returned 0(zero) column!
+```
+***
+
+12. **select permitted & non-permitted tables with specific columns, user does not have permission to read from Country table**  
+Rbac: books  
+User: Lashawn  
+Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
+Query:  
+```sql
+select Country.CountryId, dbo.Country.Code, dbo.Country.Name, dbo.State.ShortName, dbo.State.Name AS [StateName]
+from dbo.Country 
+
+inner join dbo.State ON dbo.Country.CountryId = dbo.State.CountryId
+```
+```
+Parsed Query:
+```
+```sql
+select dbo.State.ShortName, dbo.State.Name AS [StateName] from dbo.Country 
+
+inner join dbo.State ON dbo.Country.CountryId = dbo.State.CountryId
+```
+***
+
+13. **Select into wildcard**  
 Rbac: books  
 User: Lashawn  
 Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
@@ -201,7 +248,7 @@ select * into Author2 from Author
 Parsed Query:
 ```
 ```sql
-SELECT Author.AuthorId , Author.Name , Author.ZipCodeId into Author2  FROM Author   
+SELECT Author.AuthorId , Author.Name , Author.ZipCodeId  into Author2  FROM Author   
 inner join [ZipCode] [t34] on [t34].ZipCodeId = [Author].ZipCodeId   
 inner join [City] [t35] on [t35].CityId = [t34].CityId 
 WHERE t35.Name
@@ -209,7 +256,7 @@ WHERE t35.Name
 ```
 ***
 
-11. **select into specific columns**  
+14. **select into specific columns**  
 Rbac: books  
 User: Lashawn  
 Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
@@ -221,7 +268,7 @@ select name,ssn into Author2 from Author
 Parsed Query:
 ```
 ```sql
-SELECT name   into Author2  FROM Author   
+SELECT name    into Author2  FROM Author   
 inner join [ZipCode] [t38] on [t38].ZipCodeId = [Author].ZipCodeId   
 inner join [City] [t39] on [t39].CityId = [t38].CityId 
 WHERE t39.Name
@@ -233,7 +280,7 @@ WHERE t39.Name
 ```
 ***
 
-12. **select into specific columns recommended way**  
+15. **select into specific columns recommended way**  
 Rbac: books  
 User: Lashawn  
 Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
@@ -245,7 +292,7 @@ select Author.name, Author.ssn into Author2 from Author
 Parsed Query:
 ```
 ```sql
-SELECT Author.name   into Author2  FROM Author   
+SELECT Author.name    into Author2  FROM Author   
 inner join [ZipCode] [t42] on [t42].ZipCodeId = [Author].ZipCodeId   
 inner join [City] [t43] on [t43].CityId = [t42].CityId 
 WHERE t43.Name
@@ -257,7 +304,7 @@ WHERE t43.Name
 ```
 ***
 
-13. **Select using inner join 1**  
+16. **Select using inner join 1**  
 Rbac: books  
 User: Lashawn  
 Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
@@ -280,7 +327,7 @@ WHERE c.Name
 ```
 ***
 
-14. **Select using inner join 2**  
+17. **Select using inner join 2**  
 Rbac: books  
 User: Lashawn  
 Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
@@ -302,7 +349,7 @@ WHERE (zc.ZipCodeId = 12) AND (t48.Name
 ```
 ***
 
-15. **aarbac recommends to use table or alias prefix, this query will parse good, but will throw error while executing ```Ambiguous column name 'ZipCodeId'```**  
+18. **aarbac recommends to use table or alias prefix, this query will parse good, but will throw error while executing ```Ambiguous column name 'ZipCodeId'```**  
 Rbac: books  
 User: Lashawn  
 Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
@@ -341,7 +388,7 @@ WHERE ShortName
 ```
 ***
 
-16. **aarbac recommended column usage**  
+19. **aarbac recommended column usage**  
 Rbac: books  
 User: Lashawn  
 Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
@@ -376,7 +423,7 @@ WHERE ShortName
 ```
 ***
 
-17. **incorrect query**  
+20. **incorrect query**  
 Rbac: books  
 User: Lashawn  
 Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
@@ -395,7 +442,7 @@ select
 ```
 ***
 
-18. **incorrect query**  
+21. **incorrect query**  
 Rbac: books  
 User: Lashawn  
 Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
@@ -408,7 +455,7 @@ abc
 ```
 ***
 
-19. **incorrect query**  
+22. **incorrect query**  
 Rbac: books  
 User: Lashawn  
 Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
@@ -428,7 +475,7 @@ select *
 ```
 ***
 
-20. **incorrect query**  
+23. **incorrect query**  
 Rbac: books  
 User: Lashawn  
 Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
@@ -447,7 +494,7 @@ select * from
 ```
 ***
 
-21. **incorrect query**  
+24. **incorrect query**  
 Rbac: books  
 User: Lashawn  
 Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
@@ -468,7 +515,7 @@ where
 ```
 ***
 
-22. **incorrect table**  
+25. **incorrect table**  
 Rbac: books  
 User: Lashawn  
 Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
@@ -481,7 +528,31 @@ select * from abc
 ```
 ***
 
-23. **Simple Insert**  
+26. **Simple insert into permissible table, user can insert record into Book**  
+Rbac: books  
+User: Lashawn  
+Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
+Query:  
+```sql
+INSERT INTO [dbo].[Book] ([Title],[Subject],[Price],[PublisherId]) VALUES
+           ('A new Book'
+           ,'aarbac - An Automated Role Based Access Control'
+           ,5.50          
+           ,11)
+```
+```
+Parsed Query:
+```
+```sql
+INSERT INTO [dbo].[Book] ([Title],[Subject],[Price],[PublisherId]) VALUES
+           ('A new Book'
+           ,'aarbac - An Automated Role Based Access Control'
+           ,5.50          
+           ,11)
+```
+***
+
+27. **Simple Insert**  
 Rbac: books  
 User: Lashawn  
 Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
@@ -494,7 +565,7 @@ insert into Author values ('','',1)
 ```
 ***
 
-24. **Simple insert with specific column names**  
+28. **Simple insert with specific column names**  
 Rbac: books  
 User: Lashawn  
 Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
@@ -507,7 +578,7 @@ insert into Author(Name,SSN,ZipCodeId) values ('','',1)
 ```
 ***
 
-25. **Simple update, Lashawn has permission to update Name**  
+29. **Simple update, Lashawn has permission to update Name**  
 Rbac: books  
 User: Lashawn  
 Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
@@ -516,12 +587,16 @@ Query:
 update Author set Name='abc' 
 where AuthorId = 1
 ```
-```diff
-- RBAC.PRS - User 'Lashawn' does not have permission to update table 'Author'!
+```
+Parsed Query:
+```
+```sql
+update Author set Name='abc' 
+where AuthorId = 1
 ```
 ***
 
-26. **Simple update, Lashawn does not have permission to update SSN**  
+30. **Simple update, Lashawn does not have permission to update SSN**  
 Rbac: books  
 User: Lashawn  
 Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
@@ -531,11 +606,11 @@ update Author set SSN='abc'
 where AuthorId = 1
 ```
 ```diff
-- RBAC.PRS - User 'Lashawn' does not have permission to update table 'Author'!
+- RBAC.PRS - User 'Lashawn' has permission to update table 'Author', however has no permission to update column 'SSN'!
 ```
 ***
 
-27. **Update with Join Clause**  
+31. **Update with Join Clause**  
 Rbac: books  
 User: Lashawn  
 Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  
@@ -549,12 +624,21 @@ INNER JOIN dbo.ZipCode AS zc
 
 WHERE zc.ZipCode = '00000' 
 ```
-```diff
-- RBAC.PRS - User 'Lashawn' does not have permission to update table 'Author'!
+```
+Parsed Query:
+```
+```sql
+UPDATE a 
+SET a.Name = 'abc' 
+FROM dbo.Author AS a
+INNER JOIN dbo.ZipCode AS zc 
+       ON a.ZipCodeId = a.ZipCodeId
+
+WHERE zc.ZipCode = '00000' 
 ```
 ***
 
-28. **simple delete**  
+32. **simple delete**  
 Rbac: books  
 User: Lashawn  
 Role: [role_city_mgr](https://raw.githubusercontent.com/eyedia/aarbac/master/Eyedia.Aarbac.Command/Samples/Books/role_city_mgr.xml)  

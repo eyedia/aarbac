@@ -1,40 +1,51 @@
 Id,Comment,Query,User,Role,Expected
-1,"Wildcard select, the user can see authors from NY and Charlotte",select * from Author,Lashawn,role_city_mgr,
-2,"Specific columns select, the user can see authors from NY and Charlotte",select * from Author,Lashawn,role_city_mgr,
-3,"Specific columns select, the user can see authors from NY and Charlotte",select * from Author a,Lashawn,role_city_mgr,
-4,"One specific column select, the user does not have permission to see the column",select SSN from Author,Lashawn,role_city_mgr,
+1,"Wildcard select, the user can read Author table, cannot read SSN column and can see authors from New York and Charlotte",select * from Author,Lashawn,role_city_mgr,
+2,"Specific columns the user can read Author table, cannot read SSN column and can see authors from New York and Charlotte","select name,ssn from Author",Lashawn,role_city_mgr,"Ambiguous column name 'name'.
+"
+3,"Specific columns select, the user cannot read SSN column & can see authors from NY and Charlotte",select * from Author a,Lashawn,role_city_mgr,
+4,"One specific column select, the user does not have permission to see the SSN column",select SSN from Author,Lashawn,role_city_mgr,RBAC.Core - The query returned 0(zero) column!
 5,"Wildcard select, there is no restriction on Book table, user should see everything",select * from Book,Lashawn,role_city_mgr,
 6,Wildcard select with alias,select a.* from Author a,Lashawn,role_city_mgr,
 7,Wildcard select with only table alias,select * from Author a,Lashawn,role_city_mgr,
 8,Wildcard muliselect with table alias,"select a.*, a.* from Author a",Lashawn,role_city_mgr,
 9,Complex wildcard select,"select * from Author where Author.ZipCodeId in (select zc.ZipCodeId from ZipCode zc where zc.CityId in (select c.CityId from City c where c.StateId in (select StateId from State where ShortName in ('NY', 'NC'))))",Lashawn,role_city_mgr,
-10,Select into wildcard,select * into Author2 from Author,Lashawn,role_city_mgr,
-11,select into specific columns,"select name,ssn into Author2 from Author",Lashawn,role_city_mgr,"Ambiguous column name 'name'.
+10,"select non-permitted table with wildcard, user does not have permission to read from Country table",select * from Country,Lashawn,role_city_mgr,RBAC.Core - The query returned 0(zero) column!
+11,"select non-permitted table with specific columns, user does not have permission to read from Country table","select countryId,Name from Country",Lashawn,role_city_mgr,RBAC.Core - The query returned 0(zero) column!
+12,"select permitted & non-permitted tables with specific columns, user does not have permission to read from Country table","select Country.CountryId, dbo.Country.Code, dbo.Country.Name, dbo.State.ShortName, dbo.State.Name AS [StateName]
+from dbo.Country 
+inner join dbo.State ON dbo.Country.CountryId = dbo.State.CountryId",Lashawn,role_city_mgr,
+13,Select into wildcard,select * into Author2 from Author,Lashawn,role_city_mgr,
+14,select into specific columns,"select name,ssn into Author2 from Author",Lashawn,role_city_mgr,"Ambiguous column name 'name'.
 "
-12,select into specific columns recommended way,"select Author.name, Author.ssn into Author2 from Author",Lashawn,role_city_mgr,
-13,Select using inner join 1,"select a.AuthorId, a.Name as [AuthorName], a.ZipCodeId, c.Name as City from Author a
+15,select into specific columns recommended way,"select Author.name, Author.ssn into Author2 from Author",Lashawn,role_city_mgr,
+16,Select using inner join 1,"select a.AuthorId, a.Name as [AuthorName], a.ZipCodeId, c.Name as City from Author a
 inner join Zipcode zc on zc.ZipCodeId = a.ZipCodeId
 inner join City c on c.CityId = zc.CityId
 where c.Name = 'Charlotte'",Lashawn,role_city_mgr,
-14,Select using inner join 2,"select zc.ZipCode, a.Name from ZipCode zc inner join Author a on a.ZipCodeId = zc.ZipCodeId where zc.ZipCodeId = 12",Lashawn,role_city_mgr,
-15,"aarbac recommends to use table or alias prefix, this query will parse good, but will throw error while executing ```Ambiguous column name 'ZipCodeId'```","select * from Author where ZipCodeId in (select zc.ZipCodeId from ZipCode zc where zc.CityId in (select c.CityId from City c where c.StateId in (select StateId from State where ShortName in ('NY', 'NC'))))",Lashawn,role_city_mgr,"Ambiguous column name 'ZipCodeId'.
+17,Select using inner join 2,"select zc.ZipCode, a.Name from ZipCode zc inner join Author a on a.ZipCodeId = zc.ZipCodeId where zc.ZipCodeId = 12",Lashawn,role_city_mgr,
+18,"aarbac recommends to use table or alias prefix, this query will parse good, but will throw error while executing ```Ambiguous column name 'ZipCodeId'```","select * from Author where ZipCodeId in (select zc.ZipCodeId from ZipCode zc where zc.CityId in (select c.CityId from City c where c.StateId in (select StateId from State where ShortName in ('NY', 'NC'))))",Lashawn,role_city_mgr,"Ambiguous column name 'ZipCodeId'.
 "
-16,aarbac recommended column usage,"select * from Author where Author.ZipCodeId in (select zc.ZipCodeId from ZipCode zc where zc.CityId in (select c.CityId from City c where c.StateId in (select StateId from State where ShortName in ('NY', 'NC'))))",Lashawn,role_city_mgr,
-17,incorrect query,select,Lashawn,role_city_mgr,Incorrect syntax near select.Error:Incorrect syntax near select. at line nr:1 column:1 
-18,incorrect query,abc,Lashawn,role_city_mgr,RBAC.Core - Invalid query type!
-19,incorrect query,select * ,Lashawn,role_city_mgr,"Must specify table to select from.
+19,aarbac recommended column usage,"select * from Author where Author.ZipCodeId in (select zc.ZipCodeId from ZipCode zc where zc.CityId in (select c.CityId from City c where c.StateId in (select StateId from State where ShortName in ('NY', 'NC'))))",Lashawn,role_city_mgr,
+20,incorrect query,select,Lashawn,role_city_mgr,Incorrect syntax near select.Error:Incorrect syntax near select. at line nr:1 column:1 
+21,incorrect query,abc,Lashawn,role_city_mgr,RBAC.Core - Invalid query type!
+22,incorrect query,select * ,Lashawn,role_city_mgr,"Must specify table to select from.
 "
-20,incorrect query,select * from ,Lashawn,role_city_mgr,Unexpected end of file occurred.Error:Unexpected end of file occurred. at line nr:1 column:15 
-21,incorrect query,select * from book where,Lashawn,role_city_mgr,Unexpected end of file occurred.Error:Unexpected end of file occurred. at line nr:1 column:25 
-22,incorrect table,select * from abc,Lashawn,role_city_mgr,RBAC.PRS - The referred table abc was not found in meta data!
-23,Simple Insert,"insert into Author values ('','',1)",Lashawn,role_city_mgr,RBAC.PRS - User 'Lashawn' does not have permission to insert record into the table 'Author'!
-24,Simple insert with specific column names,"insert into Author(Name,SSN,ZipCodeId) values ('','',1)",Lashawn,role_city_mgr,RBAC.PRS - User 'Lashawn' does not have permission to insert record into the table 'Author'!
-25,"Simple update, Lashawn has permission to update Name",update Author set Name='abc' where AuthorId = 1,Lashawn,role_city_mgr,
-26,"Simple update, Lashawn does not have permission to update SSN",update Author set SSN='abc' where AuthorId = 1,Lashawn,role_city_mgr,"RBAC.PRS - User 'Lashawn' has permission to update table 'Author', however has no permission to update column 'SSN'!"
-27,Update with Join Clause,"UPDATE a 
+23,incorrect query,select * from ,Lashawn,role_city_mgr,Unexpected end of file occurred.Error:Unexpected end of file occurred. at line nr:1 column:15 
+24,incorrect query,select * from book where,Lashawn,role_city_mgr,Unexpected end of file occurred.Error:Unexpected end of file occurred. at line nr:1 column:25 
+25,incorrect table,select * from abc,Lashawn,role_city_mgr,RBAC.PRS - The referred table abc was not found in meta data!
+26,"Simple insert into permissible table, user can insert record into Book","INSERT INTO [dbo].[Book] ([Title],[Subject],[Price],[PublisherId]) VALUES
+           ('A new Book'
+           ,'aarbac - An Automated Role Based Access Control'
+           ,5.50          
+           ,11)",Lashawn,role_city_mgr,
+27,Simple Insert,"insert into Author values ('','',1)",Lashawn,role_city_mgr,RBAC.PRS - User 'Lashawn' does not have permission to insert record into the table 'Author'!
+28,Simple insert with specific column names,"insert into Author(Name,SSN,ZipCodeId) values ('','',1)",Lashawn,role_city_mgr,RBAC.PRS - User 'Lashawn' does not have permission to insert record into the table 'Author'!
+29,"Simple update, Lashawn has permission to update Name",update Author set Name='abc' where AuthorId = 1,Lashawn,role_city_mgr,
+30,"Simple update, Lashawn does not have permission to update SSN",update Author set SSN='abc' where AuthorId = 1,Lashawn,role_city_mgr,"RBAC.PRS - User 'Lashawn' has permission to update table 'Author', however has no permission to update column 'SSN'!"
+31,Update with Join Clause,"UPDATE a 
 SET a.Name = 'abc' 
 FROM dbo.Author AS a
 INNER JOIN dbo.ZipCode AS zc 
        ON a.ZipCodeId = a.ZipCodeId
 WHERE zc.ZipCode = '00000' ",Lashawn,role_city_mgr,
-28,simple delete,delete from author where name = 'abc',Lashawn,role_city_mgr,
+32,simple delete,delete from author where name = 'abc',Lashawn,role_city_mgr,
