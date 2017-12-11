@@ -88,10 +88,16 @@ namespace Eyedia.Aarbac.Framework.DataManager
 
         public Framework.RbacRole AddOrUpdate(Framework.RbacRole role)
         {
-            RbacMetaData.ValidateAndGetXmlDocument(role.MetaDataRbac);
+            RbacMetaData.ValidateAndGetRbacXmlDocument(role.MetaDataRbac);
             if (RbacMetaData.XmlValidationErrors.Count > 0)
                 RbacException.Raise("Cannot save role meta data, XML validation failed!" 
                     + Environment.NewLine 
+                    + RbacMetaData.XmlValidationErrors.ToLine());
+
+            RbacMetaData.ValidateAndGetEntitlementXmlDocument(role.MetaDataEntitlements);
+            if (RbacMetaData.XmlValidationErrors.Count > 0)
+                RbacException.Raise("Cannot save role entitlement meta data, XML validation failed!"
+                    + Environment.NewLine
                     + RbacMetaData.XmlValidationErrors.ToLine());
 
             RbacRole dbRole = null;

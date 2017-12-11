@@ -67,7 +67,7 @@ namespace Eyedia.Aarbac.Framework
                     SqlCommand tCommand = new SqlCommand("select object_id, name from sys.tables where name != 'sysdiagrams' order by name", connection);
                     SqlDataReader tReader = tCommand.ExecuteReader();
 
-                    XmlDocument doc = ValidateAndGetXmlDocument();                    
+                    XmlDocument doc = ValidateAndGetRbacXmlDocument();                    
                     XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
                     doc.AppendChild(xmlDeclaration);
 
@@ -141,7 +141,7 @@ namespace Eyedia.Aarbac.Framework
                             doc.WriteTo(xmlTextWriter);
                             xmlTextWriter.Flush();
                             xml = stringWriter.GetStringBuilder().ToString();
-                            ValidateAndGetXmlDocument(xml);
+                            ValidateAndGetRbacXmlDocument(xml);
 
                             if (XmlValidationErrors.Count > 0)
                                 RbacException.Raise("Cannot generate meta data, XML validation failed!" + Environment.NewLine + XmlValidationErrors.ToLine());

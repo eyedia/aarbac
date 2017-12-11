@@ -54,7 +54,7 @@ namespace Eyedia.Aarbac.Framework
             //XmlDocument doc = new XmlDocument();
             //doc.LoadXml(metaDataxml);
 
-            XmlDocument doc = ValidateAndGetXmlDocument(metaDataxml);
+            XmlDocument doc = ValidateAndGetRbacXmlDocument(metaDataxml);
 
             foreach (XmlNode tableNode in doc.DocumentElement.ChildNodes[1])
             {

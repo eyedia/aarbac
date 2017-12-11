@@ -5,73 +5,37 @@
       <xs:sequence>
         <xs:element name="RbacEntitlementMenus">
           <xs:complexType>
-            <xs:sequence>
-              <xs:element maxOccurs="unbounded" name="RbacEntitlementMenu">
-                <xs:complexType>
-                  <xs:sequence>
-                    <xs:element maxOccurs="unbounded" name="RbacEntitlementMenu">
-                      <xs:complexType>
-                        <xs:sequence minOccurs="0">
-                          <xs:element maxOccurs="unbounded" name="RbacEntitlementMenu">
-                            <xs:complexType>
-                              <xs:attribute name="Name" type="xs:string" use="required" />
-                              <xs:attribute name="Text" type="xs:string" use="required" />
-                              <xs:attribute name="Visible" type="xs:boolean" use="required" />
-                              <xs:attribute name="Enabled" type="xs:boolean" use="required" />
-                            </xs:complexType>
-                          </xs:element>
-                        </xs:sequence>
-                        <xs:attribute name="Name" type="xs:string" use="required" />
-                        <xs:attribute name="Text" type="xs:string" use="required" />
-                        <xs:attribute name="Visible" type="xs:boolean" use="required" />
-                        <xs:attribute name="Enabled" type="xs:boolean" use="required" />
-                      </xs:complexType>
-                    </xs:element>
-                  </xs:sequence>
-                  <xs:attribute name="Name" type="xs:string" use="required" />
-                  <xs:attribute name="Text" type="xs:string" use="required" />
-                  <xs:attribute name="Visible" type="xs:boolean" use="required" />
-                  <xs:attribute name="Enabled" type="xs:boolean" use="required" />
-                </xs:complexType>
-              </xs:element>
+            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+              <xs:element name="RbacEntitlementMenu" type="MenuNode" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
         <xs:element name="RbacEntitlementScreens">
           <xs:complexType>
-            <xs:sequence>
-              <xs:element maxOccurs="unbounded" name="RbacEntitlementScreen">
-                <xs:complexType>
-                  <xs:sequence>
-                    <xs:element name="RbacEntitlementScreen">
-                      <xs:complexType>
-                        <xs:sequence>
-                          <xs:element maxOccurs="unbounded" name="RbacEntitlementScreen">
-                            <xs:complexType>
-                              <xs:attribute name="Name" type="xs:string" use="required" />
-                              <xs:attribute name="Text" type="xs:string" use="required" />
-                              <xs:attribute name="Visible" type="xs:boolean" use="required" />
-                              <xs:attribute name="Enabled" type="xs:boolean" use="required" />
-                            </xs:complexType>
-                          </xs:element>
-                        </xs:sequence>
-                        <xs:attribute name="Name" type="xs:string" use="required" />
-                        <xs:attribute name="Text" type="xs:string" use="required" />
-                        <xs:attribute name="Visible" type="xs:boolean" use="required" />
-                        <xs:attribute name="Enabled" type="xs:boolean" use="required" />
-                      </xs:complexType>
-                    </xs:element>
-                  </xs:sequence>
-                  <xs:attribute name="Name" type="xs:string" use="required" />
-                  <xs:attribute name="Text" type="xs:string" use="required" />
-                  <xs:attribute name="Visible" type="xs:boolean" use="required" />
-                  <xs:attribute name="Enabled" type="xs:boolean" use="required" />
-                </xs:complexType>
-              </xs:element>
+            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+              <xs:element name="RbacEntitlementScreen" type="ScreenNode" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
       </xs:sequence>
     </xs:complexType>
-  </xs:element>
+  </xs:element>  
+  <xs:complexType name="MenuNode">
+    <xs:sequence>
+      <xs:element name="RbacEntitlementMenu" type="MenuNode" minOccurs="0"  maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="Name" type="xs:string" use="required" />
+    <xs:attribute name="Text" type="xs:string" use="required" />
+    <xs:attribute name="Visible" type="xs:boolean" use="required" />
+    <xs:attribute name="Enabled" type="xs:boolean" use="required" />   
+  </xs:complexType>
+  <xs:complexType name="ScreenNode">
+    <xs:sequence>
+      <xs:element name="RbacEntitlementScreen" type="ScreenNode" minOccurs="0"  maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="Name" type="xs:string" use="required" />
+    <xs:attribute name="Text" type="xs:string" use="required" />
+    <xs:attribute name="Visible" type="xs:boolean" use="required" />
+    <xs:attribute name="Enabled" type="xs:boolean" use="required" />
+  </xs:complexType>
 </xs:schema>

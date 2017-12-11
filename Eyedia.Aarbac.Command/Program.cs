@@ -55,17 +55,7 @@ namespace Eyedia.Aarbac.Command
     {
         static void Main(string[] args)
         {
-            SetDataDirectory();            
-           
-
-            
-
-            //ValidationEventHandler eventHandler = new ValidationEventHandler(ValidationEventHandler);
-
-            //// the following call to Validate succeeds.
-            //document.Validate(eventHandler);
-
-           
+            SetDataDirectory();
             
             //string query = File.ReadAllText(Path.Combine(@"..\..\..\Eyedia.Aarbac.Command\Samples", "Books", "Query.txt"));
             //string sub = query.Substring(186, 21);
@@ -85,19 +75,6 @@ namespace Eyedia.Aarbac.Command
             
         }
 
-        static void ValidationEventHandler(object sender, ValidationEventArgs e)
-        {
-            switch (e.Severity)
-            {
-                case XmlSeverityType.Error:
-                    Console.WriteLine("Error: {0}", e.Message);
-                    break;
-                case XmlSeverityType.Warning:
-                    Console.WriteLine("Warning {0}", e.Message);
-                    break;
-            }
-
-        }
 
         private static bool SetDataDirectory()
         {

@@ -58,11 +58,23 @@ namespace Eyedia.Aarbac.Framework
             return xml;
         }
 
-        public static XmlDocument ValidateAndGetXmlDocument(string xml = null)
+        public static XmlDocument ValidateAndGetRbacXmlDocument(string xml = null)
+        {
+            XmlSchema schema = GetXmlSchema();
+            return ValidateAgainstSchema(schema, xml);
+        }
+
+
+        public static XmlDocument ValidateAndGetEntitlementXmlDocument(string xml = null)
+        {
+            XmlSchema schema = GetXmlEnitlementSchema();
+            return ValidateAgainstSchema(schema, xml);
+        }
+
+        private static XmlDocument ValidateAgainstSchema(XmlSchema schema, string xml = null)
         {
             XmlDocument document = null;
-            XmlReaderSettings settings = new XmlReaderSettings();
-            XmlSchema schema = GetXmlSchema();
+            XmlReaderSettings settings = new XmlReaderSettings();            
             settings.Schemas.Add(schema);
             settings.ValidationType = ValidationType.Schema;
             settings.ValidationFlags |= XmlSchemaValidationFlags.ProcessInlineSchema;
@@ -80,13 +92,13 @@ namespace Eyedia.Aarbac.Framework
                     {
                         document.Load(reader);
                     }
-                    catch(XmlSchemaValidationException ex)
+                    catch (XmlSchemaValidationException ex)
                     {
-                        XmlValidationErrors.Add(string.Format("Line:{0};Position:{1} - {2}", 
+                        XmlValidationErrors.Add(string.Format("Line:{0};Position:{1} - {2}",
                             ex.LineNumber, ex.LinePosition, ex.Message));
                         return document;
                     }
-                    
+
                     ValidationEventHandler eventHandler = new ValidationEventHandler(ValidationEventHandler);
                     document.Validate(eventHandler);
                 }
@@ -104,6 +116,16 @@ namespace Eyedia.Aarbac.Framework
         {
             XmlSchema schema = null;
             using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Eyedia.Aarbac.Framework.MetaData.MetaData.xsd"))
+            {
+                schema = XmlSchema.Read(stream, null);
+            }
+            return schema;
+        }
+
+        private static XmlSchema GetXmlEnitlementSchema()
+        {
+            XmlSchema schema = null;
+            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Eyedia.Aarbac.Framework.MetaData.Entitlement.xsd"))
             {
                 schema = XmlSchema.Read(stream, null);
             }
