@@ -85,7 +85,7 @@ namespace Eyedia.Aarbac.Command
         {
             Rbac rbac = new Rbac();
             rbac = rbac.CreateNew("books", "books description",
-                @"Data Source=(localdb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|books.mdf;Initial Catalog=books;Integrated Security=True",
+                @"Data Source=LPT-03084856325\SQLEXPRESS;Initial Catalog=books;Integrated Security=True",
                 File.ReadAllText(Path.Combine(_rootDir,"Books","entitlement.xml")));
                        
             InsertRoles(rbac);
@@ -128,7 +128,8 @@ namespace Eyedia.Aarbac.Command
             foreach (string roleFile in roleFiles)
             {
                 string strRle = File.ReadAllText(roleFile);
-                string strDescription = File.ReadAllText(Path.Combine(Path.GetFileNameWithoutExtension(roleFile), ".txt"));
+                string strDescription = File.ReadAllText(Path.Combine(Path.GetDirectoryName(roleFile),
+                    Path.GetFileNameWithoutExtension(roleFile) + ".txt"));
 
                 RbacRole role = rbac.CreateRole(Path.GetFileNameWithoutExtension(roleFile)
                     , strDescription, strRle, entitlements);

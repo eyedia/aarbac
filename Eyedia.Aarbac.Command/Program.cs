@@ -45,6 +45,9 @@ using Newtonsoft.Json;
 using System.Security.Cryptography;
 using System.Configuration;
 using GenericParsing;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.XPath;
 
 namespace Eyedia.Aarbac.Command
 {
@@ -52,14 +55,24 @@ namespace Eyedia.Aarbac.Command
     {
         static void Main(string[] args)
         {
-            SetDataDirectory();
-         
+            SetDataDirectory();            
+           
+
+            
+
+            //ValidationEventHandler eventHandler = new ValidationEventHandler(ValidationEventHandler);
+
+            //// the following call to Validate succeeds.
+            //document.Validate(eventHandler);
+
+           
+            
             //string query = File.ReadAllText(Path.Combine(@"..\..\..\Eyedia.Aarbac.Command\Samples", "Books", "Query.txt"));
             //string sub = query.Substring(186, 21);
-            //new BookStore().Setup();
+            new BookStore().TestBatch();
             //try
             //{
-             new BookStore().TestBatch();
+            //new BookStore().TestBatch();
             //}
             //catch(RbacException e)
             //{
@@ -70,6 +83,20 @@ namespace Eyedia.Aarbac.Command
             return;
             CommandLineCommands.Do(args);
             
+        }
+
+        static void ValidationEventHandler(object sender, ValidationEventArgs e)
+        {
+            switch (e.Severity)
+            {
+                case XmlSeverityType.Error:
+                    Console.WriteLine("Error: {0}", e.Message);
+                    break;
+                case XmlSeverityType.Warning:
+                    Console.WriteLine("Warning {0}", e.Message);
+                    break;
+            }
+
         }
 
         private static bool SetDataDirectory()

@@ -67,7 +67,7 @@ namespace Eyedia.Aarbac.Framework
                     SqlCommand tCommand = new SqlCommand("select object_id, name from sys.tables where name != 'sysdiagrams' order by name", connection);
                     SqlDataReader tReader = tCommand.ExecuteReader();
 
-                    XmlDocument doc = new XmlDocument();
+                    XmlDocument doc = ValidateAndGetXmlDocument();                    
                     XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
                     doc.AppendChild(xmlDeclaration);
 
@@ -128,6 +128,7 @@ namespace Eyedia.Aarbac.Framework
                         tablesNode.AppendChild(tableNode);
                     }
 
+                    doc.DocumentElement.SetAttribute("xmlns:xsd", "https://github.com/eyedia/aarbac");
                     if (!string.IsNullOrEmpty(fileName))
                     {
                         doc.Save(fileName);
@@ -140,6 +141,10 @@ namespace Eyedia.Aarbac.Framework
                             doc.WriteTo(xmlTextWriter);
                             xmlTextWriter.Flush();
                             xml = stringWriter.GetStringBuilder().ToString();
+                            ValidateAndGetXmlDocument(xml);
+
+                            if (XmlValidationErrors.Count > 0)
+                                RbacException.Raise("Cannot generate meta data, XML validation failed!" + Environment.NewLine + XmlValidationErrors.ToLine());
                         }
                     }
                     tReader.Close();
@@ -150,6 +155,7 @@ namespace Eyedia.Aarbac.Framework
             {
                 RbacException.Raise("Failed, check your connection string and try again.");
             }
+            
             return xml;
         }
 

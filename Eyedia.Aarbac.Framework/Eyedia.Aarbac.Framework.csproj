@@ -135,7 +135,7 @@
     <Compile Include="Encryption\CryptographyEncryption.cs" />
     <Compile Include="Encryption\Encryption.cs" />
     <Compile Include="Encryption\RbacPassKey.cs" />
-    <Compile Include="MetaData\RbacMetaData.ToXml.cs" />
+    <Compile Include="MetaData\RbacMetaData.Xml.cs" />
     <Compile Include="MetaData\RbacMetaData.Merge.cs" />
     <Compile Include="MetaData\RbacMetaData.Read.cs" />
     <Compile Include="ObservableDictionary.cs" />
@@ -257,9 +257,12 @@
     <None Include="DataManager\RbacDbModel.edmx.diagram">
       <DependentUpon>RbacDbModel.edmx</DependentUpon>
     </None>
-    <None Include="MetaData\Entitlement.xsd">
+    <EmbeddedResource Include="MetaData\Entitlement.xsd">
       <SubType>Designer</SubType>
-    </None>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MetaData\MetaData.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="Nuget\Content\AarbacSamples.cs.pp" />
     <None Include="Nuget\Content\app.config.transform" />
     <None Include="Nuget\Eyedia.Aarbac.Framework.nuspec" />

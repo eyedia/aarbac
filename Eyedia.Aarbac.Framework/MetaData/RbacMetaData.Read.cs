@@ -51,8 +51,10 @@ namespace Eyedia.Aarbac.Framework
             if (string.IsNullOrEmpty(metaDataxml))
                 return tables;
 
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(metaDataxml);
+            //XmlDocument doc = new XmlDocument();
+            //doc.LoadXml(metaDataxml);
+
+            XmlDocument doc = ValidateAndGetXmlDocument(metaDataxml);
 
             foreach (XmlNode tableNode in doc.DocumentElement.ChildNodes[1])
             {

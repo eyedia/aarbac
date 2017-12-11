@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"  targetNamespace="https://github.com/eyedia/aarbac"  xmlns="https://github.com/eyedia/aarbac" xmlns:mstns="https://github.com/eyedia/aarbac" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Rbac">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Summary">
+          <xs:complexType>
+            <xs:attribute name="GeneratedOn" type="xs:string" use="required" />
+            <xs:attribute name="GeneratedBy" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Tables">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="1" name="Table">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Columns">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element maxOccurs="unbounded" name="Column">
+                            <xs:complexType>
+                              <xs:attribute name="Name" type="xs:string" use="required" />
+                              <xs:attribute name="Type" type="xs:string" use="required" />
+                              <xs:attribute name="Create" type="xs:string" use="required" />
+                              <xs:attribute name="Read" type="xs:string" use="required" />
+                              <xs:attribute name="Update" type="xs:string" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Relations">
+                      <xs:complexType>
+                        <xs:sequence minOccurs="0">
+                          <xs:element maxOccurs="unbounded" name="Relation">
+                            <xs:complexType>
+                              <xs:attribute name="Type" type="xs:string" use="required" />
+                              <xs:attribute name="My" type="xs:string" use="required" />
+                              <xs:attribute name="With" type="xs:string" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Conditions">
+                      <xs:complexType>
+                        <xs:sequence minOccurs="0">
+                          <xs:element name="Condition">
+                            <xs:complexType>
+                              <xs:attribute name="Name" type="xs:string" use="optional" />
+                              <xs:attribute name="Columns" type="xs:string" use="optional" />
+                              <xs:attribute name="WhereClause" type="xs:string" use="optional" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Parameters">
+                      <xs:complexType>
+                        <xs:sequence minOccurs="0">
+                          <xs:element name="Parameter">
+                            <xs:complexType>
+                              <xs:attribute name="Name" type="xs:string" use="optional" />
+                              <xs:attribute name="Description" type="xs:string" use="optional" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="Id" type="xs:unsignedInt" use="required" />
+                  <xs:attribute name="Name" type="xs:string" use="required" />
+                  <xs:attribute name="Create" type="xs:string" use="required" />
+                  <xs:attribute name="Read" type="xs:string" use="required" />
+                  <xs:attribute name="Update" type="xs:string" use="required" />
+                  <xs:attribute name="Delete" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

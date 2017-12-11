@@ -341,7 +341,15 @@ namespace Eyedia.Aarbac.Win
                 RbacRoleWeb wRole = propRole.SelectedObject as RbacRoleWeb;              
                 wRole.MetaDataRbac = txtRole.Text;
                 wRole.MetaDataEntitlements = txtEntitlements.Text;
-                Rbac.Save(wRole);
+
+                try
+                {
+                    Rbac.Save(wRole);
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);                    
+                }
             }
         }
         private void txtQuery_TextChanged(object sender, FastColoredTextBoxNS.TextChangedEventArgs e)
