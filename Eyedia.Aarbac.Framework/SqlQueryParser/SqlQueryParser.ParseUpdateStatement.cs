@@ -75,39 +75,48 @@ namespace Eyedia.Aarbac.Framework
 
                 #region Handle Target Table
 
-                RbacTable targetTable = new RbacTable();
-                NamedTableReferenceVisitor ntVisitor = new NamedTableReferenceVisitor(Context);
-                aUpdateStatement.UpdateSpecification.Target.Accept(ntVisitor);
-
-                if (ntVisitor.Tables.Count == 0)
-                    RbacException.Raise("No target table found in the update query!");
-                else if (ntVisitor.Tables.Count == 1)
-                    targetTable = ntVisitor.Tables[0];
-                else
-                    RbacException.Raise("More than 1 target tables found in the update query! Currently not supported.");
 
                 #endregion Handle Target Table
+
+                RbacTable targetTable = new RbacTable();
 
                 #region Handle From Clause - When Update with Join
                 if (aUpdateStatement.UpdateSpecification.FromClause != null)
                 {
                     //mostly update with join case
-                    ntVisitor = new NamedTableReferenceVisitor(Context);
-                    aUpdateStatement.UpdateSpecification.FromClause.AcceptChildren(ntVisitor);
-                    this.TablesReferred = ntVisitor.Tables;
-
-                    //if alias is being updated, we need to fix table name
-                    RbacTable tryTable = Context.User.Role.CrudPermissions.Find(targetTable.Name);
-                    if (tryTable == null)
+                    NamedTableReferenceVisitor fromClauseNtVisitor = new NamedTableReferenceVisitor(Context);
+                    aUpdateStatement.UpdateSpecification.FromClause.AcceptChildren(fromClauseNtVisitor);
+                    this.TablesReferred = fromClauseNtVisitor.Tables;
+                    if (TablesReferred.Count > 0)
                     {
-                        //alias is being updated, lets get the actual table name
-                        var tt = ntVisitor.Tables.Where(t => t.Alias == targetTable.Name).ToList()[0];
-                        if (tt != null)
-                            targetTable.Name = tt.Name;
+                        targetTable = TablesReferred[0];
+                        //if alias is being updated, we need to fix table name
+                        RbacTable tryTable = Context.User.Role.CrudPermissions.Find(targetTable.Name);
+                        if (tryTable == null)
+                        {
+                            //alias is being updated, lets get the actual table name
+                            var tt = fromClauseNtVisitor.Tables.Where(t => t.Alias == targetTable.Name).ToList()[0];
+                            if (tt != null)
+                                targetTable.Name = tt.Name;
+                        }
+                    }
+                    else
+                    {
+                        RbacException.Raise("No target table found in the update query!");
                     }
                 }
                 else
-                {
+                {                    
+                    NamedTableReferenceVisitor ntVisitor = new NamedTableReferenceVisitor(Context);
+                    aUpdateStatement.UpdateSpecification.Target.Accept(ntVisitor);
+
+                    if (ntVisitor.Tables.Count == 0)
+                        RbacException.Raise("No target table found in the update query!");
+                    else if (ntVisitor.Tables.Count == 1)
+                        targetTable = ntVisitor.Tables[0];
+                    else
+                        RbacException.Raise("More than 1 target tables found in the update query! Currently not supported.");
+
                     TablesReferred.Add(targetTable);
                 }
                 #endregion Handle From Clause - When Update with Join

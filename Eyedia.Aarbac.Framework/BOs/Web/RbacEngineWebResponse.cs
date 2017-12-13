@@ -62,7 +62,7 @@ namespace Eyedia.Aarbac.Framework
         public string ParsedQuery { get; private set; }
         public string ParsedQueryStage1 { get; private set; }
         public string ParsedMethod { get; set; }
-
+        public string ExecutionTime { get; set; }
 
         //engine specific
         public bool IsEngineExecuted { get; private set; }
@@ -84,6 +84,29 @@ namespace Eyedia.Aarbac.Framework
             Errors = errorMessage;
         }
 
+        public void SetResult(SqlQueryParser parser)
+        {
+            QueryType = parser.QueryType.ToString();
+            Log = parser.AllErrors;
+            Columns = parser.Columns;
+            Errors = parser.AllErrors;
+            IsParsed = parser.IsParsed;
+            IsNotSupported = parser.IsNotSupported;
+            IsZeroSelectColumn = parser.IsZeroSelectColumn;
+            IsPermissionApplied = parser.IsPermissionApplied;
+            IsParsingSkipped = parser.IsParsingSkipped;
+            OriginalQuery = parser.OriginalQuery;
+            ParsedQuery = parser.ParsedQuery;
+            ParsedQueryStage1 = parser.ParsedQueryStage1;
+            ParsedMethod = parser.ParsedMethod.ToString();
+            QueryType = parser.QueryType.ToString();
+            ExecutionTime = parser.ExecutionTime.TotalTimeFormatted;
+
+            IsEngineExecuted = false;
+            IsEngineDebugMode = false;
+            Table = null;
+        }
+
         public void SetResult(RbacSqlQueryEngine engine)
         {
             QueryType = engine.Parser.QueryType.ToString();
@@ -100,6 +123,7 @@ namespace Eyedia.Aarbac.Framework
             ParsedQueryStage1 = engine.Parser.ParsedQueryStage1;
             ParsedMethod = engine.Parser.ParsedMethod.ToString();
             QueryType = engine.Parser.QueryType.ToString();
+            ExecutionTime = engine.Parser.ExecutionTime.TotalTimeFormatted;
 
             IsEngineExecuted = engine.IsExecuted;
             IsEngineDebugMode = engine.IsDebugMode;

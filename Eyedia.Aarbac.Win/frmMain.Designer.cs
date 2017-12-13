@@ -32,6 +32,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.SpringSpace = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripStatusLabel7 = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainerBase = new System.Windows.Forms.SplitContainer();
             this.lvwQueries = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -139,18 +147,80 @@
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 642);
+            this.toolStripStatusLabel1,
+            this.SpringSpace,
+            this.toolStripStatusLabel2,
+            this.toolStripStatusLabel3,
+            this.toolStripStatusLabel4,
+            this.toolStripStatusLabel5,
+            this.toolStripStatusLabel6,
+            this.toolStripProgressBar1,
+            this.toolStripStatusLabel7});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 627);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1143, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1143, 37);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(79, 32);
+            this.toolStripStatusLabel1.Text = "Ready";
+            this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // SpringSpace
+            // 
+            this.SpringSpace.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.SpringSpace.Name = "SpringSpace";
+            this.SpringSpace.Size = new System.Drawing.Size(1002, 32);
+            this.SpringSpace.Spring = true;
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)));
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(4, 32);
+            // 
+            // toolStripStatusLabel3
+            // 
+            this.toolStripStatusLabel3.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(4, 32);
+            // 
+            // toolStripStatusLabel4
+            // 
+            this.toolStripStatusLabel4.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(4, 32);
+            // 
+            // toolStripStatusLabel5
+            // 
+            this.toolStripStatusLabel5.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
+            this.toolStripStatusLabel5.Size = new System.Drawing.Size(4, 32);
+            // 
+            // toolStripStatusLabel6
+            // 
+            this.toolStripStatusLabel6.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.toolStripStatusLabel6.Name = "toolStripStatusLabel6";
+            this.toolStripStatusLabel6.Size = new System.Drawing.Size(4, 32);
+            // 
+            // toolStripProgressBar1
+            // 
+            this.toolStripProgressBar1.AutoSize = false;
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 31);
+            this.toolStripProgressBar1.Step = 1;
+            this.toolStripProgressBar1.Visible = false;
+            // 
+            // toolStripStatusLabel7
+            // 
+            this.toolStripStatusLabel7.Name = "toolStripStatusLabel7";
+            this.toolStripStatusLabel7.Size = new System.Drawing.Size(22, 32);
+            this.toolStripStatusLabel7.Text = " ";
             // 
             // splitContainerBase
             // 
@@ -168,16 +238,18 @@
             // splitContainerBase.Panel2
             // 
             this.splitContainerBase.Panel2.Controls.Add(this.splitContainerRight);
-            this.splitContainerBase.Size = new System.Drawing.Size(1143, 602);
+            this.splitContainerBase.Size = new System.Drawing.Size(1143, 587);
             this.splitContainerBase.SplitterDistance = 153;
             this.splitContainerBase.SplitterWidth = 5;
             this.splitContainerBase.TabIndex = 1;
             // 
             // lvwQueries
             // 
+            this.lvwQueries.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lvwQueries.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
             this.lvwQueries.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvwQueries.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvwQueries.Location = new System.Drawing.Point(0, 0);
             this.lvwQueries.Margin = new System.Windows.Forms.Padding(4);
             this.lvwQueries.Name = "lvwQueries";
@@ -228,7 +300,7 @@
             // splitContainerRight.Panel2
             // 
             this.splitContainerRight.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainerRight.Size = new System.Drawing.Size(1143, 602);
+            this.splitContainerRight.Size = new System.Drawing.Size(1143, 587);
             this.splitContainerRight.SplitterDistance = 432;
             this.splitContainerRight.SplitterWidth = 5;
             this.splitContainerRight.TabIndex = 0;
@@ -266,7 +338,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(432, 602);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(432, 587);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // label4
@@ -349,7 +421,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(4, 386);
+            this.label7.Location = new System.Drawing.Point(4, 381);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(77, 100);
@@ -359,7 +431,7 @@
             // btnExecute
             // 
             this.btnExecute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExecute.Location = new System.Drawing.Point(297, 333);
+            this.btnExecute.Location = new System.Drawing.Point(297, 328);
             this.btnExecute.Margin = new System.Windows.Forms.Padding(4);
             this.btnExecute.Name = "btnExecute";
             this.btnExecute.Size = new System.Drawing.Size(131, 49);
@@ -371,7 +443,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(4, 493);
+            this.label1.Location = new System.Drawing.Point(4, 483);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(70, 75);
@@ -412,7 +484,7 @@
             this.txtQuery.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.txtQuery.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("txtQuery.ServiceColors")));
             this.txtQuery.ShowLineNumbers = false;
-            this.txtQuery.Size = new System.Drawing.Size(338, 99);
+            this.txtQuery.Size = new System.Drawing.Size(338, 94);
             this.txtQuery.TabIndex = 17;
             this.txtQuery.Zoom = 100;
             this.txtQuery.TextChanged += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.txtQuery_TextChanged);
@@ -443,7 +515,7 @@
             this.txtParsedQuerys1.IsReplaceMode = false;
             this.txtParsedQuerys1.Language = FastColoredTextBoxNS.Language.SQL;
             this.txtParsedQuerys1.LeftBracket = '(';
-            this.txtParsedQuerys1.Location = new System.Drawing.Point(90, 390);
+            this.txtParsedQuerys1.Location = new System.Drawing.Point(90, 385);
             this.txtParsedQuerys1.Margin = new System.Windows.Forms.Padding(4);
             this.txtParsedQuerys1.Name = "txtParsedQuerys1";
             this.txtParsedQuerys1.Paddings = new System.Windows.Forms.Padding(0);
@@ -451,7 +523,7 @@
             this.txtParsedQuerys1.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.txtParsedQuerys1.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("txtParsedQuerys1.ServiceColors")));
             this.txtParsedQuerys1.ShowLineNumbers = false;
-            this.txtParsedQuerys1.Size = new System.Drawing.Size(338, 99);
+            this.txtParsedQuerys1.Size = new System.Drawing.Size(338, 94);
             this.txtParsedQuerys1.TabIndex = 18;
             this.txtParsedQuerys1.Zoom = 100;
             // 
@@ -481,7 +553,7 @@
             this.txtParsedQuery.IsReplaceMode = false;
             this.txtParsedQuery.Language = FastColoredTextBoxNS.Language.SQL;
             this.txtParsedQuery.LeftBracket = '(';
-            this.txtParsedQuery.Location = new System.Drawing.Point(90, 497);
+            this.txtParsedQuery.Location = new System.Drawing.Point(90, 487);
             this.txtParsedQuery.Margin = new System.Windows.Forms.Padding(4);
             this.txtParsedQuery.Name = "txtParsedQuery";
             this.txtParsedQuery.Paddings = new System.Windows.Forms.Padding(0);
@@ -489,7 +561,7 @@
             this.txtParsedQuery.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.txtParsedQuery.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("txtParsedQuery.ServiceColors")));
             this.txtParsedQuery.ShowLineNumbers = false;
-            this.txtParsedQuery.Size = new System.Drawing.Size(338, 101);
+            this.txtParsedQuery.Size = new System.Drawing.Size(338, 96);
             this.txtParsedQuery.TabIndex = 19;
             this.txtParsedQuery.Zoom = 100;
             // 
@@ -537,7 +609,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(706, 602);
+            this.tabControl1.Size = new System.Drawing.Size(706, 587);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -551,7 +623,7 @@
             this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage1.Size = new System.Drawing.Size(690, 555);
+            this.tabPage1.Size = new System.Drawing.Size(690, 540);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Engine Properties";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -559,7 +631,7 @@
             // treeView1
             // 
             this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView1.Location = new System.Drawing.Point(4, 264);
+            this.treeView1.Location = new System.Drawing.Point(4, 204);
             this.treeView1.Margin = new System.Windows.Forms.Padding(4);
             this.treeView1.Name = "treeView1";
             this.treeView1.Size = new System.Drawing.Size(682, 202);
@@ -569,7 +641,7 @@
             // 
             this.label11.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.label11.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label11.Location = new System.Drawing.Point(4, 239);
+            this.label11.Location = new System.Drawing.Point(4, 179);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(682, 25);
@@ -580,11 +652,11 @@
             // 
             this.txtErrors.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.txtErrors.ForeColor = System.Drawing.Color.Red;
-            this.txtErrors.Location = new System.Drawing.Point(4, 466);
+            this.txtErrors.Location = new System.Drawing.Point(4, 406);
             this.txtErrors.Margin = new System.Windows.Forms.Padding(4);
             this.txtErrors.Multiline = true;
             this.txtErrors.Name = "txtErrors";
-            this.txtErrors.Size = new System.Drawing.Size(682, 85);
+            this.txtErrors.Size = new System.Drawing.Size(682, 130);
             this.txtErrors.TabIndex = 3;
             this.txtErrors.Visible = false;
             // 
@@ -596,7 +668,7 @@
             this.engineInput.Location = new System.Drawing.Point(4, 29);
             this.engineInput.Margin = new System.Windows.Forms.Padding(4);
             this.engineInput.Name = "engineInput";
-            this.engineInput.Size = new System.Drawing.Size(682, 210);
+            this.engineInput.Size = new System.Drawing.Size(682, 150);
             this.engineInput.TabIndex = 1;
             this.engineInput.ToolbarVisible = false;
             // 
@@ -619,7 +691,7 @@
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage2.Size = new System.Drawing.Size(690, 555);
+            this.tabPage2.Size = new System.Drawing.Size(690, 540);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Instance";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -631,14 +703,14 @@
             this.propInstance.Location = new System.Drawing.Point(4, 4);
             this.propInstance.Margin = new System.Windows.Forms.Padding(4);
             this.propInstance.Name = "propInstance";
-            this.propInstance.Size = new System.Drawing.Size(682, 493);
+            this.propInstance.Size = new System.Drawing.Size(682, 478);
             this.propInstance.TabIndex = 2;
             // 
             // panel2
             // 
             this.panel2.Controls.Add(this.btnSaveInstance);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(4, 497);
+            this.panel2.Location = new System.Drawing.Point(4, 482);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(682, 54);
@@ -663,7 +735,7 @@
             this.tabPage3.Location = new System.Drawing.Point(8, 39);
             this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(690, 555);
+            this.tabPage3.Size = new System.Drawing.Size(690, 540);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "User";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -677,7 +749,7 @@
             this.tabControl2.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(690, 501);
+            this.tabControl2.Size = new System.Drawing.Size(690, 486);
             this.tabControl2.TabIndex = 3;
             // 
             // usertabPage1
@@ -687,7 +759,7 @@
             this.usertabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.usertabPage1.Name = "usertabPage1";
             this.usertabPage1.Padding = new System.Windows.Forms.Padding(4);
-            this.usertabPage1.Size = new System.Drawing.Size(674, 454);
+            this.usertabPage1.Size = new System.Drawing.Size(674, 439);
             this.usertabPage1.TabIndex = 0;
             this.usertabPage1.Text = "Basic Properties";
             this.usertabPage1.UseVisualStyleBackColor = true;
@@ -699,7 +771,7 @@
             this.propUser.Location = new System.Drawing.Point(4, 4);
             this.propUser.Margin = new System.Windows.Forms.Padding(4);
             this.propUser.Name = "propUser";
-            this.propUser.Size = new System.Drawing.Size(666, 446);
+            this.propUser.Size = new System.Drawing.Size(666, 431);
             this.propUser.TabIndex = 0;
             // 
             // usertabPage2
@@ -709,7 +781,7 @@
             this.usertabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.usertabPage2.Name = "usertabPage2";
             this.usertabPage2.Padding = new System.Windows.Forms.Padding(4);
-            this.usertabPage2.Size = new System.Drawing.Size(674, 454);
+            this.usertabPage2.Size = new System.Drawing.Size(674, 439);
             this.usertabPage2.TabIndex = 1;
             this.usertabPage2.Text = "Parameters";
             this.usertabPage2.UseVisualStyleBackColor = true;
@@ -724,7 +796,7 @@
             this.lvwUserParameters.Location = new System.Drawing.Point(4, 4);
             this.lvwUserParameters.Margin = new System.Windows.Forms.Padding(4);
             this.lvwUserParameters.Name = "lvwUserParameters";
-            this.lvwUserParameters.Size = new System.Drawing.Size(666, 446);
+            this.lvwUserParameters.Size = new System.Drawing.Size(666, 431);
             this.lvwUserParameters.TabIndex = 0;
             this.lvwUserParameters.UseCompatibleStateImageBehavior = false;
             this.lvwUserParameters.View = System.Windows.Forms.View.Details;
@@ -743,7 +815,7 @@
             // 
             this.panel4.Controls.Add(this.btnSaveUser);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(0, 501);
+            this.panel4.Location = new System.Drawing.Point(0, 486);
             this.panel4.Margin = new System.Windows.Forms.Padding(4);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(690, 54);
@@ -768,7 +840,7 @@
             this.tabPage4.Location = new System.Drawing.Point(8, 39);
             this.tabPage4.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(690, 555);
+            this.tabPage4.Size = new System.Drawing.Size(690, 540);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Role";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -788,8 +860,8 @@
             // scRole1.Panel2
             // 
             this.scRole1.Panel2.Controls.Add(this.scRole2);
-            this.scRole1.Size = new System.Drawing.Size(690, 501);
-            this.scRole1.SplitterDistance = 116;
+            this.scRole1.Size = new System.Drawing.Size(690, 486);
+            this.scRole1.SplitterDistance = 110;
             this.scRole1.TabIndex = 13;
             // 
             // propRole
@@ -800,7 +872,7 @@
             this.propRole.Location = new System.Drawing.Point(0, 25);
             this.propRole.Margin = new System.Windows.Forms.Padding(4);
             this.propRole.Name = "propRole";
-            this.propRole.Size = new System.Drawing.Size(690, 91);
+            this.propRole.Size = new System.Drawing.Size(690, 85);
             this.propRole.TabIndex = 13;
             // 
             // label12
@@ -830,8 +902,8 @@
             // 
             this.scRole2.Panel2.Controls.Add(this.txtEntitlements);
             this.scRole2.Panel2.Controls.Add(this.label10);
-            this.scRole2.Size = new System.Drawing.Size(690, 381);
-            this.scRole2.SplitterDistance = 187;
+            this.scRole2.Size = new System.Drawing.Size(690, 372);
+            this.scRole2.SplitterDistance = 179;
             this.scRole2.TabIndex = 0;
             // 
             // txtRole
@@ -870,7 +942,7 @@
             this.txtRole.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.txtRole.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("txtRole.ServiceColors")));
             this.txtRole.ShowLineNumbers = false;
-            this.txtRole.Size = new System.Drawing.Size(690, 162);
+            this.txtRole.Size = new System.Drawing.Size(690, 154);
             this.txtRole.TabIndex = 9;
             this.txtRole.Zoom = 100;
             // 
@@ -921,7 +993,7 @@
             this.txtEntitlements.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.txtEntitlements.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("txtEntitlements.ServiceColors")));
             this.txtEntitlements.ShowLineNumbers = false;
-            this.txtEntitlements.Size = new System.Drawing.Size(690, 165);
+            this.txtEntitlements.Size = new System.Drawing.Size(690, 164);
             this.txtEntitlements.TabIndex = 10;
             this.txtEntitlements.Zoom = 100;
             // 
@@ -940,7 +1012,7 @@
             // 
             this.panel5.Controls.Add(this.btnSaveRole);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel5.Location = new System.Drawing.Point(0, 501);
+            this.panel5.Location = new System.Drawing.Point(0, 486);
             this.panel5.Margin = new System.Windows.Forms.Padding(4);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(690, 54);
@@ -1154,6 +1226,14 @@
         private System.Windows.Forms.Label label8;
         private FastColoredTextBoxNS.FastColoredTextBox txtEntitlements;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ToolStripStatusLabel SpringSpace;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel6;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel7;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
     }
 }
 

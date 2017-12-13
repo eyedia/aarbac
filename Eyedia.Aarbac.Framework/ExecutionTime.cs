@@ -41,7 +41,7 @@ using System.Diagnostics;
 namespace Eyedia.Aarbac.Framework
 {
     public class ExecutionTime : IDisposable
-    {       
+    {        
         public Dictionary<ExecutionTimeTrackers, Stopwatch> Items { get; private set; }
         public ExecutionTime()
         {
@@ -68,8 +68,8 @@ namespace Eyedia.Aarbac.Framework
         public void Stop(ExecutionTimeTrackers itemName)
         {
             if (Items.ContainsKey(itemName))
-            {                
-                Items[itemName].Stop();                
+            {
+                Items[itemName].Stop();
             }
             else
             {
@@ -78,23 +78,45 @@ namespace Eyedia.Aarbac.Framework
         }
 
         const string __breakline = "------------------------------------------------------------";
+
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();            
+            return base.ToString();
+        }
+       
+        public long TotalTime
+        {
+            get
+            {
+                return (Items.Count > 0) ? Items.Sum(i => i.Value.ElapsedMilliseconds) : 0;
+            }
+        }
+
+        public string TotalTimeFormatted
+        {
+            get
+            {
+                return FormatMiliseconds(TotalTime);
+            }
+        }
+
+        public string GetLog()
+        {
+            StringBuilder sb = new StringBuilder();
             if (Items.Count > 0)
             {
                 sb.AppendLine(__breakline);
-                var maxKey = Items.Aggregate((l, r) => l.Key.ToString().Length > r.Key.ToString().Length ? l : r).Key;
-                var totalTime = Items.Sum(i => i.Value.ElapsedMilliseconds);
+                var maxKeyLength = Items.Aggregate((l, r) => l.Key.ToString().Length > r.Key.ToString().Length ? l : r).Key;
+                //var totalTime = Items.Sum(i => i.Value.ElapsedMilliseconds);
 
                 foreach (KeyValuePair<ExecutionTimeTrackers, Stopwatch> item in Items)
                 {
-                    sb.AppendLine(string.Format("{0}:{1}", item.Key.ToString().PadRight(maxKey.ToString().Length, ' '),
+                    sb.AppendLine(string.Format("{0}:{1}", item.Key.ToString().PadRight(maxKeyLength.ToString().Length, ' '),
                         FormatMiliseconds(item.Value.ElapsedMilliseconds)));
                 }
                 sb.AppendLine(__breakline);
-                sb.AppendLine(string.Format("{0}:{1}", "Total Time".PadRight(maxKey.ToString().Length, ' '),
-                        FormatMiliseconds(totalTime)));
+                sb.AppendLine(string.Format("{0}:{1}", "Total Time".PadRight(maxKeyLength.ToString().Length, ' '),
+                        TotalTimeFormatted));
                 sb.AppendLine(__breakline);
             }
             return sb.ToString();
@@ -105,7 +127,7 @@ namespace Eyedia.Aarbac.Framework
             return FormatMiliseconds(TimeSpan.FromMilliseconds(elapsedMilliseconds));
         }
 
-            string FormatMiliseconds(TimeSpan t)
+        string FormatMiliseconds(TimeSpan t)
         {
             return string.Format("{0:D2}h:{1:D2}m:{2:D2}s:{3:D3}ms",
                         t.Hours,

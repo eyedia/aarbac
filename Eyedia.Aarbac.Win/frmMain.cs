@@ -23,8 +23,9 @@ namespace Eyedia.Aarbac.Win
             InitializeComponent();
             Bind();
             SetDefault();
+            LoadAssemblies();
         }
-
+        
         RbacEngineWebRequest _Request;
         private void Bind()
         {
@@ -59,6 +60,8 @@ namespace Eyedia.Aarbac.Win
 
         private void btnExecute_Click(object sender, EventArgs e)
         {
+            SetStatusText("Parsing...");
+            
             txtErrors.Text = string.Empty;
             txtParsedQuerys1.Text = string.Empty;
             txtParsedQuery.Text = string.Empty;
@@ -77,14 +80,21 @@ namespace Eyedia.Aarbac.Win
                 {
                     SqlQueryParser parser = new SqlQueryParser(ctx, _Request.SkipParsing);
                     parser.Parse(_Request.Query);
+                    response.SetResult(parser);
+                    BindResult(response);
+                    SetStatusText("Parsing...Done.", response);
+                    
 
                     if (parser.QueryType == RbacQueryTypes.Select)
                     {
+                        SetStatusText("Parsing...Done. Executing...", response);
+                        
                         using (RbacSqlQueryEngine eng = new RbacSqlQueryEngine(parser, _Request.DebugMode))
                         {
                             eng.SkipExecution = _Request.SkipExecution;
                             eng.Execute();
                             response.SetResult(eng);
+                            SetStatusText("Parsing...Done. Executing...Done.", response);                            
                         }
                     }
                 }
@@ -94,12 +104,30 @@ namespace Eyedia.Aarbac.Win
             {
                 txtErrors.Text = ex.Message;
                 txtErrors.Visible = true;
+                SetStatusText("Done.");
             }
 
-            BindResult(response);
+            BindResult(response);            
             this.Cursor = Cursors.Default;
         }
 
+        private void SetStatusText(string message, RbacEngineWebResponse response = null)
+        {
+            toolStripStatusLabel1.Text = message;
+            toolStripStatusLabel2.Text = _Request.RbacName;
+            toolStripStatusLabel3.Text = _Request.UserName;
+            toolStripStatusLabel4.Text = _Request.RoleName;
+            toolStripStatusLabel5.Text = "00h:00m:00s:000ms";
+            toolStripStatusLabel6.Text = "0 rows";
+
+            if (response != null)
+            {
+                toolStripStatusLabel5.Text = response.ExecutionTime;
+                toolStripStatusLabel6.Text = string.Format("{0} rows", response.Table != null ? response.Table.Rows.Count : 0);
+            }
+
+            Application.DoEvents();
+        }
         private void BindResult(RbacEngineWebResponse response)
         {
             treeView1.Nodes.Clear();
@@ -199,10 +227,12 @@ namespace Eyedia.Aarbac.Win
       
         private void btnExecuteAll_Click(object sender, EventArgs e)
         {
+            Cursor = Cursors.WaitCursor;
+            toolStripProgressBar1.Visible = true;
             if (lvwQueries.Tag != null)
             {
-
                 DataTable table = lvwQueries.Tag as DataTable;
+                toolStripProgressBar1.Maximum = table.Rows.Count;
                 if (table.Columns["ParsedQueryStage1"] == null)
                 {
                     table.Columns.Add("ParsedQueryStage1");
@@ -215,20 +245,41 @@ namespace Eyedia.Aarbac.Win
                     {
                         Rbac rbac = new Rbac(row["User"].ToString(), "Books", row["Role"].ToString());
 
+                        RbacEngineWebResponse response = new RbacEngineWebResponse();
+                        this.Cursor = Cursors.WaitCursor;                       
+                        _Request.RbacName = rbac.Name;
+                        _Request.UserName = rbac.User.UserName;
+                        _Request.RoleName = rbac.User.Role.Name;
+                        _Request.Query = row["Query"].ToString();
+
                         SqlQueryParser parser = new SqlQueryParser(rbac);
-                        parser.Parse(row["Query"].ToString());
-                        RbacSqlQueryEngine engine = new RbacSqlQueryEngine(parser, true);
-                        engine.Execute();
+                        parser.Parse(_Request.Query);
+                        response.SetResult(parser);                        
+                        SetStatusText("Parsing...Done.", response);
+
+                        if (parser.QueryType == RbacQueryTypes.Select)
+                        {
+                            SetStatusText("Parsing...Done. Executing...", response);
+                            RbacSqlQueryEngine engine = new RbacSqlQueryEngine(parser, true);
+                            engine.Execute();
+                            response.SetResult(engine);
+                            SetStatusText("Parsing...Done. Executing...Done.", response);
+                        }
                         row["ParsedQueryStage1"] = parser.ParsedQueryStage1;
                         row["ParsedQuery"] = parser.ParsedQuery;
                         row["Errors"] = parser.AllErrors + Environment.NewLine;
+                        SetStatusText("Done.", response);
                     }
                     catch (Exception ex)
                     {
-                        row["Errors"] = ex.Message;
+                        row["Errors"] = ex.Message;                        
                     }
-                }
 
+                    toolStripProgressBar1.PerformStep();
+                    Application.DoEvents();
+                    System.Threading.Thread.Sleep(100);
+                }
+                toolStripProgressBar1.Visible = false;
                 string fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, table.TableName + "_out.csv");
                 try
                 {
@@ -237,9 +288,12 @@ namespace Eyedia.Aarbac.Win
                 }
                 catch (Exception ex)
                 {
+                    Cursor = Cursors.Default;
                     MessageBox.Show(ex.Message,
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+
+                Cursor = Cursors.Default;
             }
         }
 
@@ -371,8 +425,26 @@ namespace Eyedia.Aarbac.Win
 
         private void frmMain_Resize(object sender, EventArgs e)
         {
+            engineInput.Height = (int)(tabPage1.Height * .2);
+            treeView1.Height = (int)(tabPage1.Height * .6);
+            txtErrors.Height = (int)(tabPage1.Height * .2);
+
+            splitContainerBase.SplitterDistance = 150;
             scRole1.SplitterDistance = 20;
             scRole2.SplitterDistance = 150;
         }
+
+        private void LoadAssemblies()
+        {
+            //this will load the assembly into memory, so that 2nd call is more efficient
+            try
+            {
+                Rbac rbac = new Rbac("Lashawn", "Books", "role_city_mgr");
+                SqlQueryParser parser = new SqlQueryParser(rbac);
+                parser.Parse("select * from Author");
+            }
+            catch { }
+        }
+
     }
 }
