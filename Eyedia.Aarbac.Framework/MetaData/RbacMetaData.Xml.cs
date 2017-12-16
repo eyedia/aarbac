@@ -12,7 +12,7 @@ namespace Eyedia.Aarbac.Framework
 {
     public partial class RbacMetaData
     {
-        public static string ToXml(List<RbacTable> tables, string fileName = null)
+        public string ToXml(List<RbacTable> tables, string fileName = null)
         {
             string xml = string.Empty;
             XmlDocument doc = new XmlDocument();
@@ -58,20 +58,20 @@ namespace Eyedia.Aarbac.Framework
             return xml;
         }
 
-        public static XmlDocument ValidateAndGetRbacXmlDocument(string xml = null)
+        public XmlDocument ValidateAndGetRbacXmlDocument(string xml = null)
         {
             XmlSchema schema = GetXmlSchema();
             return ValidateAgainstSchema(schema, xml);
         }
 
 
-        public static XmlDocument ValidateAndGetEntitlementXmlDocument(string xml = null)
+        public XmlDocument ValidateAndGetEntitlementXmlDocument(string xml = null)
         {
             XmlSchema schema = GetXmlEnitlementSchema();
             return ValidateAgainstSchema(schema, xml);
         }
 
-        private static XmlDocument ValidateAgainstSchema(XmlSchema schema, string xml = null)
+        private XmlDocument ValidateAgainstSchema(XmlSchema schema, string xml = null)
         {
             XmlDocument document = null;
             XmlReaderSettings settings = new XmlReaderSettings();            
@@ -100,7 +100,9 @@ namespace Eyedia.Aarbac.Framework
                     }
 
                     ValidationEventHandler eventHandler = new ValidationEventHandler(ValidationEventHandler);
+                    
                     document.Validate(eventHandler);
+                    eventHandler = null;
                 }
             }
             else
@@ -112,7 +114,7 @@ namespace Eyedia.Aarbac.Framework
             return document;
         }
 
-        private static XmlSchema GetXmlSchema()
+        private XmlSchema GetXmlSchema()
         {
             XmlSchema schema = null;
             using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Eyedia.Aarbac.Framework.MetaData.MetaData.xsd"))
@@ -122,7 +124,7 @@ namespace Eyedia.Aarbac.Framework
             return schema;
         }
 
-        private static XmlSchema GetXmlEnitlementSchema()
+        private XmlSchema GetXmlEnitlementSchema()
         {
             XmlSchema schema = null;
             using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Eyedia.Aarbac.Framework.MetaData.Entitlement.xsd"))
@@ -132,9 +134,9 @@ namespace Eyedia.Aarbac.Framework
             return schema;
         }
 
-        public static List<string> XmlValidationErrors = new List<string>();
+        public List<string> XmlValidationErrors = new List<string>();
 
-        static void ValidationEventHandler(object sender, ValidationEventArgs e)
+        void ValidationEventHandler(object sender, ValidationEventArgs e)
         {
             switch (e.Severity)
             {

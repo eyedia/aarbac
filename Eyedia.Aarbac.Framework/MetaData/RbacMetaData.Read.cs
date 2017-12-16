@@ -45,7 +45,7 @@ namespace Eyedia.Aarbac.Framework
 {
     public partial class RbacMetaData
     {
-        public static List<RbacTable> ReadPermissions(string metaDataxml)
+        public List<RbacTable> ReadPermissions(string metaDataxml)
         {
             List<RbacTable> tables = new List<RbacTable>();
             if (string.IsNullOrEmpty(metaDataxml))

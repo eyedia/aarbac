@@ -31,23 +31,8 @@ Description  -
 
 #endregion Copyright Notice
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Eyedia.Aarbac.Framework;
 using System.IO;
-using System.Data;
-using System.Data.SqlClient;
-using System.Data.OleDb;
-using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using System.Security.Cryptography;
-using System.Configuration;
-using GenericParsing;
-using System.Xml;
-using System.Xml.Schema;
-using System.Xml.XPath;
+
 
 namespace Eyedia.Aarbac.Command
 {
@@ -56,22 +41,9 @@ namespace Eyedia.Aarbac.Command
         static void Main(string[] args)
         {
             SetDataDirectory();
-            
-            //string query = File.ReadAllText(Path.Combine(@"..\..\..\Eyedia.Aarbac.Command\Samples", "Books", "Query.txt"));
-            //string sub = query.Substring(186, 21);
-            new BookStore().TestBatch();
-            //try
-            //{
-            //new BookStore().TestBatch();
-            //}
-            //catch(RbacException e)
-            //{
-            //    Console.WriteLine(e.Message);
-            //}
-            //TestSamples();
-
-            return;
-            CommandLineCommands.Do(args);
+            var options = new Options();
+            if(CommandLine.Parser.Default.ParseArguments(args, options))
+                new CommandLineWorkerInterface().Do(options);
             
         }
 

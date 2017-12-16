@@ -83,7 +83,7 @@ namespace Eyedia.Aarbac.Framework
             using (var connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();               
-                string script = string.Format(GetScript("Symplus.Rbac.Scripts.01_DatabaseExist.sql"), dbName);
+                string script = string.Format(GetScript("Eyedia.Aarbac.Framework.Scripts.01_DatabaseExist.sql"), dbName);
                 SqlCommand command = new SqlCommand(script, connection);
                 SqlDataReader reader = command.ExecuteReader();
                 DataTable table = new DataTable();
@@ -99,7 +99,7 @@ namespace Eyedia.Aarbac.Framework
        
         private void CreateTables(SqlConnection connection, string dbName)
         {
-            string script = GetScript("Symplus.Rbac.Scripts.04_CreateTables.sql");
+            string script = GetScript("Eyedia.Aarbac.Framework.Scripts.04_CreateTables.sql");
             ExecuteScript(connection, script.Replace(__dbname, dbName));
             WriteColor(ConsoleColor.Green, "Created." + Environment.NewLine);
             Console.Write("Create indexes...".PadRight(__maxInfoLen,'.'));
@@ -108,7 +108,7 @@ namespace Eyedia.Aarbac.Framework
         }
         private void CreateIndexes(SqlConnection connection,string dbName)
         {
-            string script = GetScript("Symplus.Rbac.Scripts.05_CreateIndexes.sql");
+            string script = GetScript("Eyedia.Aarbac.Framework.Scripts.05_CreateIndexes.sql");
             ExecuteScript(connection, script.Replace(__dbname, dbName));
         }
 
@@ -133,7 +133,7 @@ namespace Eyedia.Aarbac.Framework
         private string GetScriptsCreateDatabase(SqlConnection connection, string dbName)
         {
             string defLoc = string.Empty;
-            string getLogLoc = GetScript("Symplus.Rbac.Scripts.02_GetServerDataFileLocation.sql");
+            string getLogLoc = GetScript("Eyedia.Aarbac.Framework.Scripts.02_GetServerDataFileLocation.sql");
             SqlCommand command = new SqlCommand(getLogLoc, connection);
             SqlDataReader reader = command.ExecuteReader();
             DataTable table = new DataTable();
@@ -145,7 +145,7 @@ namespace Eyedia.Aarbac.Framework
 
             string dbFile = Path.Combine(defLoc, dbName + ".mdf");
             string dbLogName = Path.Combine(defLoc, dbName + "_log.ldf");
-            string script = GetScript("Symplus.Rbac.Scripts.03_CreateDB.sql");
+            string script = GetScript("Eyedia.Aarbac.Framework.Scripts.03_CreateDB.sql");
             script = script.Replace(__dbname, dbName);
             script = script.Replace(__dbfile, dbFile);
             script = script.Replace(__dblogfile, dbLogName);

@@ -1,1 +1,2 @@
-﻿delete from author where name = 'abc'
+﻿select a.AuthorId as AId, a.Name as [Name] from Author a
+where a.ZipCodeId in (select ZipCodeId from ZipCode zc where zc.ZipCode = '94103')

@@ -11,12 +11,6 @@ GO
 ALTER DATABASE [__DBNAME__] SET COMPATIBILITY_LEVEL = 100
 GO
 
-IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
-begin
-EXEC [dbo].[sp_fulltext_database] @action = 'enable'
-end
-GO
-
 ALTER DATABASE [__DBNAME__] SET ANSI_NULL_DEFAULT OFF 
 GO
 

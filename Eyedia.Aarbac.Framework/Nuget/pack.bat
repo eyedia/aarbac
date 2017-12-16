@@ -11,7 +11,7 @@ del .\temp\aarbac.NET.%v%\*.* /q
 rmdir .\temp\aarbac.NET.%v%\package /s /q
 rmdir .\temp\aarbac.NET.%v%\_rels /s /q
 rmdir .\temp\aarbac.NET.%v%\content\aarbac.config /s /q
-ren .\temp\aarbac.NET.%v%\content\*.pp *.cs
+ren .\temp\aarbac.NET.%v%\content\AarbacSamples.cs.pp AarbacSamples.cs
 
 copy ..\..\..\aarbac\packages\EntityFramework.6.2.0\lib\net45\*.dll .\temp\aarbac.NET.%v%\lib\net452\
 copy ..\..\..\aarbac\packages\Microsoft.SqlServer.TransactSql.ScriptDom.14.0.3660.1\lib\net40\*.dll .\temp\aarbac.NET.%v%\lib\net452\

@@ -117,7 +117,7 @@ namespace Eyedia.Aarbac.Framework
         public void ParseMetaData()
         {
             if(this.CrudPermissions == null)
-                this.CrudPermissions = RbacMetaData.ReadPermissions(MetaDataRbac);
+                this.CrudPermissions = new RbacMetaData().ReadPermissions(MetaDataRbac);
             Parameters = this.CrudPermissions.SelectMany(t => t.Parameters).ToList();
 
             this.Entitlement = new RbacEntitlement(this);

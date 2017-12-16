@@ -124,7 +124,7 @@ namespace Eyedia.Aarbac.Framework
             newRbac.Description = description;
             newRbac.ConnectionString = connectionString;
             N("Generating meta data...");
-            newRbac.MetaDataRbac = RbacMetaData.Generate(newRbac.ConnectionString);
+            newRbac.MetaDataRbac = new RbacMetaData().Generate(newRbac.ConnectionString);
             N("Done!", LogMessageTypes.Success);
             N("Saving your rbac instance...");
             Rbac rbac = manager.AddOrUpdate(newRbac);
@@ -142,7 +142,7 @@ namespace Eyedia.Aarbac.Framework
             List<RbacRole> roles = manager.GetRoles(this.RbacId);
             foreach (RbacRole role in roles)
             {
-                role.MetaDataRbac = RbacMetaData.Merge(ConnectionString, role.MetaDataRbac);
+                role.MetaDataRbac = new RbacMetaData().Merge(ConnectionString, role.MetaDataRbac);
                 manager.AddOrUpdate(role);
             }
         }

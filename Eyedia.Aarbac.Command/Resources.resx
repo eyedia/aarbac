@@ -117,6 +117,36 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Commands" xml:space="preserve">
+    <value>usage: aarbac -c &lt;commands&gt; &lt;parameters&gt;
+
+Possible commands are:
+
+do with (i)nstances
+	id - create new aarbac database
+	ii - create new instance
+	ie - export existing instance
+
+do with (s)amples
+	ss - setup books sample
+	stb - execute books sample test batch
+	st1 - execute books sample one test
+
+----------------
+Possible parameters are:
+n - Name
+x - Description
+p - Password
+d - Name of the database
+s - Sql server name
+i - Integrated security
+u - Sql server user name (when integrated security is not passed or false)
+w - Sql server user password
+l - Application connection string
+f - File name
+
+aarbac -c id -s &lt;SQLServer&gt; [-i &lt;true/false&gt;] [-u &lt;username&gt;] [-w &lt;password&gt;] [-d &lt;dbname&gt;]</value>
+  </data>
   <data name="MD_Sample_Query_TopText" xml:space="preserve">
     <value>These are formatted test results of [Books](https://github.com/eyedia/aarbac/wiki/Samples-Overview) application. You can test these queries by executing samples included with aarbac [nuget](https://www.nuget.org/packages/aarbac.NET/) package.
 

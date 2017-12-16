@@ -61,6 +61,37 @@ namespace Eyedia.Aarbac.Command {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to usage: aarbac -c &lt;commands&gt; &lt;parameters&gt;
+        ///
+        ///Possible commands are:
+        ///
+        ///do with (i)nstances
+        ///	id - create new aarbac database
+        ///	ii - create new instance
+        ///	ie - export existing instance
+        ///
+        ///do with (s)amples
+        ///	ss - setup books sample
+        ///	stb - execute books sample test batch
+        ///	st1 - execute books sample one test
+        ///
+        ///----------------
+        ///Possible parameters are:
+        ///n - Name
+        ///x - Description
+        ///p - Password
+        ///d - Name of the database
+        ///s - Sql server name
+        ///i - Integrated security
+        ///u - Sql server user name (when integrated se [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Commands {
+            get {
+                return ResourceManager.GetString("Commands", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to These are formatted test results of [Books](https://github.com/eyedia/aarbac/wiki/Samples-Overview) application. You can test these queries by executing samples included with aarbac [nuget](https://www.nuget.org/packages/aarbac.NET/) package.
         ///
         ///See [csv](https://github.com/eyedia/aarbac/blob/master/Eyedia.Aarbac.Command/Samples/Books/tests_result.csv) format

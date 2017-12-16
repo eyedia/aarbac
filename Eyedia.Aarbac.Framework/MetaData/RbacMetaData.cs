@@ -43,10 +43,10 @@ using System.Xml;
 
 namespace Eyedia.Aarbac.Framework
 {
-    public partial class RbacMetaData
+    public partial class RbacMetaData : IDisposable
     {
 
-        public static string Generate(string connectionString, string fileName = null)
+        public string Generate(string connectionString, string fileName = null)
         {
             if(connectionString.IndexOf("MultipleActiveResultSets=true", StringComparison.OrdinalIgnoreCase) == -1)
             {
@@ -159,10 +159,10 @@ namespace Eyedia.Aarbac.Framework
             return xml;
         }
 
-        static bool dummyConditionsAdded;    
-        static bool dummyParameterAdded;
+        bool dummyConditionsAdded;    
+        bool dummyParameterAdded;
 
-        private static XmlNode AddConditions(XmlDocument doc, string oneColumnName)
+        private XmlNode AddConditions(XmlDocument doc, string oneColumnName)
         {
             XmlNode condnsNode = doc.CreateElement("Conditions");
             return condnsNode;
@@ -195,7 +195,7 @@ namespace Eyedia.Aarbac.Framework
             return condnsNode;
         }
 
-        private static XmlNode AddParameters(XmlDocument doc, string oneColumnName)
+        private XmlNode AddParameters(XmlDocument doc, string oneColumnName)
         {
             XmlNode paramsNode = doc.CreateElement("Parameters");
             return paramsNode;
@@ -224,7 +224,7 @@ namespace Eyedia.Aarbac.Framework
             return paramsNode;
         }
 
-        private static XmlNode GetForeignKeyNode(DataTable foreignKeys, string referencingTable, XmlDocument doc)
+        private XmlNode GetForeignKeyNode(DataTable foreignKeys, string referencingTable, XmlDocument doc)
         {
             DataRow[] rows = foreignKeys.Select(string.Format("ReferencingTable = '{0}'", referencingTable));
             XmlElement relationsNode = doc.CreateElement("Relations");          
@@ -248,7 +248,7 @@ namespace Eyedia.Aarbac.Framework
             return relationsNode;
         }
 
-        private static DataTable GetForeignKeys(SqlConnection connection)
+        private DataTable GetForeignKeys(SqlConnection connection)
         {
             SqlCommand command = new SqlCommand(Resources.Query_ForeignKeys, connection);
             DataTable table = new DataTable();
@@ -256,7 +256,7 @@ namespace Eyedia.Aarbac.Framework
             return table;
         }        
 
-        private static void AddCRUDDefaults(XmlDocument doc, XmlNode node, bool isTableNode)
+        private void AddCRUDDefaults(XmlDocument doc, XmlNode node, bool isTableNode)
         {
             XmlAttribute create = doc.CreateAttribute("Create");
             create.Value = "False";
@@ -276,6 +276,11 @@ namespace Eyedia.Aarbac.Framework
                 delete.Value = "False";
                 node.Attributes.Append(delete);
             }
+        }
+
+        public void Dispose()
+        {
+            XmlValidationErrors = null;
         }
     }
 }

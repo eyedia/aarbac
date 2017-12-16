@@ -62,7 +62,7 @@ namespace Eyedia.Aarbac.Command
          HelpText = "MS Sql Server Name (e.g. 10.34.18.2,1100).")]
         public string SqlServer { get; set; }
 
-        [Option('i', Required = false,
+        [Option('i', Required = false, DefaultValue = true,
          HelpText = "Integrated Security).")]
         public bool IntegratedSecurity { get; set; }
 

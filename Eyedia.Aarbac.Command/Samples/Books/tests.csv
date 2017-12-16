@@ -9,6 +9,14 @@ Id,Comment,Query,User,Role,Expected
 7,Wildcard select with only table alias,select * from Author a,Lashawn,role_city_mgr,
 8,Wildcard muliselect with table alias,"select a.*, a.* from Author a",Lashawn,role_city_mgr,
 9,Complex wildcard select,"select * from Author where Author.ZipCodeId in (select zc.ZipCodeId from ZipCode zc where zc.CityId in (select c.CityId from City c where c.StateId in (select StateId from State where ShortName in ('NY', 'NC'))))",Lashawn,role_city_mgr,
+,Another select,"select a.AuthorId as AId, a.Name as [Name] from Author a
+where a.ZipCodeId in (select ZipCodeId from ZipCode zc where zc.ZipCode = '94103')",Lashawn,role_city_mgr,
+,Select with inner join,"SELECT dbo.City.CityId, dbo.City.Name, 
+dbo.ZipCode.ZipCodeId, dbo.ZipCode.ZipCode
+FROM  dbo.Author
+inner join dbo.ZipCode ON dbo.Author.ZipCodeId = dbo.ZipCode.ZipCodeId
+inner join dbo.City on dbo.City.CityId = dbo.ZipCode.CityId
+order by dbo.City.Name",Lashawn,role_city_mgr,
 10,"select non-permitted table with wildcard, user does not have permission to read from Country table",select * from Country,Lashawn,role_city_mgr,RBAC.Core - The query returned 0(zero) column!
 11,"select non-permitted table with specific columns, user does not have permission to read from Country table","select countryId,Name from Country",Lashawn,role_city_mgr,RBAC.Core - The query returned 0(zero) column!
 12,"select permitted & non-permitted tables with specific columns, user does not have permission to read from Country table","select Country.CountryId, dbo.Country.Code, dbo.Country.Name, dbo.State.ShortName, dbo.State.Name AS [StateName]

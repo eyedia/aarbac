@@ -44,7 +44,7 @@ using System.Data.SqlClient;
 
 namespace Eyedia.Aarbac.Command
 {
-    public class BookStore
+    public class BookStore : CommandLineWorker
     {           
         public BookStore()
         {
@@ -81,11 +81,17 @@ namespace Eyedia.Aarbac.Command
             }
         }
   
-        public void Setup()
+        public void Setup(Options options)
         {
+            if (string.IsNullOrEmpty(options.AppCs))
+            {
+                WriteErrorLine("Sql server name is required. Please use -server <servername>");
+                return;
+            }
+
             Rbac rbac = new Rbac();
             rbac = rbac.CreateNew("books", "books description",
-                @"Data Source=LPT-03084856325\SQLEXPRESS;Initial Catalog=books;Integrated Security=True",
+               options.AppCs,
                 File.ReadAllText(Path.Combine(_rootDir,"Books","entitlement.xml")));
                        
             InsertRoles(rbac);
@@ -117,6 +123,25 @@ namespace Eyedia.Aarbac.Command
                     }
                 }
             }
+
+            var rbacs = Rbac.GetRbacs();
+            if (rbacs != null)
+                WriteColor(ConsoleColor.Green, rbacs.Count + " rbac instance(s) created." + Environment.NewLine);
+            else
+                WriteErrorLine("rbac creation failed!");
+
+            var vroles = Rbac.GetRoles();
+            if (vroles != null)
+                WriteColor(ConsoleColor.Green, vroles.Count + " role(s) created." + Environment.NewLine);
+            else
+                WriteErrorLine("role(s) creation failed!");
+
+            var users = Rbac.GetUsers();
+            if (users != null)
+                WriteColor(ConsoleColor.Green, users.Count + " user(s) created." + Environment.NewLine);
+            else
+                WriteErrorLine("user(s) creation failed!");
+
         }
         List<RbacRole> roles = new List<RbacRole>();
         private void InsertRoles(Rbac rbac)
@@ -158,7 +183,12 @@ namespace Eyedia.Aarbac.Command
             if ((engine.Parser.QueryType == RbacQueryTypes.Select) && (engine.Table != null))
                 Console.WriteLine("The query was a select query and returned {0} records", engine.Table.Rows.Count);
 
-            File.WriteAllText(Path.Combine(_rootDir, "Books", "test_parsed_query.txt"), engine.Parser.ParsedQuery);
+            string outFile = Path.Combine(_rootDir, "Books", "test_parsed_query.txt");
+            File.WriteAllText(outFile, engine.Parser.ParsedQuery);
+
+            WriteColor(ConsoleColor.Green, outFile + " is generated!");
+            Console.WriteLine();
+
             return engine;
         }
         public void TestBatch()
@@ -230,9 +260,17 @@ namespace Eyedia.Aarbac.Command
                 else
                     row["TestResult"] = "Failed";
 
+                CleanDataFromDb(rbac.ConnectionString);
+
             }
-            table.ToCsv(Path.Combine(_rootDir, "Books", "tests_result.csv"));
+            
+            string outFile = Path.Combine(_rootDir, "Books", "tests_result.csv");
+            table.ToCsv(outFile);
+
+            WriteColor(ConsoleColor.Green, outFile + " is generated!");
+            Console.WriteLine();
             ToCsvMarkdownFormat(table, Path.Combine(_rootDir, "Books", "tests_result.md"));
+
         }
 
         private void CleanDataFromDb(string connectionString)
@@ -278,11 +316,7 @@ namespace Eyedia.Aarbac.Command
                     oneRecord += "Parsed Query:" + Environment.NewLine;
                     oneRecord += "```" + Environment.NewLine;
                     oneRecord += "```sql" + Environment.NewLine + FormatQuery(row["ParsedQuery"]) + Environment.NewLine + "```" + Environment.NewLine;
-                }
-                
-                //if ((!string.IsNullOrEmpty(row["Recor'ds"].ToString()))
-                //    && (row["Records"].ToString() != "Errored"))              
-                //    oneRecord += "```" + Environment.NewLine + "Record Count(s):" + row["Records"] + Environment.NewLine + "```" + Environment.NewLine;
+                }                
 
                 if (!string.IsNullOrEmpty(row["Errors"].ToString()))           
                     oneRecord += "```diff" + Environment.NewLine + "- " + row["Errors"] + Environment.NewLine + "```" + Environment.NewLine;

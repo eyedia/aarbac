@@ -9,7 +9,7 @@ namespace Eyedia.Aarbac.Framework
 {
     public partial class RbacMetaData
     {
-        public static string Merge(string connectionString, string existingRbacMetaData)
+        public string Merge(string connectionString, string existingRbacMetaData)
         {
             //generate fresh xml
             string freshMetaXml = Generate(connectionString);
@@ -19,7 +19,7 @@ namespace Eyedia.Aarbac.Framework
 
         }
 
-        public static string Merge(string connectionString, List<RbacTable> existingPermissions)
+        public string Merge(string connectionString, List<RbacTable> existingPermissions)
         {
             //generate fresh xml
             string freshMetaXml = Generate(connectionString);
@@ -28,7 +28,7 @@ namespace Eyedia.Aarbac.Framework
             
         }
 
-        private static string Merge(List<RbacTable> freshPermissions, List<RbacTable> existingPermissions)
+        private string Merge(List<RbacTable> freshPermissions, List<RbacTable> existingPermissions)
         {
             foreach(RbacTable table in freshPermissions)
             {

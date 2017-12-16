@@ -13,6 +13,7 @@ using Newtonsoft.Json.Linq;
 using GenericParsing;
 using System.IO;
 using System.Drawing.Design;
+using System.Collections.Specialized;
 
 namespace Eyedia.Aarbac.Win
 {
@@ -24,6 +25,10 @@ namespace Eyedia.Aarbac.Win
             Bind();
             SetDefault();
             LoadAssemblies();
+
+            TypeDescriptor.AddAttributes(typeof(String),
+                new EditorAttribute(typeof(PropertyGridEditor), typeof(UITypeEditor)));
+
         }
         
         RbacEngineWebRequest _Request;
@@ -40,6 +45,7 @@ namespace Eyedia.Aarbac.Win
 
             _Request = new RbacEngineWebRequest();
             engineInput.SelectedObject = _Request;
+          
         }
 
         private void SetDefault()
@@ -107,7 +113,8 @@ namespace Eyedia.Aarbac.Win
                 SetStatusText("Done.");
             }
 
-            BindResult(response);            
+            BindResult(response);
+            tabControl1.SelectedIndex = 0;
             this.Cursor = Cursors.Default;
         }
 
@@ -276,8 +283,7 @@ namespace Eyedia.Aarbac.Win
                     }
 
                     toolStripProgressBar1.PerformStep();
-                    Application.DoEvents();
-                    System.Threading.Thread.Sleep(100);
+                    Application.DoEvents();                    
                 }
                 toolStripProgressBar1.Visible = false;
                 string fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, table.TableName + "_out.csv");
@@ -293,6 +299,7 @@ namespace Eyedia.Aarbac.Win
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
+                tabControl1.SelectedIndex = 0;
                 Cursor = Cursors.Default;
             }
         }
@@ -447,4 +454,6 @@ namespace Eyedia.Aarbac.Win
         }
 
     }
+
+    
 }
