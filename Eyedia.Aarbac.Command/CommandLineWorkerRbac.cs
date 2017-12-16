@@ -56,9 +56,9 @@ namespace Eyedia.Aarbac.Command
                 errored = true;
             }
 
-            if (string.IsNullOrEmpty(options.AppCs))
+            if (string.IsNullOrEmpty(options.ConnectionString))
             {
-                WriteErrorLine("Application connection string is required");
+                WriteErrorLine("Connection string is required, use -x <connection string>");
                 errored = true;
             }
 
@@ -67,7 +67,7 @@ namespace Eyedia.Aarbac.Command
 
             Rbac rbac = new Rbac();
             rbac.Callback += Rbac_Callback;
-            Rbac newRbac = rbac.CreateNew(options.Name, options.Description, options.AppCs, string.Empty);
+            Rbac newRbac = rbac.CreateNew(options.Name, options.Description, options.ConnectionString, string.Empty);
             rbac.ChangePassword(options.Password);
             WriteColor(ConsoleColor.Green, "Done!" + Environment.NewLine);
             Console.WriteLine();

@@ -83,15 +83,15 @@ namespace Eyedia.Aarbac.Command
   
         public void Setup(Options options)
         {
-            if (string.IsNullOrEmpty(options.AppCs))
+            if (string.IsNullOrEmpty(options.ConnectionString))
             {
-                WriteErrorLine("Sql server name is required. Please use -server <servername>");
+                WriteErrorLine("Connection string is required. Please use -x <connection string>");
                 return;
             }
 
             Rbac rbac = new Rbac();
             rbac = rbac.CreateNew("books", "books description",
-               options.AppCs,
+               options.ConnectionString,
                 File.ReadAllText(Path.Combine(_rootDir,"Books","entitlement.xml")));
                        
             InsertRoles(rbac);

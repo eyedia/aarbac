@@ -63,6 +63,9 @@ namespace Eyedia.Aarbac.Framework
 
         public void CreateDatabase(string dbName)
         {
+            if (string.IsNullOrEmpty(dbName))
+                dbName = "aarbac";
+
             using (var connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();

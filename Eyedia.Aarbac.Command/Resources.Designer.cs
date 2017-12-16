@@ -66,24 +66,25 @@ namespace Eyedia.Aarbac.Command {
         ///Possible commands are:
         ///
         ///do with (i)nstances
-        ///	id - create new aarbac database
-        ///	ii - create new instance
-        ///	ie - export existing instance
+        ///	id - create new aarbac (d)atabase
+        ///	ii - create new (i)nstance
+        ///	ie - (e)xport instance
         ///
         ///do with (s)amples
-        ///	ss - setup books sample
-        ///	stb - execute books sample test batch
-        ///	st1 - execute books sample one test
+        ///	ss - (s)ample (s)etup
+        ///	stb - (s)ample (t)est (b)atch
+        ///	st1 - (s)ample (t)est (1)one
         ///
         ///----------------
         ///Possible parameters are:
-        ///n - Name
-        ///x - Description
-        ///p - Password
-        ///d - Name of the database
-        ///s - Sql server name
-        ///i - Integrated security
-        ///u - Sql server user name (when integrated se [rest of string was truncated]&quot;;.
+        ///-n :Name
+        ///-d :Description
+        ///-p :Password
+        ///-s :Sql server name
+        ///-i :Integrated security
+        ///-u :User name
+        ///-x :Connection string
+        ///-f :File name.
         /// </summary>
         internal static string Commands {
             get {

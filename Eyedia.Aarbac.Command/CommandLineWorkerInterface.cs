@@ -67,7 +67,7 @@ namespace Eyedia.Aarbac.Command
         }
         public void Do(Options options)
         {
-            //Debugger.Launch();
+            Debugger.Launch();
             try
             {
                 switch (options.Command)

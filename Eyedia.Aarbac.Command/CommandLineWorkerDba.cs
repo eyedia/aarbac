@@ -50,55 +50,57 @@ namespace Eyedia.Aarbac.Command
 
         }
         /// <summary>
-        /// Create new rbac database on specified MS Sql Server instance. usage: rbac -c c -server servername -is false -ssuser username -sspassword password -db dbname
+        /// Create new rbac database on specified MS Sql Server instance. usage: aarbac -c id -s servername [-i false] [-u username] [-p password] [-n dbname]
         /// </summary>
         /// <param name="options"></param>
         public void CreateNew(Options options)
         {
             bool errored = false;
-            if (string.IsNullOrEmpty(options.SqlServer))
+            if (string.IsNullOrEmpty(options.Server))
             {
-                WriteErrorLine("Sql server name is required. Please use -server <servername>");
+                WriteErrorLine("Sql server name is required. Please use -s <servername>");
                 errored = true;
             }
 
             if (!options.IntegratedSecurity)
             {
-                if (string.IsNullOrEmpty(options.SqlServerUserName))
+                if (string.IsNullOrEmpty(options.UserName))
                 {
-                    WriteErrorLine("Sql server user name is required when integrated security is false. Please use -ssuser <username>");
+                    WriteErrorLine("Sql server user name is required when integrated security is false. Please use -u <username>");
                     errored = true;
                 }
 
-                if (string.IsNullOrEmpty(options.SqlServerPassword))
+                if (string.IsNullOrEmpty(options.Password))
                 {
-                    WriteErrorLine("Sql server name user password is required required when integrated security is false. Please use -sspassword <password>");
+                    WriteErrorLine("Sql server name user password is required required when integrated security is false. Please use -p <password>");
                 }
 
                 Console.WriteLine("Please use -is <true/false> to set integrated security");
             }
+            if (string.IsNullOrEmpty(options.Name))
+                options.Name = "aarbac";
 
             if (errored)
                 return;
 
             string connectionString = string.Empty;
             if (options.IntegratedSecurity)
-                connectionString = string.Format(__csformat, options.SqlServer);
+                connectionString = string.Format(__csformat, options.Server);
             else
-                connectionString = string.Format(__csformatuser, options.SqlServer, options.SqlServerUserName, options.SqlServerPassword);
+                connectionString = string.Format(__csformatuser, options.Server, options.UserName, options.Password);
 
             RbacDba dba = new RbacDba(connectionString);
-            if (dba.DatabaseExists(options.DbName))
+            if (dba.DatabaseExists(options.Name))
             {
-                WriteErrorLine("Database {0} already exist!", options.DbName);
+                WriteErrorLine("Database {0} already exist!", options.Name);
                 return;
             }
 
             Console.Write("Contacting server...".PadRight(RbacDba.__maxInfoLen, '.'));
-            new RbacDba(connectionString).CreateDatabase(options.DbName);
+            new RbacDba(connectionString).CreateDatabase(options.Name);
             WriteColor(ConsoleColor.Green, "All done!" + Environment.NewLine);
             Console.WriteLine();
-            string connectionStringWithDb = connectionString + "Initial Catalog=" + options.DbName;
+            string connectionStringWithDb = connectionString + "Initial Catalog=" + options.Name;
 
 
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
