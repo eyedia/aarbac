@@ -54,7 +54,7 @@ namespace Eyedia.Aarbac.Command
 
             var path = codingdir.Substring(0, codingdir.LastIndexOf("\\")) + @"\Eyedia.Aarbac.Command\Samples\Databases";
             if (!Directory.Exists(path))
-                path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Databases", "Samples");
+                path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Databases", "Samples"); 
 
             if (!Directory.Exists(path))
                 path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Databases");
