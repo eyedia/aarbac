@@ -1,4 +1,6 @@
 UserName,FullName,Email,Role
+Eyedia,Debjyoti Das,eyedia@eyedia.com,role_super_user
+Guest,Guest User,Guest@guest.com,role_guest_user
 Essie,Essie Vaill,essie@vaill.com,role_country_mgr
 Cruz,Cruz Roudabush,cruz@roudabush.com,role_country_mgr
 Billie,Billie Tinnes,billie@tinnes.com,role_country_mgr

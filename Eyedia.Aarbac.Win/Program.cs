@@ -21,7 +21,7 @@ namespace Eyedia.Aarbac.Win
             //try
             //{                          
             if (SetDataDirectory())
-                    Application.Run(new frmMain());
+                    Application.Run(new frmAuthenticate());
             //}
             //catch(Exception e)
             //{

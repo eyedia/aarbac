@@ -66,8 +66,7 @@ namespace Eyedia.Aarbac.Command
             return Rbac.Authenticate(options.Password);
         }
         public void Do(Options options)
-        {
-            Debugger.Launch();
+        {            
             try
             {
                 switch (options.Command)

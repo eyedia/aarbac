@@ -111,6 +111,11 @@ namespace Eyedia.Aarbac.Framework
             return tableName;
         }
 
+        public static RbacUser PopulateRole(this RbacUser user)
+        {
+            return new DataManager.Manager(false).GetUser(user.UserId);
+        }
+
         public static string ToTextAndFixSpaces(this SqlQueryStringParser.SqlStringParser stringParser)
         {
             string parsedString = stringParser.ToText();
@@ -360,6 +365,30 @@ namespace Eyedia.Aarbac.Framework
         public static bool CanDelete(this RbacDBOperations allowedOperations)
         {
             return allowedOperations.HasFlag(RbacDBOperations.Delete);
+        }
+
+        public static RbacEntitlementMenu Get(this List<RbacEntitlementMenu> menus, string name)
+        {
+            return (from m in menus
+                    where m.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
+                    select m).SingleOrDefault();
+
+        }
+
+        public static RbacEntitlementScreen Get(this RbacEntitlementScreens screens, string name)
+        {
+            return (from m in screens.Screens
+                    where m.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
+                    select m).SingleOrDefault();
+
+        }
+
+        public static RbacEntitlementScreen Get(this List<RbacEntitlementScreen> screens, string name)
+        {
+            return (from m in screens
+                    where m.Name.Equals(name, StringComparison.OrdinalIgnoreCase)
+                    select m).SingleOrDefault();
+
         }
     }
 }

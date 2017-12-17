@@ -104,6 +104,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Samples\Books\BooksUsers.csv" />
     <None Include="Samples\Books\tests.csv" />
     <None Include="Samples\Books\tests_result.csv" />
     <None Include="Samples\Books\tests_result.md" />
@@ -117,11 +118,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="commandprompt.ico" />
+    <Content Include="Samples\Books\role_guest_user_entitle.xml" />
     <Content Include="Samples\Books\role_city_mgr.txt" />
     <Content Include="Samples\Books\role_country_mgr.txt" />
     <Content Include="Samples\Books\role_country_mgr.xml" />
+    <Content Include="Samples\Books\role_guest_user.txt" />
+    <Content Include="Samples\Books\role_guest_user.xml" />
     <Content Include="Samples\Books\role_state_mgr.txt" />
     <Content Include="Samples\Books\role_state_mgr.xml" />
+    <Content Include="Samples\Books\role_super_user.txt" />
+    <Content Include="Samples\Books\role_super_user.xml" />
     <Content Include="Samples\Books\test.txt" />
     <Content Include="Samples\Books\test_parsed_query.txt" />
     <Content Include="Samples\Databases\Books.mdf" />

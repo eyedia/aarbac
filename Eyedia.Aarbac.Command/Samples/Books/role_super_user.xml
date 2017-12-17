@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Rbac xmlns="https://github.com/eyedia/aarbac">
+  <Summary GeneratedOn="11/13/2017 6:13:32 PM" GeneratedBy="TODO" />
+  <Tables>
+    <Table Id="1605580758" Name="Author" Create="True" Read="True" Update="True" Delete="True">
+      <Columns>
+        <Column Name="AuthorId" Type="int" Create="True" Read="True" Update="True" />
+        <Column Name="Name" Type="varchar" Create="True" Read="True" Update="True" />
+        <Column Name="SSN" Type="image" Create="True" Read="True" Update="True" />
+        <Column Name="ZipCodeId" Type="int" Create="True" Read="True" Update="True" />
+      </Columns>
+      <Relations>
+        <Relation Type="Auto" My="ZipCodeId" With="ZipCode.ZipCodeId" />
+      </Relations>
+      <Conditions>
+        <Condition />
+      </Conditions>
+      <Parameters>
+        <Parameter />
+      </Parameters>    
+    </Table>
+    <Table Id="1333579789" Name="Book" Create="True" Read="True" Update="True" Delete="True">
+      <Columns>
+        <Column Name="BookId" Type="int" Create="True" Read="True" Update="True" />
+        <Column Name="Title" Type="varchar" Create="True" Read="True" Update="True" />
+        <Column Name="Subject" Type="varchar" Create="True" Read="True" Update="True" />
+        <Column Name="Price" Type="numeric" Create="True" Read="True" Update="True" />
+        <Column Name="Isbn13" Type="varchar" Create="True" Read="True" Update="True" />
+        <Column Name="Isbn10" Type="varchar" Create="True" Read="True" Update="True" />
+        <Column Name="PublisherId" Type="int" Create="True" Read="True" Update="True" />
+      </Columns>
+      <Relations>
+        <Relation Type="Auto" My="PublisherId" With="Publisher.PublisherId" />
+      </Relations>
+      <Conditions>
+        <Condition />
+      </Conditions>
+      <Parameters>
+        <Parameter />
+      </Parameters>
+    </Table>
+    <Table Id="1205579333" Name="BookAuthor" Create="True" Read="True" Update="True" Delete="True">
+      <Columns>
+        <Column Name="BookAuthorId" Type="int" Create="True" Read="True" Update="True" />
+        <Column Name="BookId" Type="int" Create="True" Read="True" Update="True" />
+        <Column Name="AuthorId" Type="int" Create="True" Read="True" Update="True" />
+      </Columns>
+      <Relations>
+        <Relation Type="Auto" My="BookId" With="Book.BookId" />
+        <Relation Type="Auto" My="AuthorId" With="Author.AuthorId" />
+      </Relations>
+      <Conditions>
+        <Condition />
+      </Conditions>
+      <Parameters>
+        <Parameter />
+      </Parameters>
+    </Table>
+    <Table Id="997578592" Name="BookCategory" Create="True" Read="True" Update="True" Delete="True">
+      <Columns>
+        <Column Name="BookCategoryId" Type="int" Create="True" Read="True" Update="True" />
+        <Column Name="BookId" Type="int" Create="True" Read="True" Update="True" />
+        <Column Name="CategoryId" Type="int" Create="True" Read="True" Update="True" />
+      </Columns>
+      <Relations>
+        <Relation Type="Auto" My="CategoryId" With="Category.CategoryId" />
+        <Relation Type="Auto" My="BookId" With="Book.BookId" />
+      </Relations>
+      <Conditions>
+        <Condition />
+      </Conditions>
+      <Parameters>
+        <Parameter />
+      </Parameters>
+    </Table>
+    <Table Id="789577851" Name="Category" Create="True" Read="True" Update="True" Delete="True">
+      <Columns>
+        <Column Name="CategoryId" Type="int" Create="True" Read="True" Update="True" />
+        <Column Name="Name" Type="varchar" Create="True" Read="True" Update="True" />
+        <Column Name="Description" Type="varchar" Create="True" Read="True" Update="True" />
+      </Columns>
+      <Relations />
+      <Conditions>
+        <Condition />
+      </Conditions>
+      <Parameters>
+        <Parameter />
+      </Parameters>
+    </Table>
+    <Table Id="1269579561" Name="City" Create="True" Read="True" Update="True" Delete="True">
+      <Columns>
+        <Column Name="CityId" Type="int" Create="True" Read="True" Update="True" />
+        <Column Name="Name" Type="varchar" Create="True" Read="True" Update="True" />
+        <Column Name="Population" Type="numeric" Create="True" Read="True" Update="True" />
+        <Column Name="Rank" Type="numeric" Create="True" Read="True" Update="True" />
+        <Column Name="Type" Type="varchar" Create="True" Read="True" Update="True" />
+        <Column Name="County" Type="varchar" Create="True" Read="True" Update="True" />
+        <Column Name="StateId" Type="int" Create="True" Read="True" Update="True" />
+      </Columns>
+      <Relations>
+        <Relation Type="Auto" My="StateId" With="State.StateId" />
+      </Relations>
+      <Conditions />     
+      <Parameters />
+    </Table>
+    <Table Id="1557580587" Name="Country" Create="True" Read="True" Update="True" Delete="True">
+      <Columns>
+        <Column Name="CountryId" Type="int" Create="True" Read="True" Update="True" />
+        <Column Name="Code" Type="varchar" Create="True" Read="True" Update="True" />
+        <Column Name="Latitude" Type="numeric" Create="True" Read="True" Update="True" />
+        <Column Name="Longitude" Type="numeric" Create="True" Read="True" Update="True" />
+        <Column Name="Name" Type="varchar" Create="True" Read="True" Update="True" />
+        <Column Name="la" Type="varchar" Create="True" Read="True" Update="True" />
+        <Column Name="lo" Type="varchar" Create="True" Read="True" Update="True" />
+      </Columns>
+      <Relations />
+      <Conditions>
+        <Condition />
+      </Conditions>
+      <Parameters>
+        <Parameter />
+      </Parameters>
+    </Table>
+    <Table Id="757577737" Name="Publisher" Create="True" Read="True" Update="True" Delete="True">
+      <Columns>
+        <Column Name="PublisherId" Type="int" Create="True" Read="True" Update="True" />
+        <Column Name="PublisherName" Type="varchar" Create="True" Read="True" Update="True" />
+      </Columns>
+      <Relations />
+      <Conditions>
+        <Condition />
+      </Conditions>
+      <Parameters>
+        <Parameter />
+      </Parameters>
+    </Table>
+    <Table Id="629577281" Name="State" Create="True" Read="True" Update="True" Delete="True">
+      <Columns>
+        <Column Name="StateId" Type="int" Create="True" Read="True" Update="True" />
+        <Column Name="ShortName" Type="varchar" Create="True" Read="True" Update="True" />
+        <Column Name="Name" Type="varchar" Create="True" Read="True" Update="True" />
+        <Column Name="CountryId" Type="int" Create="True" Read="True" Update="True" />
+      </Columns>
+      <Relations>
+        <Relation Type="Auto" My="CountryId" With="Country.CountryId" />
+      </Relations>
+      <Conditions>
+        <Condition />
+      </Conditions>
+      <Parameters>
+        <Parameter />
+      </Parameters>
+    </Table>
+    <Table Id="1077578877" Name="ZipCode" Create="True" Read="True" Update="True" Delete="True">
+      <Columns>
+        <Column Name="ZipCodeId" Type="int" Create="True" Read="True" Update="True" />
+        <Column Name="ZipCode" Type="varchar" Create="True" Read="True" Update="True" />
+        <Column Name="CityId" Type="int" Create="True" Read="True" Update="True" />
+      </Columns>
+      <Relations>
+        <Relation Type="Auto" My="CityId" With="City.CityId" />
+      </Relations>
+      <Conditions />
+      <Parameters />
+    </Table>
+  </Tables>
+</Rbac>

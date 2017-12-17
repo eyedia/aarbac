@@ -353,10 +353,6 @@ inner join [City] [t49] on [t49].CityId = [t48].CityId
 WHERE t49.Name
  in ('New York','Charlotte')  
 ```
-```diff
-- There is already an object named 'Author2' in the database.
-
-```
 ***
 
 18. **Select using inner join 1**  

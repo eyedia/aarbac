@@ -1,0 +1,1 @@
+﻿This role is to showcase the guest user with least access, mostly readonly

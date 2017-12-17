@@ -19,8 +19,9 @@ namespace Eyedia.Aarbac.Win
 {
     public partial class frmMain : Form
     {
-        public frmMain()
+        public frmMain(frmAuthenticate authenticateWindow)
         {
+            _AuthenticateWindow = authenticateWindow;
             InitializeComponent();
             Bind();
             SetDefault();
@@ -29,15 +30,24 @@ namespace Eyedia.Aarbac.Win
             TypeDescriptor.AddAttributes(typeof(String),
                 new EditorAttribute(typeof(PropertyGridEditor), typeof(UITypeEditor)));
 
+            toolStripStatusLabel0.Text = authenticateWindow.User.UserName;            
+            Cursor = Cursors.Default;
         }
-        
+
+        frmAuthenticate _AuthenticateWindow;
         RbacEngineWebRequest _Request;
         private void Bind()
         {
             cbInstances.DataSource = Rbac.GetRbacs();
             cbInstances.DisplayMember = "Name";
 
-            cbUsers.DataSource = Rbac.GetUsers();
+            List<RbacUser> users = Rbac.GetUsers();
+            for (int i = 0; i < users.Count; i++)
+            {
+                if (users[i].Role == null)
+                    users[i] = users[i].PopulateRole();
+            }
+            cbUsers.DataSource = users;
             cbUsers.DisplayMember = "UserName";
 
             cbRoles.DataSource = Rbac.GetRoles();
@@ -45,21 +55,34 @@ namespace Eyedia.Aarbac.Win
 
             _Request = new RbacEngineWebRequest();
             engineInput.SelectedObject = _Request;
-          
+            
         }
 
         private void SetDefault()
         {
             try
             {
-                if (cbInstances.Items.Count > 0)
-                    cbInstances.SelectedIndex = 0;
-                if (cbUsers.Items.Count > 0)
-                    cbUsers.Text = "Lashawn";
-                if (cbRoles.Items.Count > 0)
-                    cbRoles.Text = "role_city_mgr";
-
+                if (_AuthenticateWindow.User != null)
+                {
+                    SelectedRbacId = _AuthenticateWindow.User.Role.RbacId;
+                    SelectedUser = _AuthenticateWindow.User;
+                    SelectedRole = _AuthenticateWindow.User.Role;
+                }
+                else
+                {
+                    if (cbInstances.Items.Count > 0)
+                        cbInstances.SelectedIndex = 0;
+                    if (cbUsers.Items.Count > 0)
+                        cbUsers.Text = "Lashawn";
+                    if (cbRoles.Items.Count > 0)
+                        cbRoles.Text = "role_city_mgr";
+                }
                 txtQuery.Text = "select * from Author";
+
+                _Request.RbacName = ((Rbac)cbInstances.SelectedItem).Name;
+                _Request.UserName = ((RbacUser)cbUsers.SelectedItem).UserName;
+                _Request.RoleName = ((RbacRole)cbRoles.SelectedItem).Name;
+                SetStatusText("Ready");
             }
             catch { }
         }
@@ -119,7 +142,7 @@ namespace Eyedia.Aarbac.Win
         }
 
         private void SetStatusText(string message, RbacEngineWebResponse response = null)
-        {
+        {        
             toolStripStatusLabel1.Text = message;
             toolStripStatusLabel2.Text = _Request.RbacName;
             toolStripStatusLabel3.Text = _Request.UserName;
@@ -316,20 +339,76 @@ namespace Eyedia.Aarbac.Win
                 
         }
 
+        private int SelectedRbacId
+        {
+            get
+            {
+                if (cbInstances.SelectedItem != null)
+                    return ((Rbac)cbInstances.SelectedItem).RbacId;
+                else
+                    return -1;
+            }
+            set
+            {
+                var item = cbInstances.Items.Cast<Rbac>().Where(r => r.RbacId == value).SingleOrDefault();
+                cbInstances.SelectedItem = item;
+            }
+        }
+        private RbacRole SelectedRole
+        {
+            get
+            {
+                return (cbRoles.SelectedItem != null) ? (RbacRole)cbRoles.SelectedItem : null;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    var item = cbRoles.Items.Cast<RbacRole>().Where(r => r.Name == value.Name).SingleOrDefault();
+                    cbRoles.SelectedItem = item;
+                }
+                else
+                {
+                    cbRoles.SelectedIndex = -1;
+                }
+            }
+        }
+
+        private RbacUser SelectedUser
+        {
+            get
+            {
+                return (cbUsers.SelectedItem != null) ? (RbacUser)cbUsers.SelectedItem : null;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    var item = cbUsers.Items.Cast<RbacUser>().Where(r => r.UserName == value.UserName).SingleOrDefault();
+                    cbUsers.SelectedItem = item;
+                }
+                else
+                {
+                    cbUsers.SelectedIndex = -1;
+                }
+            }
+        }
+
         private void cbUsers_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbUsers.SelectedIndex > -1)
             {
                 var user = (RbacUser)cbUsers.SelectedItem;
-                int roleId = 0;
-                if (cbRoles.SelectedItem != null)
-                    roleId = ((RbacRole)cbRoles.SelectedItem).RoleId;
+                //int roleId = 0;
+                //if (cbRoles.SelectedItem != null)
+                //    roleId = ((RbacRole)cbRoles.SelectedItem).RoleId;                
+                SelectedRole = user.Role;
 
-                propUser.SelectedObject = new RbacRegisterUser(roleId, user.UserName, user.FullName, user.Email, string.Empty);
+                if(SelectedRole != null)                
+                    propUser.SelectedObject = new RbacRegisterUser(SelectedRole.RoleId, user.UserName, user.FullName, user.Email, string.Empty);
                 tabPage3.Text = user.UserName;
 
                 LoadUserParameters();
-
                 ParseInline();
             }
         }
@@ -453,6 +532,96 @@ namespace Eyedia.Aarbac.Win
             catch { }
         }
 
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (_AuthenticateWindow != null)
+                _AuthenticateWindow.Close();
+        }
+
+        private void ApplyEntitlement()
+        {
+            if (_AuthenticateWindow.User != null)
+            {
+                //menu
+                //recommended way is populate menu from 0, for testing/simplicity/I dont have time - I am just updating the menus
+
+                RbacEntitlementMenu menu = _AuthenticateWindow.User.Role.Entitlement.Menus.Menu.Get("BatchTest");
+                batchTestToolStripMenuItem.Visible = menu.Visible;
+                loadQueriesToolStripMenuItem.Visible = menu.SubMenus.Get("LoadQueries").Visible;
+                loadQueriesToolStripMenuItem.Enabled = menu.SubMenus.Get("LoadQueries").Enabled;
+
+                showLoadedQueriesToolStripMenuItem.Visible = menu.SubMenus.Get("ShowQueries").Visible;
+                showLoadedQueriesToolStripMenuItem.Enabled = menu.SubMenus.Get("ShowQueries").Enabled;
+
+                menu = _AuthenticateWindow.User.Role.Entitlement.Menus.Menu.Get("Tools");
+                toolsToolStripMenuItem.Visible = menu.Visible;
+
+                inlineParsingToolStripMenuItem.Visible = menu.SubMenus.Get("InlineParsing").Visible;
+                inlineParsingToolStripMenuItem.Enabled = menu.SubMenus.Get("InlineParsing").Enabled;
+
+                logsToolStripMenuItem1.Visible = menu.SubMenus.Get("Logs").Visible;
+                logsToolStripMenuItem1.Enabled = menu.SubMenus.Get("Logs").Enabled;
+
+
+                //screens
+                //ideally page load of each screen many be a good place to redirect to "Not Authorized" page.
+
+                RbacEntitlementScreen screen = _AuthenticateWindow.User.Role.Entitlement.Screens.Get("TestBed");
+
+                var overrideBox = screen.SubScreens.Get("OverrideBox");
+                if (overrideBox.Visible)
+                {
+                    cbInstances.Visible = overrideBox.SubScreens.Get("Instance").Visible;
+                    cbInstances.Enabled = overrideBox.SubScreens.Get("Instance").Enabled;
+
+                    cbUsers.Visible = overrideBox.SubScreens.Get("User").Visible;
+                    cbUsers.Enabled = overrideBox.SubScreens.Get("User").Enabled;
+
+                    cbRoles.Visible = overrideBox.SubScreens.Get("Role").Visible;
+                    cbRoles.Enabled = overrideBox.SubScreens.Get("Role").Enabled;
+                }
+                else
+                {
+                    cbInstances.Visible = false;
+                    cbUsers.Visible = false;
+                    cbRoles.Visible = false;
+                }
+                btnExecute.Visible = screen.SubScreens.Get("ExecuteButton").Visible;
+                btnExecute.Enabled = screen.SubScreens.Get("ExecuteButton").Enabled;
+                btnExecuteAll.Visible = screen.SubScreens.Get("ExecuteAllButton").Visible;
+                btnExecuteAll.Enabled = screen.SubScreens.Get("ExecuteAllButton").Enabled;
+
+                var propBox = screen.SubScreens.Get("PropertiesBox");
+                tabControl1.Visible = propBox.Visible;
+                tabControl1.Enabled = propBox.Enabled;
+                if (tabControl1.Visible)
+                {
+                    engineInput.Visible = propBox.SubScreens.Get("EngineInput").Visible;
+                    engineInput.Enabled = propBox.SubScreens.Get("EngineInput").Enabled;
+
+                    if (!propBox.SubScreens.Get("Instance").Visible)
+                        tabControl1.TabPages.Remove(tabPage2);
+                    else
+                        tabPage2.Enabled = propBox.SubScreens.Get("Instance").Enabled;
+
+                    if (!propBox.SubScreens.Get("User").Visible)
+                        tabControl1.TabPages.Remove(tabPage3);
+                    else
+                        tabPage3.Enabled = propBox.SubScreens.Get("User").Enabled;
+
+                    if (!propBox.SubScreens.Get("Role").Visible)
+                        tabControl1.TabPages.Remove(tabPage4);
+                    else
+                        tabPage4.Enabled = propBox.SubScreens.Get("Role").Enabled;
+                }
+
+            }
+        }
+
+        private void frmMain_Activated(object sender, EventArgs e)
+        {
+            ApplyEntitlement();
+        }
     }
 
     

@@ -33,6 +33,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.SpringSpace = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel0 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -149,6 +150,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.SpringSpace,
+            this.toolStripStatusLabel0,
             this.toolStripStatusLabel2,
             this.toolStripStatusLabel3,
             this.toolStripStatusLabel4,
@@ -174,8 +176,16 @@
             // 
             this.SpringSpace.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.SpringSpace.Name = "SpringSpace";
-            this.SpringSpace.Size = new System.Drawing.Size(1002, 32);
+            this.SpringSpace.Size = new System.Drawing.Size(831, 32);
             this.SpringSpace.Spring = true;
+            // 
+            // toolStripStatusLabel0
+            // 
+            this.toolStripStatusLabel0.Image = global::Eyedia.Aarbac.Win.Properties.Resources.rrbac_16;
+            this.toolStripStatusLabel0.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripStatusLabel0.Name = "toolStripStatusLabel0";
+            this.toolStripStatusLabel0.Size = new System.Drawing.Size(171, 32);
+            this.toolStripStatusLabel0.Text = "loggedinuser";
             // 
             // toolStripStatusLabel2
             // 
@@ -225,7 +235,7 @@
             // splitContainerBase
             // 
             this.splitContainerBase.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerBase.Location = new System.Drawing.Point(0, 40);
+            this.splitContainerBase.Location = new System.Drawing.Point(0, 42);
             this.splitContainerBase.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainerBase.Name = "splitContainerBase";
             // 
@@ -238,7 +248,7 @@
             // splitContainerBase.Panel2
             // 
             this.splitContainerBase.Panel2.Controls.Add(this.splitContainerRight);
-            this.splitContainerBase.Size = new System.Drawing.Size(1143, 587);
+            this.splitContainerBase.Size = new System.Drawing.Size(1143, 585);
             this.splitContainerBase.SplitterDistance = 153;
             this.splitContainerBase.SplitterWidth = 5;
             this.splitContainerBase.TabIndex = 1;
@@ -300,7 +310,7 @@
             // splitContainerRight.Panel2
             // 
             this.splitContainerRight.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainerRight.Size = new System.Drawing.Size(1143, 587);
+            this.splitContainerRight.Size = new System.Drawing.Size(1143, 585);
             this.splitContainerRight.SplitterDistance = 432;
             this.splitContainerRight.SplitterWidth = 5;
             this.splitContainerRight.TabIndex = 0;
@@ -338,7 +348,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(432, 587);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(432, 585);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // label4
@@ -472,7 +482,6 @@
             this.txtQuery.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtQuery.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtQuery.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtQuery.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtQuery.IsReplaceMode = false;
             this.txtQuery.Language = FastColoredTextBoxNS.Language.SQL;
             this.txtQuery.LeftBracket = '(';
@@ -511,7 +520,6 @@
             this.txtParsedQuerys1.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtParsedQuerys1.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtParsedQuerys1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtParsedQuerys1.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtParsedQuerys1.IsReplaceMode = false;
             this.txtParsedQuerys1.Language = FastColoredTextBoxNS.Language.SQL;
             this.txtParsedQuerys1.LeftBracket = '(';
@@ -549,7 +557,6 @@
             this.txtParsedQuery.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtParsedQuery.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtParsedQuery.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtParsedQuery.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtParsedQuery.IsReplaceMode = false;
             this.txtParsedQuery.Language = FastColoredTextBoxNS.Language.SQL;
             this.txtParsedQuery.LeftBracket = '(';
@@ -561,7 +568,7 @@
             this.txtParsedQuery.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.txtParsedQuery.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("txtParsedQuery.ServiceColors")));
             this.txtParsedQuery.ShowLineNumbers = false;
-            this.txtParsedQuery.Size = new System.Drawing.Size(338, 96);
+            this.txtParsedQuery.Size = new System.Drawing.Size(338, 94);
             this.txtParsedQuery.TabIndex = 19;
             this.txtParsedQuery.Zoom = 100;
             // 
@@ -609,7 +616,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(706, 587);
+            this.tabControl1.Size = new System.Drawing.Size(706, 585);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -623,7 +630,7 @@
             this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage1.Size = new System.Drawing.Size(690, 540);
+            this.tabPage1.Size = new System.Drawing.Size(690, 538);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Engine Properties";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -634,7 +641,7 @@
             this.treeView1.Location = new System.Drawing.Point(4, 204);
             this.treeView1.Margin = new System.Windows.Forms.Padding(4);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(682, 202);
+            this.treeView1.Size = new System.Drawing.Size(682, 200);
             this.treeView1.TabIndex = 0;
             // 
             // label11
@@ -652,7 +659,7 @@
             // 
             this.txtErrors.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.txtErrors.ForeColor = System.Drawing.Color.Red;
-            this.txtErrors.Location = new System.Drawing.Point(4, 406);
+            this.txtErrors.Location = new System.Drawing.Point(4, 404);
             this.txtErrors.Margin = new System.Windows.Forms.Padding(4);
             this.txtErrors.Multiline = true;
             this.txtErrors.Name = "txtErrors";
@@ -691,7 +698,7 @@
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage2.Size = new System.Drawing.Size(690, 540);
+            this.tabPage2.Size = new System.Drawing.Size(690, 538);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Instance";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -703,14 +710,14 @@
             this.propInstance.Location = new System.Drawing.Point(4, 4);
             this.propInstance.Margin = new System.Windows.Forms.Padding(4);
             this.propInstance.Name = "propInstance";
-            this.propInstance.Size = new System.Drawing.Size(682, 478);
+            this.propInstance.Size = new System.Drawing.Size(682, 476);
             this.propInstance.TabIndex = 2;
             // 
             // panel2
             // 
             this.panel2.Controls.Add(this.btnSaveInstance);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(4, 482);
+            this.panel2.Location = new System.Drawing.Point(4, 480);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(682, 54);
@@ -735,7 +742,7 @@
             this.tabPage3.Location = new System.Drawing.Point(8, 39);
             this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(690, 540);
+            this.tabPage3.Size = new System.Drawing.Size(690, 538);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "User";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -749,7 +756,7 @@
             this.tabControl2.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(690, 486);
+            this.tabControl2.Size = new System.Drawing.Size(690, 484);
             this.tabControl2.TabIndex = 3;
             // 
             // usertabPage1
@@ -759,7 +766,7 @@
             this.usertabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.usertabPage1.Name = "usertabPage1";
             this.usertabPage1.Padding = new System.Windows.Forms.Padding(4);
-            this.usertabPage1.Size = new System.Drawing.Size(674, 439);
+            this.usertabPage1.Size = new System.Drawing.Size(674, 437);
             this.usertabPage1.TabIndex = 0;
             this.usertabPage1.Text = "Basic Properties";
             this.usertabPage1.UseVisualStyleBackColor = true;
@@ -771,7 +778,7 @@
             this.propUser.Location = new System.Drawing.Point(4, 4);
             this.propUser.Margin = new System.Windows.Forms.Padding(4);
             this.propUser.Name = "propUser";
-            this.propUser.Size = new System.Drawing.Size(666, 431);
+            this.propUser.Size = new System.Drawing.Size(666, 429);
             this.propUser.TabIndex = 0;
             // 
             // usertabPage2
@@ -815,7 +822,7 @@
             // 
             this.panel4.Controls.Add(this.btnSaveUser);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(0, 486);
+            this.panel4.Location = new System.Drawing.Point(0, 484);
             this.panel4.Margin = new System.Windows.Forms.Padding(4);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(690, 54);
@@ -840,7 +847,7 @@
             this.tabPage4.Location = new System.Drawing.Point(8, 39);
             this.tabPage4.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(690, 540);
+            this.tabPage4.Size = new System.Drawing.Size(690, 538);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Role";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -860,8 +867,8 @@
             // scRole1.Panel2
             // 
             this.scRole1.Panel2.Controls.Add(this.scRole2);
-            this.scRole1.Size = new System.Drawing.Size(690, 486);
-            this.scRole1.SplitterDistance = 110;
+            this.scRole1.Size = new System.Drawing.Size(690, 484);
+            this.scRole1.SplitterDistance = 106;
             this.scRole1.TabIndex = 13;
             // 
             // propRole
@@ -872,7 +879,7 @@
             this.propRole.Location = new System.Drawing.Point(0, 25);
             this.propRole.Margin = new System.Windows.Forms.Padding(4);
             this.propRole.Name = "propRole";
-            this.propRole.Size = new System.Drawing.Size(690, 85);
+            this.propRole.Size = new System.Drawing.Size(690, 81);
             this.propRole.TabIndex = 13;
             // 
             // label12
@@ -902,8 +909,8 @@
             // 
             this.scRole2.Panel2.Controls.Add(this.txtEntitlements);
             this.scRole2.Panel2.Controls.Add(this.label10);
-            this.scRole2.Size = new System.Drawing.Size(690, 372);
-            this.scRole2.SplitterDistance = 179;
+            this.scRole2.Size = new System.Drawing.Size(690, 374);
+            this.scRole2.SplitterDistance = 177;
             this.scRole2.TabIndex = 0;
             // 
             // txtRole
@@ -928,7 +935,6 @@
             this.txtRole.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtRole.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtRole.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtRole.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtRole.IsReplaceMode = false;
             this.txtRole.Language = FastColoredTextBoxNS.Language.XML;
             this.txtRole.LeftBracket = '<';
@@ -942,7 +948,7 @@
             this.txtRole.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.txtRole.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("txtRole.ServiceColors")));
             this.txtRole.ShowLineNumbers = false;
-            this.txtRole.Size = new System.Drawing.Size(690, 154);
+            this.txtRole.Size = new System.Drawing.Size(690, 152);
             this.txtRole.TabIndex = 9;
             this.txtRole.Zoom = 100;
             // 
@@ -979,7 +985,6 @@
             this.txtEntitlements.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtEntitlements.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.txtEntitlements.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtEntitlements.Font = new System.Drawing.Font("Courier New", 9.75F);
             this.txtEntitlements.IsReplaceMode = false;
             this.txtEntitlements.Language = FastColoredTextBoxNS.Language.XML;
             this.txtEntitlements.LeftBracket = '<';
@@ -993,7 +998,7 @@
             this.txtEntitlements.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.txtEntitlements.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("txtEntitlements.ServiceColors")));
             this.txtEntitlements.ShowLineNumbers = false;
-            this.txtEntitlements.Size = new System.Drawing.Size(690, 164);
+            this.txtEntitlements.Size = new System.Drawing.Size(690, 168);
             this.txtEntitlements.TabIndex = 10;
             this.txtEntitlements.Zoom = 100;
             // 
@@ -1012,7 +1017,7 @@
             // 
             this.panel5.Controls.Add(this.btnSaveRole);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel5.Location = new System.Drawing.Point(0, 486);
+            this.panel5.Location = new System.Drawing.Point(0, 484);
             this.panel5.Margin = new System.Windows.Forms.Padding(4);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(690, 54);
@@ -1039,7 +1044,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1143, 40);
+            this.menuStrip1.Size = new System.Drawing.Size(1143, 42);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -1050,7 +1055,7 @@
             this.showLoadedQueriesToolStripMenuItem});
             this.batchTestToolStripMenuItem.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.batchTestToolStripMenuItem.Name = "batchTestToolStripMenuItem";
-            this.batchTestToolStripMenuItem.Size = new System.Drawing.Size(135, 36);
+            this.batchTestToolStripMenuItem.Size = new System.Drawing.Size(135, 38);
             this.batchTestToolStripMenuItem.Text = "Batch Test";
             // 
             // loadQueriesToolStripMenuItem
@@ -1074,20 +1079,20 @@
             this.inlineParsingToolStripMenuItem,
             this.logsToolStripMenuItem1});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(82, 36);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(82, 38);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // inlineParsingToolStripMenuItem
             // 
             this.inlineParsingToolStripMenuItem.CheckOnClick = true;
             this.inlineParsingToolStripMenuItem.Name = "inlineParsingToolStripMenuItem";
-            this.inlineParsingToolStripMenuItem.Size = new System.Drawing.Size(256, 38);
+            this.inlineParsingToolStripMenuItem.Size = new System.Drawing.Size(268, 38);
             this.inlineParsingToolStripMenuItem.Text = "Inline Parsing";
             // 
             // logsToolStripMenuItem1
             // 
             this.logsToolStripMenuItem1.Name = "logsToolStripMenuItem1";
-            this.logsToolStripMenuItem1.Size = new System.Drawing.Size(256, 38);
+            this.logsToolStripMenuItem1.Size = new System.Drawing.Size(268, 38);
             this.logsToolStripMenuItem1.Text = "Logs";
             this.logsToolStripMenuItem1.Click += new System.EventHandler(this.logsToolStripMenuItem1_Click);
             // 
@@ -1111,6 +1116,8 @@
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AARBAC - An Automated Role Based Access Control";
+            this.Activated += new System.EventHandler(this.frmMain_Activated);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Resize += new System.EventHandler(this.frmMain_Resize);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -1234,6 +1241,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel6;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel7;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel0;
     }
 }
 
