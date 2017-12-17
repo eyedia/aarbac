@@ -41,10 +41,10 @@ namespace Eyedia.Aarbac.Command
         static void Main(string[] args)
         {
             SetDataDirectory();
-            var options = new Options();           
-            if(CommandLine.Parser.Default.ParseArguments(args, options))
+            var options = new Options();
+            if (CommandLine.Parser.Default.ParseArguments(args, options))
                 new CommandLineWorkerInterface().Do(options);
-            
+
         }
 
 

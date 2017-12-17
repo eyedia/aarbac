@@ -1,2 +1,4 @@
-﻿rbac.mdf - Ensure that connection string is pointing to mdf and not local instance
+﻿aarbac.mdf - Ensure that connection string is pointing to mdf and not local instance
+check all .configs
 Program.cs - Ensure the commands
+Change Build Configuration to Release

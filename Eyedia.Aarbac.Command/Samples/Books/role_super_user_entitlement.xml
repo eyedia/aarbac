@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RbacEntitlements>
+  <RbacEntitlementMenus>
+    <RbacEntitlementMenu Name="BatchTest" Text="Batch Test" Visible="true" Enabled="true">
+      <RbacEntitlementMenu Name="LoadQueries" Text="Load Queries" Visible="true" Enabled="true" />
+      <RbacEntitlementMenu Name="ShowQueries" Text="Show Loaded Queries" Visible="true" Enabled="true" />
+    </RbacEntitlementMenu>
+    <RbacEntitlementMenu Name="Tools" Text="Tools" Visible="true" Enabled="true">
+      <RbacEntitlementMenu Name="InlineParsing" Text="Inline Parsing" Visible="true" Enabled="true" />
+      <RbacEntitlementMenu Name="Logs" Text="Logs" Visible="true" Enabled="true" />
+    </RbacEntitlementMenu>
+  </RbacEntitlementMenus>
+  <RbacEntitlementScreens>
+    <RbacEntitlementScreen Name="TestBed" Text="AARBAC - An Automated Role Based Access Control" Visible="true" Enabled="true">
+      <RbacEntitlementScreen Name="OverrideBox" Text="OverrideBox" Visible="true" Enabled="true">
+        <RbacEntitlementScreen Name="Instance" Text="Instance" Visible="true" Enabled="true" />
+        <RbacEntitlementScreen Name="User" Text="User" Visible="true" Enabled="true" />
+        <RbacEntitlementScreen Name="Role" Text="Role" Visible="true" Enabled="true" />
+      </RbacEntitlementScreen>
+      <RbacEntitlementScreen Name="ExecuteButton" Text="Execute" Visible="true" Enabled="true" />
+      <RbacEntitlementScreen Name="ExecuteAllButton" Text="Execute All" Visible="true" Enabled="true" />
+      <RbacEntitlementScreen Name="PropertiesBox" Text="PropertiesBox" Visible="true" Enabled="true">
+        <RbacEntitlementScreen Name="EngineInput" Text="EngineInput" Visible="true" Enabled="true" />
+        <RbacEntitlementScreen Name="Instance" Text="Instance" Visible="true" Enabled="true" />
+        <RbacEntitlementScreen Name="User" Text="User" Visible="true" Enabled="true" />
+        <RbacEntitlementScreen Name="Role" Text="Role" Visible="true" Enabled="true" />
+      </RbacEntitlementScreen>
+    </RbacEntitlementScreen>
+    <RbacEntitlementScreen Name="Logs" Text="Logs" Visible="true" Enabled="true">
+      <RbacEntitlementScreen Name="ExportButton" Text="Export" Visible="true" Enabled="true" />
+    </RbacEntitlementScreen>
+  </RbacEntitlementScreens>
+</RbacEntitlements>

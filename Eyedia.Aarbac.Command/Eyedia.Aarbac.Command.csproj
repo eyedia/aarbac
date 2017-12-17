@@ -12,6 +12,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,7 +25,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -118,7 +118,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="commandprompt.ico" />
-    <Content Include="Samples\Books\role_guest_user_entitle.xml" />
+    <Content Include="Samples\Books\entitlement.xml" />
+    <Content Include="Samples\Books\role_city_mgr_entitlement.xml" />
+    <Content Include="Samples\Books\role_country_mgr_entitlement.xml" />
+    <Content Include="Samples\Books\role_guest_user_entitlement.xml" />
     <Content Include="Samples\Books\role_city_mgr.txt" />
     <Content Include="Samples\Books\role_country_mgr.txt" />
     <Content Include="Samples\Books\role_country_mgr.xml" />
@@ -126,20 +129,25 @@
     <Content Include="Samples\Books\role_guest_user.xml" />
     <Content Include="Samples\Books\role_state_mgr.txt" />
     <Content Include="Samples\Books\role_state_mgr.xml" />
+    <Content Include="Samples\Books\role_state_mgr_entitlement.xml" />
     <Content Include="Samples\Books\role_super_user.txt" />
     <Content Include="Samples\Books\role_super_user.xml" />
+    <Content Include="Samples\Books\role_super_user_entitlement.xml" />
     <Content Include="Samples\Books\test.txt" />
     <Content Include="Samples\Books\test_parsed_query.txt" />
+    <Content Include="Samples\Books\visual_studio_entitlement_sample.xml" />
+    <Content Include="Samples\Databases\aarbac.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Databases\aarbac_log.ldf">
+      <DependentUpon>aarbac.mdf</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Databases\Books.mdf" />
     <Content Include="Samples\Databases\books_log.ldf">
       <DependentUpon>Books.mdf</DependentUpon>
     </Content>
-    <Content Include="Samples\Databases\rbac.mdf" />
-    <Content Include="Samples\Databases\rbac_log.ldf">
-      <DependentUpon>rbac.mdf</DependentUpon>
-    </Content>
     <EmbeddedResource Include="Disclaimer\Disclaimer.txt" />
-    <Content Include="Samples\Books\entitlement.xml" />
     <Content Include="Samples\Books\role_city_mgr.xml" />
     <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

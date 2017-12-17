@@ -105,10 +105,10 @@ namespace Eyedia.Aarbac.Command
 
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             var connectionStringsSection = (ConnectionStringsSection)config.GetSection("connectionStrings");
-            if (connectionStringsSection.ConnectionStrings["rbac"] != null)
-                connectionStringsSection.ConnectionStrings["rbac"].ConnectionString = connectionStringWithDb;
+            if (connectionStringsSection.ConnectionStrings["aarbac"] != null)
+                connectionStringsSection.ConnectionStrings["aarbac"].ConnectionString = connectionStringWithDb;
             else
-                connectionStringsSection.ConnectionStrings.Add(new ConnectionStringSettings("rbac", connectionStringWithDb));
+                connectionStringsSection.ConnectionStrings.Add(new ConnectionStringSettings("aarbac", connectionStringWithDb));
             config.Save();
             ConfigurationManager.RefreshSection("connectionStrings");
 

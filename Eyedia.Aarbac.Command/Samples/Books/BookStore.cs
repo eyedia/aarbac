@@ -93,7 +93,8 @@ namespace Eyedia.Aarbac.Command
             rbac = rbac.CreateNew("books", "books description",
                options.ConnectionString,
                 File.ReadAllText(Path.Combine(_rootDir,"Books","entitlement.xml")));
-                       
+
+            Console.Write(".");
             InsertRoles(rbac);
             GenericParserAdapter parser = new GenericParserAdapter(Path.Combine(_rootDir, "Books", "BooksUsers.csv"));
             parser.FirstRowHasHeader = true;
@@ -121,8 +122,14 @@ namespace Eyedia.Aarbac.Command
                     {
                         user.AddParameter("{CountryCodes}", "('IN','US')");
                     }
+                    if (role.Name == "role_guest_user")
+                    {
+                        user.AddParameter("{CityNames}", "('New York')");
+                    }
+                    Console.Write(".");
                 }
             }
+            Console.WriteLine();
 
             var rbacs = Rbac.GetRbacs();
             if (rbacs != null)
@@ -146,19 +153,24 @@ namespace Eyedia.Aarbac.Command
         List<RbacRole> roles = new List<RbacRole>();
         private void InsertRoles(Rbac rbac)
         {
-            string path = Path.Combine(_rootDir, "Books");
-            string entitlements = File.ReadAllText(Path.Combine(_rootDir, "Books", "entitlement.xml"));
+            string path = Path.Combine(_rootDir, "Books");           
 
             string[] roleFiles = Directory.GetFiles(path, "role_*.xml");
+            roleFiles = roleFiles.Where(rf => rf.Contains("_entitlement") == false).ToArray();
             foreach (string roleFile in roleFiles)
             {
                 string strRle = File.ReadAllText(roleFile);
+                string onlyRoleFileName = Path.GetFileNameWithoutExtension(roleFile);
                 string strDescription = File.ReadAllText(Path.Combine(Path.GetDirectoryName(roleFile),
-                    Path.GetFileNameWithoutExtension(roleFile) + ".txt"));
+                    onlyRoleFileName + ".txt"));
+               
+                string strEntitlement = File.ReadAllText(Path.Combine(Path.GetDirectoryName(roleFile),
+                   onlyRoleFileName + "_entitlement.xml"));
 
                 RbacRole role = rbac.CreateRole(Path.GetFileNameWithoutExtension(roleFile)
-                    , strDescription, strRle, entitlements);
+                    , strDescription, strRle, strEntitlement);
                 roles.Add(role);
+                Console.Write(".");
 
             }
         }

@@ -1,5 +1,6 @@
-set v=1.0.11
+set v=1.0.11.2
 nuget pack Eyedia.Aarbac.Framework.nuspec
+
 del ..\..\Downloads\*.zip /q
 copy aarbac.NET.%v%.nupkg ..\..\Downloads\aarbac.NET.%v%.zip /y
 

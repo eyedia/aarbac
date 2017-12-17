@@ -52,11 +52,7 @@ namespace Eyedia.Aarbac.Command
 
         [Option('p', "password",
           HelpText = "Password of the rbac.")]
-        public string Password { get; set; }
-
-        //[Option('d', Required = false, DefaultValue = "rbac",
-        // HelpText = "Name of the database, default is rbac.")]
-        //public string DbName { get; set; }
+        public string Password { get; set; }    
 
         [Option('s', "server", Required = false,
          HelpText = "Server Name")]
@@ -69,10 +65,6 @@ namespace Eyedia.Aarbac.Command
         [Option('u', "user", Required = false,
          HelpText = "User name.")]
         public string UserName { get; set; }
-
-        //[Option('w', "sspassword", Required = false,
-        // HelpText = "MS Sql Server user password.")]
-        //public string SqlServerPassword { get; set; }
 
         [Option('d', "description", Required = false,
          HelpText = "Description")]

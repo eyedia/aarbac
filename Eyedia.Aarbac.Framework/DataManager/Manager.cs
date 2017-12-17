@@ -276,7 +276,7 @@ namespace Eyedia.Aarbac.Framework.DataManager
 
         public static string GetEFConnectionString()
         {            
-            var cs = ConfigurationManager.ConnectionStrings["rbac"];
+            var cs = ConfigurationManager.ConnectionStrings["aarbac"];
             if (cs == null)
                 RbacException.Raise(MessagesConfigurations.conn_str_not_found, RbacExceptionCategories.Configuration);
 

@@ -50,7 +50,7 @@ namespace Eyedia.Aarbac.Framework
         public string InstanceId { get; }
         public RbacContext(RbacUser user)
         {
-            var cs = ConfigurationManager.ConnectionStrings["rbac"];
+            var cs = ConfigurationManager.ConnectionStrings["aarbac"];
             if (cs == null)
                 RbacException.Raise(MessagesConfigurations.conn_str_not_found, RbacExceptionCategories.Configuration);
 
