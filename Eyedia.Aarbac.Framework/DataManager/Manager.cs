@@ -278,7 +278,7 @@ namespace Eyedia.Aarbac.Framework.DataManager
         {            
             var cs = ConfigurationManager.ConnectionStrings["aarbac"];
             if (cs == null)
-                RbacException.Raise(MessagesConfigurations.conn_str_not_found, RbacExceptionCategories.Configuration);
+                RbacException.Raise(Symplus.Rbac.MessagesConfigurations.conn_str_not_found, RbacExceptionCategories.Configuration);
 
             string entConnection =
                 string.Format(

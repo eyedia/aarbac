@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="conn_str_not_found" xml:space="preserve">
-    <value>Connection string 'rbac' was not found in the config file!</value>
+    <value>Connection string 'aarbac' was not found in the config file!</value>
   </data>
 </root>

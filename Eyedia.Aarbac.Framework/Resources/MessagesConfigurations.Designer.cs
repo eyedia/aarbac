@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Eyedia.Aarbac.Framework {
+namespace Symplus.Rbac {
     using System;
     
     
@@ -19,7 +19,7 @@ namespace Eyedia.Aarbac.Framework {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class MessagesConfigurations {
@@ -61,7 +61,7 @@ namespace Eyedia.Aarbac.Framework {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connection string &apos;rbac&apos; was not found in the config file!.
+        ///   Looks up a localized string similar to Connection string &apos;aarbac&apos; was not found in the config file!.
         /// </summary>
         internal static string conn_str_not_found {
             get {

@@ -29,9 +29,9 @@ namespace Eyedia.Aarbac.Command
             {
                 using (RbacSqlQueryEngine engine = new RbacSqlQueryEngine(rbac, query))
                 {
-                    engine.Execute();
+                    engine.Execute(); //<-- automatically parse and transform query based on role
                     if ((!engine.IsErrored) && (engine.Parser.IsParsed) && (engine.Parser.QueryType == RbacQueryTypes.Select))
-                        return engine.Table;
+                        return engine.Table; //<-- if it is select query, the table will be loaded 
                 }
             }
             return null;
@@ -60,8 +60,8 @@ namespace Eyedia.Aarbac.Command
             {
                 using (SqlQueryParser parser = new SqlQueryParser(rbac))
                 {
-                    parser.Parse(query); //<-- this will throw error if not permitted and silent is false                   
-                    
+                    parser.Parse(query); //<-- this will throw exception if not permitted                    
+                    //<-- if you are here, you are goood. Just perform basic insert/update/delete
                 }
             }
         }
