@@ -219,7 +219,7 @@ namespace Eyedia.Aarbac.Api.Controllers
         {
             ClaimsIdentity identity;
 
-            if (!new ActiveDirectoryUserLoginProvider("Synechron").ValidateCredentials(login.UserName, login.Password, out identity))
+            if (!new ActiveDirectoryUserLoginProvider("Microsoft").ValidateCredentials(login.UserName, login.Password, out identity))
             {
                 return BadRequest("Incorrect user or password");
             }
